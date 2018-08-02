@@ -1,0 +1,96 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2042
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tira.App", "Tira.App\Tira.App.csproj", "{3618A920-E332-42BE-AD67-F2068CF508BB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ApplicationStartupPack", "ApplicationStartupPack", "{FBA4908D-C4F3-44F7-9C95-0910364B85FC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tesseract", "Tesseract", "{2A7025B7-FB90-46E5-8C32-8FE8E788E43A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "x64", "x64", "{F58D33A4-2995-45A2-BE7F-483FA625BA73}"
+	ProjectSection(SolutionItems) = preProject
+		ApplicationStartupPack\Tesseract\x64\liblept172.dll = ApplicationStartupPack\Tesseract\x64\liblept172.dll
+		ApplicationStartupPack\Tesseract\x64\libtesseract304.dll = ApplicationStartupPack\Tesseract\x64\libtesseract304.dll
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "x86", "x86", "{382CB17C-C8DF-428F-BD2E-9918E36CD0CD}"
+	ProjectSection(SolutionItems) = preProject
+		ApplicationStartupPack\Tesseract\x86\liblept172.dll = ApplicationStartupPack\Tesseract\x86\liblept172.dll
+		ApplicationStartupPack\Tesseract\x86\libtesseract304.dll = ApplicationStartupPack\Tesseract\x86\libtesseract304.dll
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tesseract languages", "Tesseract languages", "{502A318F-CCB8-4F30-98C6-F2E31DAC0B4E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tessdata", "tessdata", "{29F8E18C-CFF3-4A3B-97B8-90CA1CDCE5E6}"
+	ProjectSection(SolutionItems) = preProject
+		ApplicationStartupPack\Tesseract languages\tessdata\eng.cube.bigrams = ApplicationStartupPack\Tesseract languages\tessdata\eng.cube.bigrams
+		ApplicationStartupPack\Tesseract languages\tessdata\eng.cube.fold = ApplicationStartupPack\Tesseract languages\tessdata\eng.cube.fold
+		ApplicationStartupPack\Tesseract languages\tessdata\eng.cube.lm = ApplicationStartupPack\Tesseract languages\tessdata\eng.cube.lm
+		ApplicationStartupPack\Tesseract languages\tessdata\eng.cube.nn = ApplicationStartupPack\Tesseract languages\tessdata\eng.cube.nn
+		ApplicationStartupPack\Tesseract languages\tessdata\eng.cube.params = ApplicationStartupPack\Tesseract languages\tessdata\eng.cube.params
+		ApplicationStartupPack\Tesseract languages\tessdata\eng.cube.size = ApplicationStartupPack\Tesseract languages\tessdata\eng.cube.size
+		ApplicationStartupPack\Tesseract languages\tessdata\eng.cube.word-freq = ApplicationStartupPack\Tesseract languages\tessdata\eng.cube.word-freq
+		ApplicationStartupPack\Tesseract languages\tessdata\eng.tesseract_cube.nn = ApplicationStartupPack\Tesseract languages\tessdata\eng.tesseract_cube.nn
+		ApplicationStartupPack\Tesseract languages\tessdata\eng.traineddata = ApplicationStartupPack\Tesseract languages\tessdata\eng.traineddata
+		ApplicationStartupPack\Tesseract languages\tessdata\rus.cube.fold = ApplicationStartupPack\Tesseract languages\tessdata\rus.cube.fold
+		ApplicationStartupPack\Tesseract languages\tessdata\rus.cube.lm = ApplicationStartupPack\Tesseract languages\tessdata\rus.cube.lm
+		ApplicationStartupPack\Tesseract languages\tessdata\rus.cube.nn = ApplicationStartupPack\Tesseract languages\tessdata\rus.cube.nn
+		ApplicationStartupPack\Tesseract languages\tessdata\rus.cube.params = ApplicationStartupPack\Tesseract languages\tessdata\rus.cube.params
+		ApplicationStartupPack\Tesseract languages\tessdata\rus.cube.size = ApplicationStartupPack\Tesseract languages\tessdata\rus.cube.size
+		ApplicationStartupPack\Tesseract languages\tessdata\rus.cube.word-freq = ApplicationStartupPack\Tesseract languages\tessdata\rus.cube.word-freq
+		ApplicationStartupPack\Tesseract languages\tessdata\rus.traineddata = ApplicationStartupPack\Tesseract languages\tessdata\rus.traineddata
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ExternalLibraries", "ExternalLibraries", "{FD848D61-86C1-4424-85D5-F0866040A517}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GdPicture.Net", "GdPicture.Net", "{63300F8E-C817-4ED7-A1E9-FD134CC18826}"
+	ProjectSection(SolutionItems) = preProject
+		ExternalLibraries\GdPicture.Net\GdPicture.NET.14.dll = ExternalLibraries\GdPicture.Net\GdPicture.NET.14.dll
+		ExternalLibraries\GdPicture.Net\GdPicture.NET.14.filters.64.dll = ExternalLibraries\GdPicture.Net\GdPicture.NET.14.filters.64.dll
+		ExternalLibraries\GdPicture.Net\GdPicture.NET.14.filters.dll = ExternalLibraries\GdPicture.Net\GdPicture.NET.14.filters.dll
+		ExternalLibraries\GdPicture.Net\GdPicture.NET.14.image.gdimgplug.64.dll = ExternalLibraries\GdPicture.Net\GdPicture.NET.14.image.gdimgplug.64.dll
+		ExternalLibraries\GdPicture.Net\GdPicture.NET.14.image.gdimgplug.dll = ExternalLibraries\GdPicture.Net\GdPicture.NET.14.image.gdimgplug.dll
+		ExternalLibraries\GdPicture.Net\GdPicture.NET.14.jbig2.encoder.64.dll = ExternalLibraries\GdPicture.Net\GdPicture.NET.14.jbig2.encoder.64.dll
+		ExternalLibraries\GdPicture.Net\GdPicture.NET.14.jbig2.encoder.dll = ExternalLibraries\GdPicture.Net\GdPicture.NET.14.jbig2.encoder.dll
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tira.OCR", "Tira.OCR\Tira.OCR.csproj", "{677754C1-042F-4000-B5BB-DCD3A93518A6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tira.Imaging", "Tira.Imaging\Tira.Imaging.csproj", "{F1515F6E-337A-47AF-B442-1B48DDDBE9D7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3618A920-E332-42BE-AD67-F2068CF508BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3618A920-E332-42BE-AD67-F2068CF508BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3618A920-E332-42BE-AD67-F2068CF508BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3618A920-E332-42BE-AD67-F2068CF508BB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{677754C1-042F-4000-B5BB-DCD3A93518A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{677754C1-042F-4000-B5BB-DCD3A93518A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{677754C1-042F-4000-B5BB-DCD3A93518A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{677754C1-042F-4000-B5BB-DCD3A93518A6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F1515F6E-337A-47AF-B442-1B48DDDBE9D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1515F6E-337A-47AF-B442-1B48DDDBE9D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F1515F6E-337A-47AF-B442-1B48DDDBE9D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F1515F6E-337A-47AF-B442-1B48DDDBE9D7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{2A7025B7-FB90-46E5-8C32-8FE8E788E43A} = {FBA4908D-C4F3-44F7-9C95-0910364B85FC}
+		{F58D33A4-2995-45A2-BE7F-483FA625BA73} = {2A7025B7-FB90-46E5-8C32-8FE8E788E43A}
+		{382CB17C-C8DF-428F-BD2E-9918E36CD0CD} = {2A7025B7-FB90-46E5-8C32-8FE8E788E43A}
+		{502A318F-CCB8-4F30-98C6-F2E31DAC0B4E} = {FBA4908D-C4F3-44F7-9C95-0910364B85FC}
+		{29F8E18C-CFF3-4A3B-97B8-90CA1CDCE5E6} = {502A318F-CCB8-4F30-98C6-F2E31DAC0B4E}
+		{63300F8E-C817-4ED7-A1E9-FD134CC18826} = {FD848D61-86C1-4424-85D5-F0866040A517}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {896F2E8C-688B-46FC-81C1-5CBACAE3FB7D}
+	EndGlobalSection
+EndGlobal

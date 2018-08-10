@@ -60,6 +60,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tira.OCR", "Tira.OCR\Tira.O
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tira.Imaging", "Tira.Imaging\Tira.Imaging.csproj", "{F1515F6E-337A-47AF-B442-1B48DDDBE9D7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tira.Logic", "Tira.Logic\Tira.Logic.csproj", "{38C608B0-0F72-466C-BA8D-FC9879E41FA3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -78,6 +80,10 @@ Global
 		{F1515F6E-337A-47AF-B442-1B48DDDBE9D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F1515F6E-337A-47AF-B442-1B48DDDBE9D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F1515F6E-337A-47AF-B442-1B48DDDBE9D7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{38C608B0-0F72-466C-BA8D-FC9879E41FA3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{38C608B0-0F72-466C-BA8D-FC9879E41FA3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{38C608B0-0F72-466C-BA8D-FC9879E41FA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{38C608B0-0F72-466C-BA8D-FC9879E41FA3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -46,7 +46,7 @@
     
     mimetype: application/x-microsoft.net.object.binary.base64
     value   : The object must be serialized with 
-            : System.Serialization.Formatters.Binary.BinaryFormatter
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
             : and then encoded with base64 encoding.
     
     mimetype: application/x-microsoft.net.object.soap.base64
@@ -60,6 +60,7 @@
             : and then encoded with base64 encoding.
     -->
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
         <xsd:choice maxOccurs="unbounded">
@@ -68,9 +69,10 @@
               <xsd:sequence>
                 <xsd:element name="value" type="xsd:string" minOccurs="0" />
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" />
+              <xsd:attribute name="name" use="required" type="xsd:string" />
               <xsd:attribute name="type" type="xsd:string" />
               <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="assembly">
@@ -85,9 +87,10 @@
                 <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
                 <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" msdata:Ordinal="1" />
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
               <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
               <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="resheader">
@@ -109,51 +112,51 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Application_ShortName" xml:space="preserve">
     <value>Tira</value>
   </data>
   <data name="Application_Name" xml:space="preserve">
-    <value>Table Images Recognition Application</value>
+    <value>Приложение для распознавания табличных изображений</value>
   </data>
   <data name="Application_FullName" xml:space="preserve">
-    <value>Tira - Table Images Recognition Application</value>
+    <value>Tira - Приложение для распознавания табличных изображений</value>
   </data>
   <data name="ErrorMessage" xml:space="preserve">
-    <value>Error message</value>
+    <value>Сообщение ошибки</value>
   </data>
   <data name="StackTrace" xml:space="preserve">
-    <value>Stack trace</value>
+    <value>Стэк вызовов</value>
   </data>
   <data name="UnhandledException" xml:space="preserve">
-    <value>Unhandled exception</value>
+    <value>Необработанная ошибка</value>
   </data>
   <data name="UnhandledExceptionOccurredApplicationWillBeClosed" xml:space="preserve">
-    <value>Unhandled exception has occurred, application will be terminated</value>
+    <value>Произошло необработанное исключение, приложение будет закрыто</value>
   </data>
   <data name="Language_Unknown" xml:space="preserve">
-    <value>Unknown</value>
+    <value>Неизвестный язык</value>
   </data>
   <data name="Language_Ru" xml:space="preserve">
-    <value>Russian</value>
+    <value>Русский</value>
   </data>
   <data name="Language_En" xml:space="preserve">
-    <value>English</value>
+    <value>Английский</value>
   </data>
   <data name="IntroductionWindow_Label_Version" xml:space="preserve">
-    <value>Version: {0}</value>
+    <value>Версия: {0}</value>
   </data>
   <data name="IntroductionWindow_Button_CreateProject" xml:space="preserve">
-    <value>Create new project</value>
+    <value>Создать новый проект</value>
   </data>
   <data name="IntroductionWindow_Button_OpenProject" xml:space="preserve">
-    <value>Open project</value>
+    <value>Открыть проект</value>
   </data>
   <data name="IntroductionWindow_Label_RecentProjects" xml:space="preserve">
-    <value>Recent projects:</value>
+    <value>Последние использованные проекты:</value>
   </data>
 </root>

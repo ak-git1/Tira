@@ -1,0 +1,13 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Style x:Key="ApplicationName" TargetType="{x:Type Label}">
+        <Setter Property="FontSize" Value="25" />
+    </Style>
+    <Style x:Key="RecentProjectName" TargetType="{x:Type Label}">
+        <Setter Property="FontWeight" Value="Bold" />
+    </Style>
+    <Style x:Key="RecentProjectPath" TargetType="{x:Type Label}">
+        <Setter Property="FontSize" Value="10" />
+        <Setter Property="Margin" Value="0,-10,0,0" />
+    </Style>
+</ResourceDictionary>

@@ -1,0 +1,46 @@
+﻿<Window x:Class="Tira.App.Windows.IntroductionWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:properties="clr-namespace:Tira.App.Properties"
+        xmlns:viewModels="clr-namespace:Tira.App.ViewModels"
+        mc:Ignorable="d"        
+        Title="{x:Static properties:Resources.Application_FullName}"
+        Height="592.971" 
+        Width="800"
+        WindowStartupLocation="CenterScreen"
+        d:DataContext="{d:DesignInstance Type=viewModels:IntroductionViewModel, IsDesignTimeCreatable=True}">
+    <Grid>
+        <StackPanel Margin="0,0,0,10">
+            <Image HorizontalAlignment="Center" Style="{StaticResource LogoImage}" 
+                   Source="/Tira.App;component/Content/Images/logo.png"/>
+            <Label HorizontalAlignment="Center" Style="{StaticResource ApplicationName}"
+                   Content="{x:Static properties:Resources.Application_FullName}"/>
+            <Label HorizontalAlignment="Center" Content="{Binding Version}"/>
+            <StackPanel Orientation="Horizontal" Margin="0,10,0,10" HorizontalAlignment="Center">
+                <Button Style="{StaticResource IntroductionWindowButton}" 
+                        Content="{x:Static properties:Resources.IntroductionWindow_Button_CreateProject}"/>
+                <Button Style="{StaticResource IntroductionWindowButton}" 
+                        Content="{x:Static properties:Resources.IntroductionWindow_Button_OpenProject}"/>
+            </StackPanel>
+            <StackPanel Width="600">
+                <Label Content="{x:Static properties:Resources.IntroductionWindow_Label_RecentProjects}"/>
+                <ListBox Height="200" ItemsSource="{Binding RecentProjects}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate DataType="{x:Type viewModels:RecentProjectViewModel}">
+                            <StackPanel Margin="5" Orientation="Horizontal">
+                                <Image HorizontalAlignment="Center" Style="{StaticResource RecentProjectImage}" 
+                                       Source="/Tira.App;component/Content/Images/folder.png"/>
+                                <StackPanel>
+                                    <Label Content="{Binding Name}" Style="{StaticResource RecentProjectName}"/>
+                                    <Label Content="{Binding Path}" Style="{StaticResource RecentProjectPath}"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Window>

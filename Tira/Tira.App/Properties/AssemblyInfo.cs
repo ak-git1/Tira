@@ -10,9 +10,9 @@ using System.Windows;
 [assembly: AssemblyTitle("Tira.App")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("AkSoftware")]
 [assembly: AssemblyProduct("Tira.App")]
-[assembly: AssemblyCopyright("Copyright ©  2018")]
+[assembly: AssemblyCopyright("Copyright © AkSoftware 2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

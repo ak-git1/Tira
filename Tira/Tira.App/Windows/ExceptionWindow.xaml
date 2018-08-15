@@ -1,0 +1,49 @@
+﻿<Window x:Class="Tira.App.Windows.ExceptionWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:properties="clr-namespace:Tira.App.Properties"
+        xmlns:viewModels="clr-namespace:Tira.App.ViewModels"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        SizeToContent="Width"
+        MinWidth="200"
+        MaxWidth="640"
+        MinHeight="200"
+        MaxHeight="480"
+        Title="{Binding Title}"
+        BorderThickness="1" 
+        d:DataContext="{d:DesignInstance Type=viewModels:ExceptionViewModel, IsDesignTimeCreatable=True}">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Label Margin="12" Content="{Binding Message}"/>
+        <Separator Grid.Row="0" VerticalAlignment="Bottom"/>
+        <Grid Row="1" Margin="6">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <TextBlock Text="{x:Static properties:Resources.ErrorMessage}" Grid.Row="0"/>
+            <TextBox IsReadOnly="True"
+                     TextWrapping="Wrap"
+                     Margin="6"
+                     Grid.Row="1"
+                     Text="{Binding Exception.Message,Mode=OneWay}"/>
+            <TextBlock Text="{x:Static properties:Resources.StackTrace}" Grid.Row="2"/>
+            <TextBox IsReadOnly="True"
+                     TextWrapping="Wrap"
+                     Margin="6"
+                     ScrollViewer.CanContentScroll="True"
+                     VerticalScrollBarVisibility="Auto"
+                     Grid.Row="3"
+                     Text="{Binding Exception.StackTrace,Mode=OneWay}"/>
+        </Grid>
+    </Grid>
+</Window>

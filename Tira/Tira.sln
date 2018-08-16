@@ -62,6 +62,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tira.Imaging", "Tira.Imagin
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tira.Logic", "Tira.Logic\Tira.Logic.csproj", "{38C608B0-0F72-466C-BA8D-FC9879E41FA3}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SQLite", "SQLite", "{A4639A7B-732B-4F92-97E8-2F66BF71C8E9}"
+	ProjectSection(SolutionItems) = preProject
+		ApplicationStartupPack\SQLite\SQLite.Interop.dll = ApplicationStartupPack\SQLite\SQLite.Interop.dll
+		ApplicationStartupPack\SQLite\System.Data.SQLite.dll = ApplicationStartupPack\SQLite\System.Data.SQLite.dll
+		ApplicationStartupPack\SQLite\System.Data.SQLite.EF6.dll = ApplicationStartupPack\SQLite\System.Data.SQLite.EF6.dll
+		ApplicationStartupPack\SQLite\System.Data.SQLite.Linq.dll = ApplicationStartupPack\SQLite\System.Data.SQLite.Linq.dll
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -95,6 +103,7 @@ Global
 		{502A318F-CCB8-4F30-98C6-F2E31DAC0B4E} = {FBA4908D-C4F3-44F7-9C95-0910364B85FC}
 		{29F8E18C-CFF3-4A3B-97B8-90CA1CDCE5E6} = {502A318F-CCB8-4F30-98C6-F2E31DAC0B4E}
 		{63300F8E-C817-4ED7-A1E9-FD134CC18826} = {FD848D61-86C1-4424-85D5-F0866040A517}
+		{A4639A7B-732B-4F92-97E8-2F66BF71C8E9} = {FBA4908D-C4F3-44F7-9C95-0910364B85FC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {896F2E8C-688B-46FC-81C1-5CBACAE3FB7D}

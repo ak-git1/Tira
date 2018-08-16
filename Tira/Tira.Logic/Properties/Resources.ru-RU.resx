@@ -132,4 +132,13 @@
   <data name="CheckRecognitionResultExportAllowed_ErrorMessage" xml:space="preserve">
     <value>Изображение {0} не распознано.</value>
   </data>
+  <data name="Language_Unknown" xml:space="preserve">
+    <value>Неизвестный язык</value>
+  </data>
+  <data name="Language_Ru" xml:space="preserve">
+    <value>Русский</value>
+  </data>
+  <data name="Language_En" xml:space="preserve">
+    <value>Английский</value>
+  </data>
 </root>

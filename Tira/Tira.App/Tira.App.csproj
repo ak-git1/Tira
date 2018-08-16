@@ -17,7 +17,7 @@
     </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x64</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -93,14 +93,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Enums\Languages.cs" />
-    <Compile Include="Extensions\ExceptionExtensions.cs" />
-    <Compile Include="Helpers\CultureResources.cs" />
+    <Compile Include="Logic\Bootstrapper.cs" />
+    <Compile Include="Logic\Extensions\ExceptionExtensions.cs" />
+    <Compile Include="Logic\Helpers\CultureResources.cs" />
     <Compile Include="Properties\Annotations.cs" />
-    <Compile Include="Settings\LanguageSettings.cs" />
-    <Compile Include="ViewModels\ExceptionViewModel.cs" />
-    <Compile Include="ViewModels\IntroductionViewModel.cs" />
-    <Compile Include="ViewModels\RecentProjectViewModel.cs" />
+    <Compile Include="Logic\ViewModels\ExceptionViewModel.cs" />
+    <Compile Include="Logic\ViewModels\IntroductionViewModel.cs" />
+    <Compile Include="Logic\ViewModels\RecentProjectViewModel.cs" />
     <Compile Include="Windows\AboutWindow.xaml.cs">
       <DependentUpon>AboutWindow.xaml</DependentUpon>
     </Compile>
@@ -167,21 +166,15 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Settings.settings</DependentUpon>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-    </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.ru-RU.resx" />
+    <Content Include="App_Data\tira.db">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="packages.config" />
-    <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -201,10 +194,12 @@
   <ItemGroup>
     <Resource Include="Content\Images\folder.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>xcopy /sy "$(SolutionDir)ExternalLibraries\GdPicture.NET" "$(ProjectDir)$(OutDir)"
 xcopy /sy "$(SolutionDir)ApplicationStartupPack\Tesseract languages" "$(ProjectDir)$(OutDir)"
-xcopy /sy "$(SolutionDir)ApplicationStartupPack\Tesseract" "$(ProjectDir)$(OutDir)"</PostBuildEvent>
+xcopy /sy "$(SolutionDir)ApplicationStartupPack\Tesseract\x64" "$(ProjectDir)$(OutDir)\x64"
+xcopy /sy "$(SolutionDir)ApplicationStartupPack\SQLite" "$(ProjectDir)$(OutDir)"</PostBuildEvent>
   </PropertyGroup>
 </Project>

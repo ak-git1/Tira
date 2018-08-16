@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:properties="clr-namespace:Tira.App.Properties"
-        xmlns:viewModels="clr-namespace:Tira.App.ViewModels"
+        xmlns:viewModels="clr-namespace:Tira.App.Logic.ViewModels"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize"

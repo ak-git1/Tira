@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Tira.App.ViewModels
+namespace Tira.App.Logic.ViewModels
 {
     /// <summary>
     /// ViewModel for exception

@@ -7,7 +7,7 @@ using System.Windows;
 using System.Windows.Data;
 using Ak.Framework.Core.Extensions;
 
-namespace Tira.App.Helpers
+namespace Tira.App.Logic.Helpers
 {
     /// <summary>
     /// Class for changing culture without of restarting application

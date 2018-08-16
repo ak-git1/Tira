@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Reflection;
 using Tira.App.Properties;
 using Tira.Logic.Models;
+using Tira.Logic.Settings;
 
-namespace Tira.App.ViewModels
+namespace Tira.App.Logic.ViewModels
 {
     /// <summary>
     /// ViewModel for introduction window
@@ -32,12 +32,9 @@ namespace Tira.App.ViewModels
         /// </summary>
         public IntroductionViewModel()
         {
-            RecentProjects = new List<RecentProjectViewModel>
-            {
-                new RecentProjectViewModel("Project 1", "C:\\project1.proj"),
-                new RecentProjectViewModel("Project 2", "C:\\project2.proj"),
-                new RecentProjectViewModel("Project 3", "C:\\project3.proj"),
-            };
+            RecentProjects = new List<RecentProjectViewModel>();
+            foreach (RecentProject p in RecentProject.GetList(CommonSettings.MaxNumberOfRecentProjects))
+                RecentProjects.Add(new RecentProjectViewModel(p.Name, p.Path));
         }
 
         #endregion

@@ -70,6 +70,33 @@ namespace Tira.Logic.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to English.
+        /// </summary>
+        internal static string Language_En {
+            get {
+                return ResourceManager.GetString("Language_En", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Russian.
+        /// </summary>
+        internal static string Language_Ru {
+            get {
+                return ResourceManager.GetString("Language_Ru", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unknown.
+        /// </summary>
+        internal static string Language_Unknown {
+            get {
+                return ResourceManager.GetString("Language_Unknown", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Data columns need to be defined..
         /// </summary>
         internal static string ValidateOcr_Messages_NoDataColumns {

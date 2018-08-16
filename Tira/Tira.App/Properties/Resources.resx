@@ -135,15 +135,6 @@
   <data name="UnhandledExceptionOccurredApplicationWillBeClosed" xml:space="preserve">
     <value>Unhandled exception has occurred, application will be terminated</value>
   </data>
-  <data name="Language_Unknown" xml:space="preserve">
-    <value>Unknown</value>
-  </data>
-  <data name="Language_Ru" xml:space="preserve">
-    <value>Russian</value>
-  </data>
-  <data name="Language_En" xml:space="preserve">
-    <value>English</value>
-  </data>
   <data name="IntroductionWindow_Label_Version" xml:space="preserve">
     <value>Version: {0}</value>
   </data>

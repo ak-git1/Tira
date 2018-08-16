@@ -1,9 +1,9 @@
 ﻿using System;
+using Tira.App.Logic.ViewModels;
 using Tira.App.Properties;
-using Tira.App.ViewModels;
 using Tira.App.Windows;
 
-namespace Tira.App.Extensions
+namespace Tira.App.Logic.Extensions
 {
     /// <summary>
     /// Extensions for exceptions

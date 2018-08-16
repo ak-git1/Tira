@@ -3,12 +3,12 @@ using System.Globalization;
 using System.Threading;
 using System.Windows;
 using System.Windows.Threading;
-using Tira.App.Extensions;
-using Tira.App.Helpers;
-using Tira.App.Settings;
-using Tira.App.ViewModels;
+using Tira.App.Logic.Extensions;
+using Tira.App.Logic.Helpers;
+using Tira.App.Logic.ViewModels;
 using Tira.App.Windows;
 using Tira.Logic.Helpers;
+using Tira.Logic.Settings;
 
 namespace Tira.App
 {

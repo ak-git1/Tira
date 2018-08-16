@@ -1,4 +1,4 @@
-﻿using Tira.App.ViewModels;
+﻿using Tira.App.Logic.ViewModels;
 
 namespace Tira.App.Windows
 {

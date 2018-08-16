@@ -20,6 +20,11 @@ namespace Tira.Logic.Settings
         /// </summary>
         private static int? _thumbnailHeight;
 
+        /// <summary>
+        /// Maximum number of recent projects
+        /// </summary>
+        private static int? _maxNumberOfRecentProjects;
+
         #endregion
 
         #region Properties
@@ -47,6 +52,19 @@ namespace Tira.Logic.Settings
                 if (_thumbnailHeight == null)
                     _thumbnailHeight = ConfigurationManager.AppSettings["ThumbnailHeight"].ToInt32();
                 return _thumbnailHeight.Value;
+            }
+        }
+
+        /// <summary>
+        /// Maximum number of recent projects
+        /// </summary>
+        public static int MaxNumberOfRecentProjects
+        {
+            get
+            {
+                if (_maxNumberOfRecentProjects == null)
+                    _maxNumberOfRecentProjects = ConfigurationManager.AppSettings["MaxNumberOfRecentProjects"].ToInt32();
+                return _maxNumberOfRecentProjects.Value;
             }
         }
 

@@ -133,33 +133,6 @@ namespace Tira.App.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to English.
-        /// </summary>
-        public static string Language_En {
-            get {
-                return ResourceManager.GetString("Language_En", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Russian.
-        /// </summary>
-        public static string Language_Ru {
-            get {
-                return ResourceManager.GetString("Language_Ru", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Unknown.
-        /// </summary>
-        public static string Language_Unknown {
-            get {
-                return ResourceManager.GetString("Language_Unknown", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Stack trace.
         /// </summary>
         public static string StackTrace {

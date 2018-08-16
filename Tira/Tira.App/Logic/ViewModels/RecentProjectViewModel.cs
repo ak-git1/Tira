@@ -1,8 +1,7 @@
-﻿using System;
-using Ak.Framework.Core.Extensions;
+﻿using Ak.Framework.Core.Extensions;
 using Tira.Logic.Models;
 
-namespace Tira.App.ViewModels
+namespace Tira.App.Logic.ViewModels
 {
     /// <summary>
     /// ViewModel for recently used project

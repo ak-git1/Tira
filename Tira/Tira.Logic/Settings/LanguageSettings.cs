@@ -5,10 +5,10 @@ using System.Linq;
 using System.Threading;
 using Ak.Framework.Core.Extensions;
 using Ak.Framework.Core.Helpers;
-using Tira.App.Enums;
-using Tira.App.Properties;
+using Tira.Logic.Enums;
+using Tira.Logic.Properties;
 
-namespace Tira.App.Settings
+namespace Tira.Logic.Settings
 {
     /// <summary>
     /// Language settings

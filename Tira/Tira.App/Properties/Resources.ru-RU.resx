@@ -138,15 +138,6 @@
   <data name="UnhandledExceptionOccurredApplicationWillBeClosed" xml:space="preserve">
     <value>Произошло необработанное исключение, приложение будет закрыто</value>
   </data>
-  <data name="Language_Unknown" xml:space="preserve">
-    <value>Неизвестный язык</value>
-  </data>
-  <data name="Language_Ru" xml:space="preserve">
-    <value>Русский</value>
-  </data>
-  <data name="Language_En" xml:space="preserve">
-    <value>Английский</value>
-  </data>
   <data name="IntroductionWindow_Label_Version" xml:space="preserve">
     <value>Версия: {0}</value>
   </data>

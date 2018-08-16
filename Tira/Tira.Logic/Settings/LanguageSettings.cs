@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Configuration;
 using System.Globalization;
 using System.Linq;
 using System.Threading;
@@ -31,12 +30,8 @@ namespace Tira.Logic.Settings
         /// </summary>
         public static Languages CurrentLanguage
         {
-            get => (Languages)Properties.Settings.Default.Language;
-            set
-            {
-                Properties.Settings.Default.Language = (int)value;
-                Properties.Settings.Default.Save();
-            }
+            get => (Languages)SettingsHelper.GetValue("Language").ToInt32();
+            set => SettingsHelper.SetValue("Language", ((int) value).ToStr());
         }
 
         /// <summary>
@@ -52,13 +47,7 @@ namespace Tira.Logic.Settings
             get
             {
                 if (_availableLanguages == null)
-                {
-                    _availableLanguages = new List<Languages>();
-                    string[] langs = ConfigurationManager.AppSettings["AvailableLanguages"].ToStr().RemoveSpaces().Split(',');
-                    foreach (Languages? lang in langs.Select(l => l.ToEnum<Languages>(null)).Where(l => l.HasValue))
-                        _availableLanguages.Add(lang.Value);
-                    _availableLanguages = _availableLanguages.Distinct().ToList();
-                }
+                    _availableLanguages = EnumNamesHelper.GetValues<Languages>().WhereEx(l => l != Languages.None).ToList();
                 return _availableLanguages;
             }
         }

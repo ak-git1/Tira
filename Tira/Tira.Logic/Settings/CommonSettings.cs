@@ -1,5 +1,4 @@
 ﻿using Ak.Framework.Core.Extensions;
-using System.Configuration;
 
 namespace Tira.Logic.Settings
 {
@@ -37,7 +36,7 @@ namespace Tira.Logic.Settings
             get
             {
                 if (_thumbnailWidth == null)
-                    _thumbnailWidth = ConfigurationManager.AppSettings["ThumbnailWidth"].ToInt32();
+                    _thumbnailWidth = SettingsHelper.GetValue("ThumbnailWidth").ToInt32();
                 return _thumbnailWidth.Value;
             }
         }
@@ -50,7 +49,7 @@ namespace Tira.Logic.Settings
             get
             {
                 if (_thumbnailHeight == null)
-                    _thumbnailHeight = ConfigurationManager.AppSettings["ThumbnailHeight"].ToInt32();
+                    _thumbnailHeight = SettingsHelper.GetValue("ThumbnailHeight").ToInt32();
                 return _thumbnailHeight.Value;
             }
         }
@@ -63,7 +62,7 @@ namespace Tira.Logic.Settings
             get
             {
                 if (_maxNumberOfRecentProjects == null)
-                    _maxNumberOfRecentProjects = ConfigurationManager.AppSettings["MaxNumberOfRecentProjects"].ToInt32();
+                    _maxNumberOfRecentProjects = SettingsHelper.GetValue("MaxNumberOfRecentProjects").ToInt32();               
                 return _maxNumberOfRecentProjects.Value;
             }
         }

@@ -199,7 +199,7 @@
   <PropertyGroup>
     <PostBuildEvent>xcopy /sy "$(SolutionDir)ExternalLibraries\GdPicture.NET" "$(ProjectDir)$(OutDir)"
 xcopy /sy "$(SolutionDir)ApplicationStartupPack\Tesseract languages" "$(ProjectDir)$(OutDir)"
-xcopy /sy "$(SolutionDir)ApplicationStartupPack\Tesseract\x64" "$(ProjectDir)$(OutDir)\x64"
+xcopy /sy "$(SolutionDir)ApplicationStartupPack\Tesseract" "$(ProjectDir)$(OutDir)"
 xcopy /sy "$(SolutionDir)ApplicationStartupPack\SQLite" "$(ProjectDir)$(OutDir)"</PostBuildEvent>
   </PropertyGroup>
 </Project>

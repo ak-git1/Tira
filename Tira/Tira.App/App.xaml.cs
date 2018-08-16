@@ -87,6 +87,7 @@ namespace Tira.App
 
             try
             {
+                // Setting interface language
                 Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo(LanguageSettings.CurrentLanguageCode);
                 CultureResources.ChangeCulture(new CultureInfo(LanguageSettings.CurrentLanguageCode));
             }

@@ -150,4 +150,13 @@
   <data name="IntroductionWindow_Label_RecentProjects" xml:space="preserve">
     <value>Последние использованные проекты:</value>
   </data>
+  <data name="UnexpectedError_Caption" xml:space="preserve">
+    <value>Непредвиденная ошибка</value>
+  </data>
+  <data name="UnexpectedError_Text" xml:space="preserve">
+    <value>Произошла непредвиденная ошибка. Пожалуйста, посмотрите описание в журнале ошибок.</value>
+  </data>
+  <data name="Error_Caption" xml:space="preserve">
+    <value>Ошибка</value>
+  </data>
 </root>

@@ -15,7 +15,7 @@ namespace Tira.Logic.Models
     /// Recoginition project
     /// </summary>
     [Serializable]
-    internal class Project
+    public class Project
     {
         #region Variables and constants
 

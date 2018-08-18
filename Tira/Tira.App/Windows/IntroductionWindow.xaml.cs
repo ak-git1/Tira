@@ -10,8 +10,7 @@ namespace Tira.App.Windows
         public IntroductionWindow(IntroductionViewModel viewModel)
         {
             InitializeComponent();
-            DataContext = viewModel;
-            Show();
+            DataContext = viewModel;  
         }
 
         public IntroductionWindow()

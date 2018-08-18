@@ -98,14 +98,7 @@ namespace Tira.App
 
             InterceptDomainExceptions();
 
-            try
-            {
-                new IntroductionWindow(new IntroductionViewModel()).Show();
-            }
-            catch (Exception exception)
-            {
-                OnUnhandledException(exception);
-            }
+            new IntroductionWindow(new IntroductionViewModel()).Show();
         }
 
         #endregion

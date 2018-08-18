@@ -1,16 +1,21 @@
 ﻿<Window x:Class="Tira.App.Windows.IntroductionWindow"
+        x:Name="IntroductionWindow1"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:properties="clr-namespace:Tira.App.Properties"
         xmlns:viewModels="clr-namespace:Tira.App.Logic.ViewModels"
+        xmlns:converters="clr-namespace:Ak.Framework.Wpf.Converters;assembly=Ak.Framework.Wpf"
         mc:Ignorable="d"        
         Title="{x:Static properties:Resources.Application_FullName}"
-        Height="592.971" 
+        Height="592.971"
         Width="800"
         WindowStartupLocation="CenterScreen"
         d:DataContext="{d:DesignInstance Type=viewModels:IntroductionViewModel, IsDesignTimeCreatable=True}">
+    <Window.Resources>
+        <converters:GenericMultiValueConverter x:Key="GenericMultiValueConverter" />
+    </Window.Resources>
     <Grid>
         <StackPanel Margin="0,0,0,10">
             <Image HorizontalAlignment="Center" Style="{StaticResource LogoImage}" 
@@ -20,9 +25,11 @@
             <Label HorizontalAlignment="Center" Content="{Binding Version}"/>
             <StackPanel Orientation="Horizontal" Margin="0,10,0,10" HorizontalAlignment="Center">
                 <Button Style="{StaticResource IntroductionWindowButton}" 
-                        Content="{x:Static properties:Resources.IntroductionWindow_Button_CreateProject}"/>
+                        Content="{x:Static properties:Resources.IntroductionWindow_Button_CreateProject}"
+                        Command="{Binding CreateProjectCommand}" CommandParameter="{Binding ElementName=IntroductionWindow1}" />
                 <Button Style="{StaticResource IntroductionWindowButton}" 
-                        Content="{x:Static properties:Resources.IntroductionWindow_Button_OpenProject}"/>
+                        Content="{x:Static properties:Resources.IntroductionWindow_Button_OpenProject}"
+                        Command="{Binding OpenProjectCommand}" CommandParameter="{Binding ElementName=IntroductionWindow1}" />
             </StackPanel>
             <StackPanel Width="600">
                 <Label Content="{x:Static properties:Resources.IntroductionWindow_Label_RecentProjects}"/>
@@ -30,7 +37,17 @@
                     <ListBox.ItemTemplate>
                         <DataTemplate DataType="{x:Type viewModels:RecentProjectViewModel}">
                             <StackPanel Margin="5" Orientation="Horizontal">
-                                <Image HorizontalAlignment="Center" Style="{StaticResource RecentProjectImage}" 
+                                <StackPanel.InputBindings>
+                                    <MouseBinding Command="{Binding OpenProjectCommand}" MouseAction="LeftDoubleClick">
+                                        <MouseBinding.CommandParameter>
+                                            <MultiBinding Converter="{StaticResource GenericMultiValueConverter}">
+                                                <Binding Path="Path"/>
+                                                <Binding ElementName="IntroductionWindow1"/>
+                                            </MultiBinding>
+                                        </MouseBinding.CommandParameter>
+                                    </MouseBinding>
+                                </StackPanel.InputBindings>
+                                <Image HorizontalAlignment="Center" Style="{StaticResource RecentProjectImage}"
                                        Source="/Tira.App;component/Content/Images/folder.png"/>
                                 <StackPanel>
                                     <Label Content="{Binding Name}" Style="{StaticResource RecentProjectName}"/>

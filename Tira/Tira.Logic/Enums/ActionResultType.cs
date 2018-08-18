@@ -3,7 +3,7 @@
     /// <summary>
     /// Action results
     /// </summary>
-    internal enum ActionResultType
+    public enum ActionResultType
     {
         /// <summary>
         /// Ok

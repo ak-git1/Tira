@@ -30,8 +30,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Ak.Framework.Core, Version=1.0.1.0, Culture=neutral, PublicKeyToken=42ef31747320a29d, processorArchitecture=MSIL">
-      <HintPath>..\packages\Ak.Framework.Core.1.0.1\lib\Ak.Framework.Core.dll</HintPath>
+    <Reference Include="Ak.Framework.Core, Version=1.0.1.1, Culture=neutral, PublicKeyToken=42ef31747320a29d, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ak.Framework.Core.1.0.1.1\lib\Ak.Framework.Core.dll</HintPath>
     </Reference>
     <Reference Include="GdPicture.NET.14">
       <HintPath>..\ExternalLibraries\GdPicture.Net\GdPicture.NET.14.dll</HintPath>

@@ -147,4 +147,13 @@
   <data name="IntroductionWindow_Label_RecentProjects" xml:space="preserve">
     <value>Recent projects:</value>
   </data>
+  <data name="UnexpectedError_Caption" xml:space="preserve">
+    <value>Unexpected error</value>
+  </data>
+  <data name="UnexpectedError_Text" xml:space="preserve">
+    <value>Unexpected error occurred. Please look to the error log.</value>
+  </data>
+  <data name="Error_Caption" xml:space="preserve">
+    <value>Error</value>
+  </data>
 </root>

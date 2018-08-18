@@ -16,7 +16,7 @@ namespace Tira.Logic.Models
     /// Gallery image
     /// </summary>
     [Serializable]
-    internal class GalleryImage
+    public class GalleryImage
     {
         #region Properties
 

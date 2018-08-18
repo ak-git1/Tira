@@ -1,4 +1,10 @@
-﻿using Ak.Framework.Core.Extensions;
+﻿using System;
+using System.Windows;
+using Ak.Framework.Core.Extensions;
+using Ak.Framework.Wpf.Commands;
+using Ak.Framework.Wpf.Interfaces;
+using Tira.App.Logic.Helpers;
+using Tira.Logic.Helpers;
 using Tira.Logic.Models;
 
 namespace Tira.App.Logic.ViewModels
@@ -19,6 +25,15 @@ namespace Tira.App.Logic.ViewModels
         /// Path
         /// </summary>
         public string Path { get; }
+
+        #endregion
+
+        #region Commands
+
+        /// <summary>
+        /// Command for project opening
+        /// </summary>
+        public INotifyCommand OpenProjectCommand { get; }
 
         #endregion
 
@@ -43,6 +58,29 @@ namespace Tira.App.Logic.ViewModels
         {
             Name = recentProject.Name;
             Path = recentProject.Path.TruncateString(200);
+
+            OpenProjectCommand = new NotifyCommand(OpenProject);
+        }
+
+        #endregion
+
+        #region Private methods
+
+        /// <summary>
+        /// Opens the project
+        /// </summary>
+        private void OpenProject(object parameters)
+        {
+            try
+            {
+                Project project = Project.Load(openFileDialog.FileName);
+                OpenProjectWindow(project, (Window)window);
+            }
+            catch (Exception ex)
+            {
+                LogHelper.Logger.Error(ex, "Unable to open project");
+                FormsHelper.ShowUnexpectedError();
+            }
         }
 
         #endregion

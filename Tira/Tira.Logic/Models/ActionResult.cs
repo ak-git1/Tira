@@ -5,7 +5,7 @@ namespace Tira.Logic.Models
     /// <summary>
     /// Result of the action performed
     /// </summary>
-    internal class ActionResult
+    public class ActionResult
     {
         #region Properties
 

@@ -1,7 +1,6 @@
 ﻿<Application x:Class="Tira.App.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:logic="clr-namespace:Tira.App.Logic"
              Startup="OnStartup">
     <Application.Resources>
         <ResourceDictionary>

@@ -17,7 +17,7 @@ namespace Tira.Logic.Models
     /// Images gallery
     /// </summary>
     [Serializable]
-    internal class Gallery
+    public class Gallery
     {
         #region Variables and constants
 

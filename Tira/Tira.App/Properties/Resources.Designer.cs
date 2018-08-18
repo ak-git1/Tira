@@ -88,6 +88,15 @@ namespace Tira.App.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        public static string Error_Caption {
+            get {
+                return ResourceManager.GetString("Error_Caption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error message.
         /// </summary>
         public static string ErrorMessage {
@@ -138,6 +147,24 @@ namespace Tira.App.Properties {
         public static string StackTrace {
             get {
                 return ResourceManager.GetString("StackTrace", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unexpected error.
+        /// </summary>
+        public static string UnexpectedError_Caption {
+            get {
+                return ResourceManager.GetString("UnexpectedError_Caption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unexpected error occurred. Please look to the error log..
+        /// </summary>
+        public static string UnexpectedError_Text {
+            get {
+                return ResourceManager.GetString("UnexpectedError_Text", resourceCulture);
             }
         }
         

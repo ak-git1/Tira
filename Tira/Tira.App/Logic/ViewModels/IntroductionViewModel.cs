@@ -3,16 +3,19 @@ using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Forms;
 using Ak.Framework.Core.Helpers;
-using Ak.Framework.Wpf;
 using Ak.Framework.Wpf.Commands;
-using Ak.Framework.Wpf.Interfaces;
+using Ak.Framework.Wpf.Commands.Interfaces;
+using Ak.Framework.Wpf.Dialogs;
+using Ak.Framework.Wpf.Messaging;
 using Ak.Framework.Wpf.ViewModels;
+using Tira.App.Logic.Enums;
 using Tira.App.Logic.Helpers;
 using Tira.App.Properties;
 using Tira.App.Windows;
 using Tira.Logic.Helpers;
 using Tira.Logic.Models;
 using Tira.Logic.Settings;
+using Message = Ak.Framework.Wpf.Messaging.Message;
 
 namespace Tira.App.Logic.ViewModels
 {
@@ -21,17 +24,34 @@ namespace Tira.App.Logic.ViewModels
     /// </summary>
     public class IntroductionViewModel : ViewModelBase
     {
+        #region Variables
+
+        /// <summary>
+        /// Recent projects
+        /// </summary>
+        private List<RecentProjectViewModel> _recentProjects;
+
+        #endregion
+
         #region Properties
 
         /// <summary>
         /// Application version
         /// </summary>
-        public string Version => string.Format(Resources.IntroductionWindow_Label_Version, AssemblyInfoHelper.GetMainAssemblyVersion() /*Assembly.GetEntryAssembly().GetName().Version*/);
+        public string Version => string.Format(Resources.IntroductionWindow_Label_Version, AssemblyInfoHelper.GetMainAssemblyVersion());
 
         /// <summary>
         /// Recent projects
         /// </summary>
-        public List<RecentProjectViewModel> RecentProjects { get; }
+        public List<RecentProjectViewModel> RecentProjects
+        {
+            get => _recentProjects;
+            private set
+            {
+                _recentProjects = value;
+                OnPropertyChanged(() => RecentProjects);
+            }
+        }
 
         #endregion
 
@@ -56,12 +76,12 @@ namespace Tira.App.Logic.ViewModels
         /// </summary>
         public IntroductionViewModel()
         {
-            RecentProjects = new List<RecentProjectViewModel>();
-            foreach (RecentProject p in RecentProject.GetList(CommonSettings.MaxNumberOfRecentProjects))
-                RecentProjects.Add(new RecentProjectViewModel(p));
+            ReloadRecentProjectList();
 
             CreateProjectCommand = new NotifyCommand(CreateProject);
             OpenProjectCommand = new NotifyCommand(OpenProject);
+
+            Messenger.Instance.Register(MessageType.RecentProjectDeleted, ReloadRecentProjectList);
         }
 
         #endregion
@@ -71,6 +91,7 @@ namespace Tira.App.Logic.ViewModels
         /// <summary>
         /// Creates the project
         /// </summary>
+        /// <param name="window">The window.</param>
         private void CreateProject(object window)
         {
             try
@@ -93,6 +114,7 @@ namespace Tira.App.Logic.ViewModels
         /// <summary>
         /// Opens the project
         /// </summary>
+        /// <param name="window">Window</param>
         private void OpenProject(object window)
         {
             try
@@ -121,6 +143,18 @@ namespace Tira.App.Logic.ViewModels
             currentWindow.Hide();
             new ProjectWindow(new ProjectViewModel(project)).Show();
             currentWindow.Close();
+        }
+
+        /// <summary>
+        /// Reloads the recent project list.
+        /// </summary>
+        /// <param name="message">Message.</param>
+        /// <param name="objects">Objects.</param>
+        private void ReloadRecentProjectList(Message message = null, object[] objects = null)
+        {
+            RecentProjects = new List<RecentProjectViewModel>();
+            foreach (RecentProject p in RecentProject.GetList(CommonSettings.MaxNumberOfRecentProjects))
+                RecentProjects.Add(new RecentProjectViewModel(p));
         }
 
         #endregion

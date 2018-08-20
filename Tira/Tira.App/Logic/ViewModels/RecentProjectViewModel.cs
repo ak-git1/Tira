@@ -1,9 +1,14 @@
 ﻿using System;
+using System.IO;
 using System.Windows;
 using Ak.Framework.Core.Extensions;
 using Ak.Framework.Wpf.Commands;
-using Ak.Framework.Wpf.Interfaces;
+using Ak.Framework.Wpf.Commands.Interfaces;
+using Ak.Framework.Wpf.Messaging;
+using Tira.App.Logic.Enums;
 using Tira.App.Logic.Helpers;
+using Tira.App.Properties;
+using Tira.App.Windows;
 using Tira.Logic.Helpers;
 using Tira.Logic.Models;
 
@@ -73,8 +78,23 @@ namespace Tira.App.Logic.ViewModels
         {
             try
             {
-                Project project = Project.Load(openFileDialog.FileName);
-                OpenProjectWindow(project, (Window)window);
+                string path = ((object[]) parameters)[0].ToStr();
+                if (File.Exists(path))
+                {
+                    Window currentWindow = (Window) ((object[]) parameters)[1];
+                    Project project = Project.Load(path);
+                    currentWindow.Hide();
+                    new ProjectWindow(new ProjectViewModel(project)).Show();
+                    currentWindow.Close();
+                }
+                else
+                {
+                    if (MessageBox.Show(Resources.IntroductionWindow_ProjectDoesNotExistMessage_Text, Resources.IntroductionWindow_ProjectDoesNotExistMessage_Caption, MessageBoxButton.YesNo, MessageBoxImage.Information) == MessageBoxResult.Yes)
+                    {
+                        RecentProject.Delete(path);
+                        Messenger.Instance.Send(MessageType.RecentProjectDeleted);
+                    }
+                }
             }
             catch (Exception ex)
             {

@@ -82,6 +82,10 @@ namespace Tira.Logic.Models
             project.Gallery = new Gallery(project.ProjectDataFolderPath);
             project.DataColumns = new List<string>();
             project.Save();
+
+            // Adding project to recent projects list
+            new RecentProject(project.Name, project.ProjectPath).AddOrUpdate();
+
             return project;
         }
 
@@ -94,6 +98,10 @@ namespace Tira.Logic.Models
         {
             Project project = SerializationHelper.DeserializeFromXml<Project>(File.ReadAllText(projectPath));
             project.UpdateProjectPathes(projectPath);
+
+            // Adding project to recent projects list
+            new RecentProject(project.Name, project.ProjectPath).AddOrUpdate();
+
             return project;
         }
 

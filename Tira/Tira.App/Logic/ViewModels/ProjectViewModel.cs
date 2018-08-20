@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Ak.Framework.Wpf.ViewModels;
+﻿using Ak.Framework.Wpf.ViewModels;
 using Tira.Logic.Models;
 
 namespace Tira.App.Logic.ViewModels

@@ -142,6 +142,106 @@ namespace Tira.App.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Project opening.
+        /// </summary>
+        public static string IntroductionWindow_ProjectDoesNotExistMessage_Caption {
+            get {
+                return ResourceManager.GetString("IntroductionWindow_ProjectDoesNotExistMessage_Caption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This project does not exists. 
+        ///Do you want to remove it from the list?.
+        /// </summary>
+        public static string IntroductionWindow_ProjectDoesNotExistMessage_Text {
+            get {
+                return ResourceManager.GetString("IntroductionWindow_ProjectDoesNotExistMessage_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        public static string ProjectCreationWindow_Button_Cancel {
+            get {
+                return ResourceManager.GetString("ProjectCreationWindow_Button_Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create.
+        /// </summary>
+        public static string ProjectCreationWindow_Button_Create {
+            get {
+                return ResourceManager.GetString("ProjectCreationWindow_Button_Create", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ....
+        /// </summary>
+        public static string ProjectCreationWindow_Button_SelectFile {
+            get {
+                return ResourceManager.GetString("ProjectCreationWindow_Button_SelectFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You must fill all text fields!.
+        /// </summary>
+        public static string ProjectCreationWindow_Label_DataInvalid {
+            get {
+                return ResourceManager.GetString("ProjectCreationWindow_Label_DataInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Project file:.
+        /// </summary>
+        public static string ProjectCreationWindow_Label_ProjectFile {
+            get {
+                return ResourceManager.GetString("ProjectCreationWindow_Label_ProjectFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Project name:.
+        /// </summary>
+        public static string ProjectCreationWindow_Label_ProjectName {
+            get {
+                return ResourceManager.GetString("ProjectCreationWindow_Label_ProjectName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Project creation.
+        /// </summary>
+        public static string ProjectCreationWindow_ProjectValidationMessage_Caption {
+            get {
+                return ResourceManager.GetString("ProjectCreationWindow_ProjectValidationMessage_Caption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Not all textboxes are filled..
+        /// </summary>
+        public static string ProjectCreationWindow_ProjectValidationMessage_Text {
+            get {
+                return ResourceManager.GetString("ProjectCreationWindow_ProjectValidationMessage_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Project creation.
+        /// </summary>
+        public static string ProjectCreationWindow_Title {
+            get {
+                return ResourceManager.GetString("ProjectCreationWindow_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Stack trace.
         /// </summary>
         public static string StackTrace {

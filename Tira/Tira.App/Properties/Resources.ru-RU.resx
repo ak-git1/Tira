@@ -159,4 +159,38 @@
   <data name="Error_Caption" xml:space="preserve">
     <value>Ошибка</value>
   </data>
+  <data name="ProjectCreationWindow_Label_ProjectName" xml:space="preserve">
+    <value>Имя проекта:</value>
+  </data>
+  <data name="ProjectCreationWindow_Label_ProjectFile" xml:space="preserve">
+    <value>Файл проекта:</value>
+  </data>
+  <data name="ProjectCreationWindow_Button_SelectFile" xml:space="preserve">
+    <value>...</value>
+  </data>
+  <data name="ProjectCreationWindow_Button_Create" xml:space="preserve">
+    <value>Создать</value>
+  </data>
+  <data name="ProjectCreationWindow_Button_Cancel" xml:space="preserve">
+    <value>Отмена</value>
+  </data>
+  <data name="ProjectCreationWindow_Title" xml:space="preserve">
+    <value>Создание проекта</value>
+  </data>
+  <data name="ProjectCreationWindow_ProjectValidationMessage_Caption" xml:space="preserve">
+    <value>Создание проекта</value>
+  </data>
+  <data name="ProjectCreationWindow_ProjectValidationMessage_Text" xml:space="preserve">
+    <value>Заполнены не все текстовые поля.</value>
+  </data>
+  <data name="ProjectCreationWindow_Label_DataInvalid" xml:space="preserve">
+    <value>Необходимо заполнить все текстовые поля!</value>
+  </data>
+  <data name="IntroductionWindow_ProjectDoesNotExistMessage_Caption" xml:space="preserve">
+    <value>Открытие проекта</value>
+  </data>
+  <data name="IntroductionWindow_ProjectDoesNotExistMessage_Text" xml:space="preserve">
+    <value>Проекта по данному пути не существует. 
+Вы хотите удалить его из списка?</value>
+  </data>
 </root>

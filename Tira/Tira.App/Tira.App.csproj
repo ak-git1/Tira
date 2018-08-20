@@ -44,11 +44,11 @@
     </StartupObject>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Ak.Framework.Core, Version=1.0.1.1, Culture=neutral, PublicKeyToken=42ef31747320a29d, processorArchitecture=MSIL">
-      <HintPath>..\packages\Ak.Framework.Core.1.0.1.1\lib\Ak.Framework.Core.dll</HintPath>
+    <Reference Include="Ak.Framework.Core, Version=1.0.3.0, Culture=neutral, PublicKeyToken=42ef31747320a29d, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ak.Framework.Core.1.0.3\lib\Ak.Framework.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Ak.Framework.Wpf, Version=1.1.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Ak.Framework.Wpf.1.1.1\lib\Ak.Framework.Wpf.dll</HintPath>
+    <Reference Include="Ak.Framework.Wpf, Version=1.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ak.Framework.Wpf.1.3.0\lib\Ak.Framework.Wpf.dll</HintPath>
     </Reference>
     <Reference Include="ControlzEx, Version=3.0.2.4, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\ControlzEx.3.0.2.4\lib\net462\ControlzEx.dll</HintPath>
@@ -85,6 +85,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Logic\Enums\MessageType.cs" />
     <Compile Include="Logic\Extensions\ExceptionExtensions.cs" />
     <Compile Include="Logic\Helpers\CultureResources.cs" />
     <Compile Include="Logic\Helpers\FormsHelper.cs" />
@@ -123,11 +124,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Themes\Common\Grids.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Themes\Common\Images.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Themes\Common\Labels.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Common\TextBoxes.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

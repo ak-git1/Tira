@@ -51,6 +51,18 @@ namespace Tira.Logic.Models
             LastAccessDate = lastAccessDate;
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RecentProject"/> class.
+        /// </summary>
+        /// <param name="name">Name.</param>
+        /// <param name="path">Path.</param>
+        public RecentProject(string name, string path)
+        {
+            Name = name;
+            Path = path;
+            LastAccessDate = DateTime.Now;
+        }
+
         #endregion
 
         #region Public methods
@@ -83,17 +95,38 @@ namespace Tira.Logic.Models
         /// <summary>
         /// Saving recent project to database
         /// </summary>
-        public void Save()
+        public void AddOrUpdate()
         {
             using (RecentProjectsContext db = new RecentProjectsContext())
             {
-                db.RecentProjects.Add(new Repository.Entities.RecentProject
-                {
-                   Name = Name,
-                   Path = Path,
-                   LastAccessDate = LastAccessDate.ToString("yyyy-MM-dd HH:mm:ss")
-                });
+                Repository.Entities.RecentProject p = db.RecentProjects.FirstOrDefault(x => x.Path.Equals(Path));
+                if (p == null)
+                    db.RecentProjects.Add(new Repository.Entities.RecentProject
+                    {
+                        Name = Name,
+                        Path = Path,
+                        LastAccessDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
+                    });
+                else
+                    p.LastAccessDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
                 db.SaveChanges();
+            }
+        }
+
+        /// <summary>
+        /// Deletes recent project by path
+        /// </summary>
+        /// <param name="path">Path.</param>
+        public static void Delete(string path)
+        {
+            using (RecentProjectsContext db = new RecentProjectsContext())
+            {
+                Repository.Entities.RecentProject p = db.RecentProjects.FirstOrDefault(x => x.Path.Equals(path));
+                if (p != null)
+                {
+                    db.RecentProjects.Remove(p);
+                    db.SaveChanges();
+                }
             }
         }
 

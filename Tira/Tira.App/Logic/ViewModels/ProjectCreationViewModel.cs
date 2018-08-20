@@ -1,4 +1,9 @@
-﻿using Ak.Framework.Wpf.ViewModels;
+﻿using System.Windows.Forms;
+using Ak.Framework.Core.Extensions;
+using Ak.Framework.Wpf.Commands;
+using Ak.Framework.Wpf.Commands.Interfaces;
+using Ak.Framework.Wpf.ViewModels;
+using Tira.Logic.Models;
 
 namespace Tira.App.Logic.ViewModels
 {
@@ -7,6 +12,20 @@ namespace Tira.App.Logic.ViewModels
     /// </summary>
     public class ProjectCreationViewModel : ViewModelBase
     {
+        #region Variables
+
+        /// <summary>
+        /// Path to project file
+        /// </summary>
+        private string _projectPath;
+
+        /// <summary>
+        /// Dialog form result
+        /// </summary>
+        private bool? _dialogResult;
+
+        #endregion
+
         #region Properties
 
         /// <summary>
@@ -17,7 +36,68 @@ namespace Tira.App.Logic.ViewModels
         /// <summary>
         /// Path to project file
         /// </summary>
-        public string ProjectPath { get; set; }
+        public string ProjectPath
+        {
+            get => _projectPath;
+            set
+            {
+                SetProperty(ref _projectPath, value);
+                OnPropertyChanged(() => ProjectPath);
+            }
+        }
+
+        /// <summary>
+        /// Validation for textboxes
+        /// </summary>
+        public bool IsDataValid => ProjectPath.NotEmpty() && Name.NotEmpty();
+
+        /// <summary>
+        /// Dialog form result
+        /// </summary>
+        public bool? DialogResult
+        {
+            get => _dialogResult;
+            set
+            {
+                SetProperty(ref _dialogResult, value);
+                OnPropertyChanged(() => DialogResult);
+            }
+        }
+
+        #endregion
+
+        #region Commands
+
+        /// <summary>
+        /// Command for project file selection
+        /// </summary>
+        public INotifyCommand SelectProjectFileCommand { get; }
+
+        #endregion
+
+        #region Constructor
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ProjectCreationViewModel"/> class.
+        /// </summary>
+        public ProjectCreationViewModel()
+        {
+            SelectProjectFileCommand = new NotifyCommand(_ => SelectProjectFile());
+        }
+
+        #endregion
+
+        #region Private methods
+
+        /// <summary>
+        /// Selects project file
+        /// </summary>
+        private void SelectProjectFile()
+        {
+            SaveFileDialog projectCreationFileDialog = new SaveFileDialog {Filter = Project.ProjectFileExtensionsFilter};
+            if (projectCreationFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                ProjectPath = projectCreationFileDialog.FileName;
+        }
 
         #endregion
     }

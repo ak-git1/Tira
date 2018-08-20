@@ -9,8 +9,9 @@
         xmlns:converters="clr-namespace:Ak.Framework.Wpf.Converters;assembly=Ak.Framework.Wpf"
         mc:Ignorable="d"        
         Title="{x:Static properties:Resources.Application_FullName}"
-        Height="592.971"
+        Height="600"
         Width="800"
+        ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
         d:DataContext="{d:DesignInstance Type=viewModels:IntroductionViewModel, IsDesignTimeCreatable=True}">
     <Window.Resources>

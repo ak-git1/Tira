@@ -156,4 +156,38 @@
   <data name="Error_Caption" xml:space="preserve">
     <value>Error</value>
   </data>
+  <data name="ProjectCreationWindow_Label_ProjectName" xml:space="preserve">
+    <value>Project name:</value>
+  </data>
+  <data name="ProjectCreationWindow_Label_ProjectFile" xml:space="preserve">
+    <value>Project file:</value>
+  </data>
+  <data name="ProjectCreationWindow_Button_SelectFile" xml:space="preserve">
+    <value>...</value>
+  </data>
+  <data name="ProjectCreationWindow_Button_Create" xml:space="preserve">
+    <value>Create</value>
+  </data>
+  <data name="ProjectCreationWindow_Button_Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="ProjectCreationWindow_Title" xml:space="preserve">
+    <value>Project creation</value>
+  </data>
+  <data name="ProjectCreationWindow_ProjectValidationMessage_Text" xml:space="preserve">
+    <value>Not all textboxes are filled.</value>
+  </data>
+  <data name="ProjectCreationWindow_ProjectValidationMessage_Caption" xml:space="preserve">
+    <value>Project creation</value>
+  </data>
+  <data name="ProjectCreationWindow_Label_DataInvalid" xml:space="preserve">
+    <value>You must fill all text fields!</value>
+  </data>
+  <data name="IntroductionWindow_ProjectDoesNotExistMessage_Text" xml:space="preserve">
+    <value>This project does not exists. 
+Do you want to remove it from the list?</value>
+  </data>
+  <data name="IntroductionWindow_ProjectDoesNotExistMessage_Caption" xml:space="preserve">
+    <value>Project opening</value>
+  </data>
 </root>

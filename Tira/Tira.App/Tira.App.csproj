@@ -89,12 +89,19 @@
     <Compile Include="Logic\Extensions\ExceptionExtensions.cs" />
     <Compile Include="Logic\Helpers\CultureResources.cs" />
     <Compile Include="Logic\Helpers\FormsHelper.cs" />
+    <Compile Include="Logic\ViewModels\AboutViewModel.cs" />
     <Compile Include="Logic\ViewModels\ProjectCreationViewModel.cs" />
     <Compile Include="Logic\ViewModels\ProjectViewModel.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Logic\ViewModels\ExceptionViewModel.cs" />
     <Compile Include="Logic\ViewModels\IntroductionViewModel.cs" />
     <Compile Include="Logic\ViewModels\RecentProjectViewModel.cs" />
+    <Compile Include="UserControls\Gallery.xaml.cs">
+      <DependentUpon>Gallery.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ImageViewer.xaml.cs">
+      <DependentUpon>ImageViewer.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\AboutWindow.xaml.cs">
       <DependentUpon>AboutWindow.xaml</DependentUpon>
     </Compile>
@@ -128,6 +135,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Themes\Common\GridSplitters.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Themes\Common\Images.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -136,7 +147,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Themes\Common\Ribbon.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Themes\Common\TextBoxes.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\Gallery.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\ImageViewer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -182,6 +205,18 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Resource Include="Content\Images\Ribbon\remove_24x24.png" />
+    <Resource Include="Content\Images\Ribbon\remove_64x64.png" />
+    <Resource Include="Content\Images\Ribbon\add_24x24.png" />
+    <Resource Include="Content\Images\Ribbon\add_64x64.png" />
+    <Resource Include="Content\Images\Ribbon\project_settings_24x24.png" />
+    <Resource Include="Content\Images\Ribbon\project_settings_64x64.png" />
+    <Resource Include="Content\Images\Ribbon\export_24x24.png" />
+    <Resource Include="Content\Images\Ribbon\export_64x64.png" />
+    <Resource Include="Content\Images\Ribbon\ocr_24x24.png" />
+    <Resource Include="Content\Images\Ribbon\ocr_64x64.png" />
+    <Resource Include="Content\Images\Ribbon\save_24x24.png" />
+    <Resource Include="Content\Images\Ribbon\save_64x64.png" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

@@ -190,4 +190,64 @@ Do you want to remove it from the list?</value>
   <data name="IntroductionWindow_ProjectDoesNotExistMessage_Caption" xml:space="preserve">
     <value>Project opening</value>
   </data>
+  <data name="Application_Copyright" xml:space="preserve">
+    <value>Copyright © AkSoftware 2018</value>
+  </data>
+  <data name="Application_About" xml:space="preserve">
+    <value>Program for extracting data from images containing tables using OCR.</value>
+  </data>
+  <data name="AboutWindow_Title" xml:space="preserve">
+    <value>About</value>
+  </data>
+  <data name="Ribbon_MainMenu_CreateProject" xml:space="preserve">
+    <value>Create project</value>
+  </data>
+  <data name="Ribbon_MainMenu_OpenProject" xml:space="preserve">
+    <value>Open project</value>
+  </data>
+  <data name="Ribbon_MainMenu_Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="Ribbon_MainMenu_Settings" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="Ribbon_MainMenu_About" xml:space="preserve">
+    <value>About</value>
+  </data>
+  <data name="Ribbon_MainMenu_Close" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="Ribbon_StatusBar_ProjectTitleFormat" xml:space="preserve">
+    <value>Project: {0}</value>
+  </data>
+  <data name="Ribbon_TabItem_Main" xml:space="preserve">
+    <value>Main</value>
+  </data>
+  <data name="Ribbon_GroupBox_Project" xml:space="preserve">
+    <value>Project</value>
+  </data>
+  <data name="Ribbon_GroupBox_Gallery" xml:space="preserve">
+    <value>Gallery</value>
+  </data>
+  <data name="Ribbon_Button_PerformOcr" xml:space="preserve">
+    <value>Start recognition</value>
+  </data>
+  <data name="Ribbon_Button_Export" xml:space="preserve">
+    <value>Export data</value>
+  </data>
+  <data name="Ribbon_Button_ProjectSettings" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="ProjectWindow_OcrCompletedMessage_Text" xml:space="preserve">
+    <value>Recognition successfully competed.</value>
+  </data>
+  <data name="ProjectWindow_OcrCompletedMessage_Caption" xml:space="preserve">
+    <value>Recognition</value>
+  </data>
+  <data name="Ribbon_Button_AddImages" xml:space="preserve">
+    <value>Add images</value>
+  </data>
+  <data name="Ribbon_Button_RemoveImages" xml:space="preserve">
+    <value>Remove images</value>
+  </data>
 </root>

@@ -3,10 +3,38 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Tira.App.Windows"
+        xmlns:viewModels="clr-namespace:Tira.App.Logic.ViewModels"
+        xmlns:properties="clr-namespace:Tira.App.Properties"
         mc:Ignorable="d"
-        Title="AboutWindow" Height="450" Width="800">
-    <Grid>
-        
+        Title="{x:Static properties:Resources.AboutWindow_Title}"
+        Height="280" 
+        Width="450"
+        ResizeMode="NoResize"
+        ShowInTaskbar="False"
+        WindowStartupLocation="CenterOwner"
+        d:DataContext="{d:DesignInstance Type=viewModels:AboutViewModel, IsDesignTimeCreatable=True}">
+    <FrameworkElement.Resources>
+        <ResourceDictionary>
+            <Style x:Key="AboutTextBox" TargetType="TextBlock">
+                <Setter Property="Margin" Value="5" />
+            </Style>
+        </ResourceDictionary>
+    </FrameworkElement.Resources>
+    <Grid Style="{StaticResource ExternalGrid}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="45*"/>
+            <ColumnDefinition Width="187*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Image Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Top" Style="{StaticResource LogoImage}" Source="/Tira.App;component/Content/Images/logo.png"/>
+        <StackPanel Grid.Row="0" Grid.Column="1" Margin="5" Grid.ColumnSpan="2">
+            <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="{x:Static properties:Resources.Application_FullName}" />
+            <Label HorizontalAlignment="Center" Content="{Binding Version}"/>
+            <Label HorizontalAlignment="Center" Content="{x:Static properties:Resources.Application_Copyright}"/>
+            <TextBlock Style="{StaticResource AboutTextBox}" Text="{x:Static properties:Resources.Application_About}" TextWrapping="Wrap" TextAlignment="Justify"/>
+        </StackPanel>
     </Grid>
 </Window>

@@ -193,4 +193,64 @@
     <value>Проекта по данному пути не существует. 
 Вы хотите удалить его из списка?</value>
   </data>
+  <data name="Application_Copyright" xml:space="preserve">
+    <value>Copyright © AkSoftware 2018</value>
+  </data>
+  <data name="Application_About" xml:space="preserve">
+    <value>Программа предназначена для получения данных путем распознавания с изображений, содержащих таблицы.</value>
+  </data>
+  <data name="AboutWindow_Title" xml:space="preserve">
+    <value>О программе</value>
+  </data>
+  <data name="Ribbon_MainMenu_CreateProject" xml:space="preserve">
+    <value>Создать проект</value>
+  </data>
+  <data name="Ribbon_MainMenu_OpenProject" xml:space="preserve">
+    <value>Открыть проект</value>
+  </data>
+  <data name="Ribbon_MainMenu_Save" xml:space="preserve">
+    <value>Сохранить</value>
+  </data>
+  <data name="Ribbon_MainMenu_Settings" xml:space="preserve">
+    <value>Настройки</value>
+  </data>
+  <data name="Ribbon_MainMenu_About" xml:space="preserve">
+    <value>О программе</value>
+  </data>
+  <data name="Ribbon_MainMenu_Close" xml:space="preserve">
+    <value>Закрыть</value>
+  </data>
+  <data name="Ribbon_StatusBar_ProjectTitleFormat" xml:space="preserve">
+    <value>Проект: {0}</value>
+  </data>
+  <data name="Ribbon_TabItem_Main" xml:space="preserve">
+    <value>Главная</value>
+  </data>
+  <data name="Ribbon_GroupBox_Project" xml:space="preserve">
+    <value>Проект</value>
+  </data>
+  <data name="Ribbon_GroupBox_Gallery" xml:space="preserve">
+    <value>Галерея</value>
+  </data>
+  <data name="Ribbon_Button_PerformOcr" xml:space="preserve">
+    <value>Начать распознавание</value>
+  </data>
+  <data name="Ribbon_Button_Export" xml:space="preserve">
+    <value>Экспортировать данные</value>
+  </data>
+  <data name="Ribbon_Button_ProjectSettings" xml:space="preserve">
+    <value>Настройки</value>
+  </data>
+  <data name="ProjectWindow_OcrCompletedMessage_Caption" xml:space="preserve">
+    <value>Распознавание</value>
+  </data>
+  <data name="ProjectWindow_OcrCompletedMessage_Text" xml:space="preserve">
+    <value>Распознавание успешно завершено.</value>
+  </data>
+  <data name="Ribbon_Button_AddImages" xml:space="preserve">
+    <value>Добавить изображения</value>
+  </data>
+  <data name="Ribbon_Button_RemoveImages" xml:space="preserve">
+    <value>Удалить изображения</value>
+  </data>
 </root>

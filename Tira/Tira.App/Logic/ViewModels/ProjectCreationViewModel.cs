@@ -19,11 +19,6 @@ namespace Tira.App.Logic.ViewModels
         /// </summary>
         private string _projectPath;
 
-        /// <summary>
-        /// Dialog form result
-        /// </summary>
-        private bool? _dialogResult;
-
         #endregion
 
         #region Properties
@@ -50,19 +45,6 @@ namespace Tira.App.Logic.ViewModels
         /// Validation for textboxes
         /// </summary>
         public bool IsDataValid => ProjectPath.NotEmpty() && Name.NotEmpty();
-
-        /// <summary>
-        /// Dialog form result
-        /// </summary>
-        public bool? DialogResult
-        {
-            get => _dialogResult;
-            set
-            {
-                SetProperty(ref _dialogResult, value);
-                OnPropertyChanged(() => DialogResult);
-            }
-        }
 
         #endregion
 
@@ -94,8 +76,8 @@ namespace Tira.App.Logic.ViewModels
         /// </summary>
         private void SelectProjectFile()
         {
-            SaveFileDialog projectCreationFileDialog = new SaveFileDialog {Filter = Project.ProjectFileExtensionsFilter};
-            if (projectCreationFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            SaveFileDialog projectCreationFileDialog = new SaveFileDialog { Filter = Project.ProjectFileExtensionsFilter };
+            if (projectCreationFileDialog.ShowDialog() == DialogResult.OK)
                 ProjectPath = projectCreationFileDialog.FileName;
         }
 

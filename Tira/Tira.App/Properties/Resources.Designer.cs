@@ -61,6 +61,33 @@ namespace Tira.App.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to About.
+        /// </summary>
+        public static string AboutWindow_Title {
+            get {
+                return ResourceManager.GetString("AboutWindow_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Program for extracting data from images containing tables using OCR..
+        /// </summary>
+        public static string Application_About {
+            get {
+                return ResourceManager.GetString("Application_About", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Copyright © AkSoftware 2018.
+        /// </summary>
+        public static string Application_Copyright {
+            get {
+                return ResourceManager.GetString("Application_Copyright", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Tira - Table Images Recognition Application.
         /// </summary>
         public static string Application_FullName {
@@ -238,6 +265,159 @@ namespace Tira.App.Properties {
         public static string ProjectCreationWindow_Title {
             get {
                 return ResourceManager.GetString("ProjectCreationWindow_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Recognition.
+        /// </summary>
+        public static string ProjectWindow_OcrCompletedMessage_Caption {
+            get {
+                return ResourceManager.GetString("ProjectWindow_OcrCompletedMessage_Caption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Recognition successfully competed..
+        /// </summary>
+        public static string ProjectWindow_OcrCompletedMessage_Text {
+            get {
+                return ResourceManager.GetString("ProjectWindow_OcrCompletedMessage_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add images.
+        /// </summary>
+        public static string Ribbon_Button_AddImages {
+            get {
+                return ResourceManager.GetString("Ribbon_Button_AddImages", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Export data.
+        /// </summary>
+        public static string Ribbon_Button_Export {
+            get {
+                return ResourceManager.GetString("Ribbon_Button_Export", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Start recognition.
+        /// </summary>
+        public static string Ribbon_Button_PerformOcr {
+            get {
+                return ResourceManager.GetString("Ribbon_Button_PerformOcr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Settings.
+        /// </summary>
+        public static string Ribbon_Button_ProjectSettings {
+            get {
+                return ResourceManager.GetString("Ribbon_Button_ProjectSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove images.
+        /// </summary>
+        public static string Ribbon_Button_RemoveImages {
+            get {
+                return ResourceManager.GetString("Ribbon_Button_RemoveImages", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gallery.
+        /// </summary>
+        public static string Ribbon_GroupBox_Gallery {
+            get {
+                return ResourceManager.GetString("Ribbon_GroupBox_Gallery", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Project.
+        /// </summary>
+        public static string Ribbon_GroupBox_Project {
+            get {
+                return ResourceManager.GetString("Ribbon_GroupBox_Project", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to About.
+        /// </summary>
+        public static string Ribbon_MainMenu_About {
+            get {
+                return ResourceManager.GetString("Ribbon_MainMenu_About", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Close.
+        /// </summary>
+        public static string Ribbon_MainMenu_Close {
+            get {
+                return ResourceManager.GetString("Ribbon_MainMenu_Close", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create project.
+        /// </summary>
+        public static string Ribbon_MainMenu_CreateProject {
+            get {
+                return ResourceManager.GetString("Ribbon_MainMenu_CreateProject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open project.
+        /// </summary>
+        public static string Ribbon_MainMenu_OpenProject {
+            get {
+                return ResourceManager.GetString("Ribbon_MainMenu_OpenProject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save.
+        /// </summary>
+        public static string Ribbon_MainMenu_Save {
+            get {
+                return ResourceManager.GetString("Ribbon_MainMenu_Save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Settings.
+        /// </summary>
+        public static string Ribbon_MainMenu_Settings {
+            get {
+                return ResourceManager.GetString("Ribbon_MainMenu_Settings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Project: {0}.
+        /// </summary>
+        public static string Ribbon_StatusBar_ProjectTitleFormat {
+            get {
+                return ResourceManager.GetString("Ribbon_StatusBar_ProjectTitleFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Main.
+        /// </summary>
+        public static string Ribbon_TabItem_Main {
+            get {
+                return ResourceManager.GetString("Ribbon_TabItem_Main", resourceCulture);
             }
         }
         

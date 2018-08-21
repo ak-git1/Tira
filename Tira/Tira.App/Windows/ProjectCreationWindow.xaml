@@ -16,12 +16,7 @@
         ResizeMode="NoResize"
         ShowInTaskbar="False"
         d:DataContext="{d:DesignInstance Type=viewModels:ProjectCreationViewModel, IsDesignTimeCreatable=True}">
-    <Grid>
-        <Grid.Resources>
-            <Style TargetType="Border">
-                <Setter Property="Margin" Value="5,5,5,5" />
-            </Style>
-        </Grid.Resources>
+    <Grid Style="{StaticResource ExternalGrid}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="100"/>
             <ColumnDefinition Width="*"/>
@@ -43,7 +38,7 @@
                Style="{StaticResource ErrorLabel}" Visibility="{Binding IsDataValid, Converter={converters:BoolToInvisibilityConverter}}"/>
         <StackPanel Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" Orientation="Horizontal" HorizontalAlignment="Right">
             <Button Content="{x:Static properties:Resources.ProjectCreationWindow_Button_Create}" Style="{StaticResource ProjectCreationButton}"
-                    dialogs:ShowDialogButtonHelper.DialogResult="{Binding DialogResult, Mode=TwoWay}" IsEnabled="{Binding IsDataValid}"/>
+                    dialogs:ShowDialogButtonHelper.DialogResult="True" IsEnabled="{Binding IsDataValid}"/>
             <Button Content="{x:Static properties:Resources.ProjectCreationWindow_Button_Cancel}" Style="{StaticResource ProjectCreationButton}"
                     IsCancel="True" />
         </StackPanel>

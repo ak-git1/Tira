@@ -9,10 +9,8 @@
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize"
         SizeToContent="Width"
-        MinWidth="200"
-        MaxWidth="640"
-        MinHeight="200"
-        MaxHeight="480"
+        Width="480"
+        Height="480"
         Title="{Binding Title}"
         BorderThickness="1" 
         d:DataContext="{d:DesignInstance Type=viewModels:ExceptionViewModel, IsDesignTimeCreatable=True}">
@@ -31,19 +29,22 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <TextBlock Text="{x:Static properties:Resources.ErrorMessage}" Grid.Row="0"/>
-            <TextBox IsReadOnly="True"
+            <TextBox Grid.Row="1"
+                     IsReadOnly="True"
                      TextWrapping="Wrap"
-                     Margin="6"
-                     Grid.Row="1"
-                     Text="{Binding Exception.Message,Mode=OneWay}"/>
+                     Margin="6"                     
+                     Height="50"
+                     Text="{Binding Exception.Message, Mode=OneWay}"/>
             <TextBlock Text="{x:Static properties:Resources.StackTrace}" Grid.Row="2"/>
-            <TextBox IsReadOnly="True"
+            <TextBox Grid.Row="3"
+                     IsReadOnly="True"
                      TextWrapping="Wrap"
-                     Margin="6"
+                     Margin="6,6,6,0"
                      ScrollViewer.CanContentScroll="True"
+                     VerticalAlignment="Top"
                      VerticalScrollBarVisibility="Auto"
-                     Grid.Row="3"
-                     Text="{Binding Exception.StackTrace,Mode=OneWay}"/>
+                     Text="{Binding Exception.StackTrace, Mode=OneWay}" 
+                     Height="293"/>
         </Grid>
     </Grid>
 </Window>

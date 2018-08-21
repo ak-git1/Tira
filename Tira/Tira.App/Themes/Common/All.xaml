@@ -2,8 +2,10 @@
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="Buttons.xaml" />
         <ResourceDictionary Source="Grids.xaml" />
+        <ResourceDictionary Source="GridSplitters.xaml" />
         <ResourceDictionary Source="Images.xaml" />
         <ResourceDictionary Source="Labels.xaml" />
+        <ResourceDictionary Source="Ribbon.xaml" />
         <ResourceDictionary Source="TextBoxes.xaml" />
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

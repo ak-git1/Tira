@@ -5,6 +5,7 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/Fluent;Component/themes/Generic.xaml" />
                 <ResourceDictionary Source="Themes/Common/All.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>

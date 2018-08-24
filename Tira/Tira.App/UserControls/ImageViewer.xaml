@@ -1,11 +1,57 @@
 ﻿<UserControl x:Class="Tira.App.UserControls.ImageViewer"
+             x:Name="ImageViewerControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Tira.App.UserControls"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:userControls="clr-namespace:Tira.App.UserControls"
              mc:Ignorable="d" 
              d:DesignHeight="450" 
-             d:DesignWidth="800">
-Test
+             d:DesignWidth="450"
+             PreviewMouseWheel="ImageViewerControl_OnPreviewMouseWheel" 
+             PreviewKeyDown="ImageViewerControl_OnPreviewKeyDown">
+    <UserControl.Resources>
+        <FrameworkElement x:Key="CursorHandPressed" Cursor="/Tira.App;component/Content/Cursors/HandMousePressed.cur" />
+        <FrameworkElement x:Key="CursorHandReleased" Cursor="/Tira.App;component/Content/Cursors/HandMouseReleased.cur" />
+    </UserControl.Resources>
+    <userControls:ScrollRuler x:Name="ScrollViewerElement" 
+                          ShowRulers="{Binding ElementName=root, Path=ShowRulers}" 
+                          RulerXLength="{Binding ElementName=root, Path=ImageWidth}" 
+                          RulerYLength="{Binding ElementName=root, Path=ImageHeight}" 
+                          RulerXScale="{Binding ElementName=root, Path=Scale}" 
+                          RulerYScale="{Binding ElementName=root, Path=Scale}" 
+                          ScrollChanged="ScrollViewer_OnScrollChanged">
+        <userControls:ScrollRuler.Style>
+            <Style TargetType="{x:Type userControls:ScrollRuler}">
+                <Setter Property="HorizontalScrollBarVisibility" Value="Auto" />
+                <Setter Property="VerticalScrollBarVisibility" Value="Auto" />
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding BitmapSource, ElementName=ImageViewerControl}" Value="{x:Null}">
+                        <Setter Property="UIElement.Visibility" Value="Collapsed" />
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        </userControls:ScrollRuler.Style>
+        <AdornerDecorator HorizontalAlignment="Center" 
+                          VerticalAlignment="Center" 
+                          MouseMove="AdornerDecorator_OnMouseMove"
+                          MouseLeftButtonDown="AdornerDecorator_OnMouseLeftButtonDown" 
+                          MouseLeftButtonUp="AdornerDecorator_OnMouseLeftButtonUp">
+            <Border BorderThickness="{Binding ElementName=ImageViewerControl, Path=ImageBorderThickness}" 
+                    BorderBrush="{Binding ElementName=ImageViewerControl, Path=ImageBorderBrush}">
+                <Image x:Name="ImageElement"
+                       Stretch="Uniform" 
+                       RenderOptions.BitmapScalingMode="HighQuality" 
+                       VerticalAlignment="Center"
+                       Source="{Binding BitmapSource, ElementName=ImageViewerControl, Mode=OneWay}" 
+                       Effect="{Binding EffectImageOnly, ElementName=ImageViewerControl}" 
+                       Width="{Binding ImageWidth, ElementName=ImageViewerControl}" 
+                       Height="{Binding ImageHeight, ElementName=ImageViewerControl}">
+                    <Image.LayoutTransform>
+                        <ScaleTransform ScaleX="{Binding Scale, ElementName=ImageViewerControl}" ScaleY="{Binding Scale, ElementName=ImageViewerControl}" />
+                    </Image.LayoutTransform>
+                </Image>
+            </Border>
+        </AdornerDecorator>
+    </userControls:ScrollRuler>
 </UserControl>

@@ -1,4 +1,5 @@
-﻿using Tira.App.Logic.ViewModels;
+﻿using Tira.App.Logic.Events;
+using Tira.App.Logic.ViewModels;
 
 namespace Tira.App.Windows
 {

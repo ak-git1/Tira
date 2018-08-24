@@ -7,13 +7,23 @@
                      xmlns:properties="clr-namespace:Tira.App.Properties"
                      xmlns:viewModels="clr-namespace:Tira.App.Logic.ViewModels"
                      xmlns:userControls="clr-namespace:Tira.App.UserControls"
-                     xmlns:fluent="urn:fluent-ribbon"
+                     xmlns:binding="clr-namespace:Ak.Framework.Wpf.Binding;assembly=Ak.Framework.Wpf"
+                     xmlns:fluent="urn:fluent-ribbon"                     
                      mc:Ignorable="d"
                      Title="{x:Static properties:Resources.Application_FullName}"
                      Height="800" 
                      Width="1280"
                      WindowStartupLocation="CenterScreen"
                      d:DataContext="{d:DesignInstance Type=viewModels:ProjectViewModel, IsDesignTimeCreatable=True}">
+    <FrameworkElement.Resources>
+        <ResourceDictionary>
+            <Style TargetType="userControls:Gallery">
+                <Setter Property="Margin" Value="2" />
+                <Setter Property="HorizontalAlignment" Value="Stretch" />
+                <Setter Property="VerticalAlignment" Value="Stretch" />
+            </Style>
+        </ResourceDictionary>
+    </FrameworkElement.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -51,7 +61,8 @@
                     <fluent:Button  Header="{x:Static properties:Resources.Ribbon_Button_PerformOcr}"
                                     LargeIcon="/Tira.App;component/Content/Images/Ribbon/ocr_64x64.png"
                                     Icon="/Tira.App;component/Content/Images/Ribbon/ocr_24x24.png"
-                                    SizeDefinition="Large" />
+                                    SizeDefinition="Large"
+                                    Command="{Binding PerformOcrCommand}"/>
                     <fluent:Button  Header="{x:Static properties:Resources.Ribbon_Button_Export}"
                                     LargeIcon="/Tira.App;component/Content/Images/Ribbon/export_64x64.png"
                                     Icon="/Tira.App;component/Content/Images/Ribbon/export_24x24.png"
@@ -65,7 +76,8 @@
                     <fluent:Button  Header="{x:Static properties:Resources.Ribbon_Button_AddImages}"
                                     LargeIcon="/Tira.App;component/Content/Images/Ribbon/add_64x64.png"
                                     Icon="/Tira.App;component/Content/Images/Ribbon/add_24x24.png"
-                                    SizeDefinition="Large" />
+                                    SizeDefinition="Large" 
+                                    Command="{Binding AddImagesToGalleryCommand}"/>
                     <fluent:Button  Header="{x:Static properties:Resources.Ribbon_Button_RemoveImages}"
                                     LargeIcon="/Tira.App;component/Content/Images/Ribbon/remove_64x64.png"
                                     Icon="/Tira.App;component/Content/Images/Ribbon/remove_24x24.png"
@@ -81,22 +93,25 @@
 
         <Grid Grid.Row="1" Style="{StaticResource ExternalGrid}">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="150" />
+                <ColumnDefinition Width="155" />
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <userControls:Gallery Grid.Column="0" />
-            <GridSplitter Grid.Column="1" ShowsPreview="False" Width="3" HorizontalAlignment="Center" VerticalAlignment="Stretch" Style="{StaticResource VerticalGridSplitter}" />
+            <userControls:Gallery Grid.Column="0" Images="{Binding Images, Mode=TwoWay}" GalleryImageSelected="{binding:EventBinding Command=HandleGalleryImageSelected, CommandParameter=$e}"/>
+                <GridSplitter Grid.Column="1" ShowsPreview="False" Width="3" HorizontalAlignment="Center" VerticalAlignment="Stretch" Style="{StaticResource VerticalGridSplitter}" />
             <Grid Grid.Column="2" Margin="0,5,0,5">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="500"/>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <userControls:ImageViewer Grid.Row="0" />
+                <userControls:ImageViewer Grid.Row="0" 
+                                          HorizontalAlignment="Stretch" 
+                                          VerticalAlignment="Stretch"
+                                          BitmapSource="{Binding SelectedImage}" />
                 <GridSplitter Grid.Row="1" ShowsPreview="False" Height="3" HorizontalAlignment="Stretch" VerticalAlignment="Center" Style="{StaticResource HorizontalGridSplitter}" />
                 <DataGrid Grid.Row="2">
-                    
+                    <!-- data -->
                 </DataGrid>
             </Grid>
         </Grid>

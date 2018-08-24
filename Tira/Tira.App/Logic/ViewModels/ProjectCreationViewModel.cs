@@ -15,6 +15,11 @@ namespace Tira.App.Logic.ViewModels
         #region Variables
 
         /// <summary>
+        /// Name
+        /// </summary>
+        private string _name;
+
+        /// <summary>
         /// Path to project file
         /// </summary>
         private string _projectPath;
@@ -26,7 +31,16 @@ namespace Tira.App.Logic.ViewModels
         /// <summary>
         /// Project name
         /// </summary>
-        public string Name { get; set; }
+        public string Name
+        {
+            get => _name;
+            set
+            {
+                SetProperty(ref _name, value);
+                OnPropertyChanged(() => Name);
+                OnPropertyChanged(() => IsDataValid);
+            }        
+        }
 
         /// <summary>
         /// Path to project file
@@ -38,6 +52,7 @@ namespace Tira.App.Logic.ViewModels
             {
                 SetProperty(ref _projectPath, value);
                 OnPropertyChanged(() => ProjectPath);
+                OnPropertyChanged(() => IsDataValid);
             }
         }
 

@@ -11,6 +11,7 @@ using Tira.App.Properties;
 using Tira.App.Windows;
 using Tira.Logic.Helpers;
 using Tira.Logic.Models;
+using MessageBox = Xceed.Wpf.Toolkit.MessageBox;
 
 namespace Tira.App.Logic.ViewModels
 {

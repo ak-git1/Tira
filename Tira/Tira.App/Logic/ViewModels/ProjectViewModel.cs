@@ -1,10 +1,13 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Forms;
+using System.Windows.Media.Imaging;
 using Ak.Framework.Wpf.Commands;
 using Ak.Framework.Wpf.Commands.Interfaces;
 using Ak.Framework.Wpf.Dialogs;
 using Ak.Framework.Wpf.ViewModels;
+using Tira.App.Logic.Events;
 using Tira.App.Logic.Helpers;
 using Tira.App.Properties;
 using Tira.App.Windows;
@@ -20,6 +23,20 @@ namespace Tira.App.Logic.ViewModels
     /// <seealso cref="Ak.Framework.Wpf.ViewModels.ViewModelBase" />
     public class ProjectViewModel : ViewModelBase
     {
+        #region Variables
+
+        /// <summary>
+        /// Gallery images
+        /// </summary>
+        private BindingList<GalleryImage> _images = new BindingList<GalleryImage>();
+
+        /// <summary>
+        /// Image
+        /// </summary>
+        private BitmapSource _selectedImage;
+
+        #endregion
+
         #region Properties
 
         /// <summary>
@@ -30,7 +47,33 @@ namespace Tira.App.Logic.ViewModels
         /// <summary>
         /// Project title
         /// </summary>
-        public string ProjectTitle => string.Format(Properties.Resources.Ribbon_StatusBar_ProjectTitleFormat, Project.Name);
+        public string ProjectTitle => string.Format(Resources.Ribbon_StatusBar_ProjectTitleFormat, Project.Name);
+
+        /// <summary>
+        /// Gallery images
+        /// </summary>
+        public BindingList<GalleryImage> Images
+        {
+            get => _images;
+            set
+            {
+                _images = value;
+                OnPropertyChanged(() => Images);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the image.
+        /// </summary>
+        public BitmapSource SelectedImage
+        {
+            get => _selectedImage;
+            set
+            {
+                _selectedImage = value;
+                OnPropertyChanged(() => SelectedImage);
+            }
+        }
 
         #endregion
 
@@ -81,6 +124,11 @@ namespace Tira.App.Logic.ViewModels
         /// </summary>
         public INotifyCommand RemoveImagesFromGalleryCommand { get; }
 
+        /// <summary>
+        /// Command for handling gallery image selection
+        /// </summary>
+        public INotifyCommand HandleGalleryImageSelected { get; }
+
         #endregion
 
         #region Constructor
@@ -92,6 +140,7 @@ namespace Tira.App.Logic.ViewModels
         public ProjectViewModel(Project project)
         {
             Project = project;
+            FillGallery();
 
             CreateProjectCommand = new NotifyCommand(_ => CreateProject());
             OpenProjectCommand = new NotifyCommand(_ => OpenProject());
@@ -102,6 +151,7 @@ namespace Tira.App.Logic.ViewModels
             PerformOcrCommand = new NotifyCommand(_ => PerformOcr());
             AddImagesToGalleryCommand = new NotifyCommand(_ => AddImagesToGallery());
             RemoveImagesFromGalleryCommand = new NotifyCommand(_ => RemoveImagesFromGallery());
+            HandleGalleryImageSelected = new NotifyCommand(e => FillGalleryImage((GalleryImageEventArgs)e));
         }
 
         #endregion
@@ -206,7 +256,12 @@ namespace Tira.App.Logic.ViewModels
         /// </summary>
         private void AddImagesToGallery()
         {
-
+            OpenFileDialog imagesImportFileDialog = new OpenFileDialog { Multiselect = true };
+            if (imagesImportFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                Project.Gallery.AddFiles(imagesImportFileDialog.FileNames, Project.DataColumns.Count - 1);
+                FillGallery();
+            }
         }
 
         /// <summary>
@@ -215,6 +270,29 @@ namespace Tira.App.Logic.ViewModels
         private void RemoveImagesFromGallery()
         {
 
+        }
+
+        /// <summary>
+        /// Fills the gallery control
+        /// </summary>
+        private void FillGallery()
+        {
+            _images = new BindingList<GalleryImage>();
+            if (Project.Gallery.Images.Count > 0)
+            {
+                foreach (GalleryImage galleryImage in Project.Gallery.Images)
+                    _images.Add(galleryImage);
+            }
+
+            OnPropertyChanged(() => Images);
+        }
+
+        /// <summary>
+        /// Fills the gallery image.
+        /// </summary>
+        private void FillGalleryImage(GalleryImageEventArgs args)
+        {
+            SelectedImage = new BitmapImage(new Uri(args.Image.ImageFilePath));
         }
 
         #endregion

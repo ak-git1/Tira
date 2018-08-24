@@ -1,5 +1,6 @@
-﻿using System.Windows.Forms;
+﻿using System.Windows;
 using Tira.App.Properties;
+using MessageBox = Xceed.Wpf.Toolkit.MessageBox;
 
 namespace Tira.App.Logic.Helpers
 {
@@ -17,7 +18,7 @@ namespace Tira.App.Logic.Helpers
         /// <param name="caption">The caption.</param>
         public static void ShowMessage(string text, string caption)
         {
-            MessageBox.Show(text, caption, MessageBoxButtons.OK);
+            MessageBox.Show(text, caption, MessageBoxButton.OK);
         }
 
         /// <summary>
@@ -27,7 +28,7 @@ namespace Tira.App.Logic.Helpers
         /// <param name="caption">The caption.</param>
         public static void ShowWarning(string text, string caption)
         {
-            MessageBox.Show(text, caption, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            MessageBox.Show(text, caption, MessageBoxButton.OK, MessageBoxImage.Warning);
         }
 
         /// <summary>
@@ -35,7 +36,7 @@ namespace Tira.App.Logic.Helpers
         /// </summary>
         public static void ShowUnexpectedError()
         {
-            MessageBox.Show(Resources.UnexpectedError_Text, Resources.UnexpectedError_Caption, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            MessageBox.Show(Resources.UnexpectedError_Text, Resources.UnexpectedError_Caption, MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
         /// <summary>
@@ -43,7 +44,7 @@ namespace Tira.App.Logic.Helpers
         /// </summary>
         public static void ShowError(string text)
         {
-            MessageBox.Show(text, Resources.Error_Caption, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            MessageBox.Show(text, Resources.Error_Caption, MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
         #endregion

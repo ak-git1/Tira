@@ -187,19 +187,28 @@ namespace Tira.Logic.Models
         }
 
         /// <summary>
-        /// Exports recognized data to json format
+        /// Exports recognized data to specific format
         /// </summary>
-        /// <param name="path">Export file path.</param>
-        public void ExportJson(string path)
+        /// <param name="path">Export file path</param>
+        /// <param name="exportFormat">Export format</param>
+        public void Export(string path, ExportFormat exportFormat)
         {
-            DataTable dataTable = Gallery.Images.First().RecognizedData.Copy();
-            if (Gallery.Images.Count > 1)
-                for (int i = 1; i < Gallery.Images.Count; i++)
-                    dataTable.Merge(Gallery.Images[i].RecognizedData.Copy());
+            switch (exportFormat)
+            {
+                case ExportFormat.Json:
+                    ExportJson(path);
+                    break;
 
-            string json = JsonConvert.SerializeObject(dataTable);
-            File.WriteAllText(path, json);
-        }
+                case ExportFormat.Xls:
+                case ExportFormat.Xlsx:
+                    ExportExcel(path, exportFormat);
+                    break;
+
+                case ExportFormat.Csv:
+                    ExportCsv(path);
+                    break;
+            }
+        }        
 
         /// <summary>
         /// Check if recognition export allowed
@@ -227,7 +236,41 @@ namespace Tira.Logic.Models
             ProjectDataFolderPath = Path.Combine(Path.GetDirectoryName(projectPath), Path.GetFileName(Path.GetDirectoryName(ProjectDataFolderPath + @"\")));
             Gallery.UpdateGalleryPathes(ProjectDataFolderPath);
         }
-      
+
+        /// <summary>
+        /// Exports recognized data to json format
+        /// </summary>
+        /// <param name="path">Export file path.</param>
+        private void ExportJson(string path)
+        {
+            DataTable dataTable = Gallery.Images.First().RecognizedData.Copy();
+            if (Gallery.Images.Count > 1)
+                for (int i = 1; i < Gallery.Images.Count; i++)
+                    dataTable.Merge(Gallery.Images[i].RecognizedData.Copy());
+
+            string json = JsonConvert.SerializeObject(dataTable);
+            File.WriteAllText(path, json);
+        }
+
+        /// <summary>
+        /// Exports recognized data to excel format
+        /// </summary>
+        /// <param name="path">Export file path</param>
+        /// <param name="exportFormat">Eexport format</param>
+        private void ExportExcel(string path, ExportFormat exportFormat)
+        {
+            // TODO
+        }
+
+        /// <summary>
+        /// Exports recognized data to csv format
+        /// </summary>
+        /// <param name="path">Export file path</param>
+        private void ExportCsv(string path)
+        {
+            // TODO
+        }
+
         #endregion
     }
 }

@@ -236,7 +236,7 @@ Do you want to remove it from the list?</value>
     <value>Export data</value>
   </data>
   <data name="Ribbon_Button_ProjectSettings" xml:space="preserve">
-    <value>Settings</value>
+    <value>Project settings</value>
   </data>
   <data name="ProjectWindow_OcrCompletedMessage_Text" xml:space="preserve">
     <value>Recognition successfully competed.</value>
@@ -249,5 +249,140 @@ Do you want to remove it from the list?</value>
   </data>
   <data name="Ribbon_Button_RemoveImages" xml:space="preserve">
     <value>Remove images</value>
+  </data>
+  <data name="Ribbon_MainMenu_Help" xml:space="preserve">
+    <value>Help</value>
+  </data>
+  <data name="Ribbon_TabItem_Image" xml:space="preserve">
+    <value>Image</value>
+  </data>
+  <data name="Ribbon_TabGroup_Image" xml:space="preserve">
+    <value>Work with images</value>
+  </data>
+  <data name="Ribbon_Button_ZoomIn" xml:space="preserve">
+    <value>Zoom in</value>
+  </data>
+  <data name="Ribbon_Button_ZoomOut" xml:space="preserve">
+    <value>Zoom out</value>
+  </data>
+  <data name="Ribbon_Button_FitSize" xml:space="preserve">
+    <value>Fit size</value>
+  </data>
+  <data name="Ribbon_Button_FitWidth" xml:space="preserve">
+    <value>Fit width</value>
+  </data>
+  <data name="Ribbon_Button_FitHeight" xml:space="preserve">
+    <value>Fit height</value>
+  </data>
+  <data name="Ribbon_GroupBox_Zoom" xml:space="preserve">
+    <value>Zoom</value>
+  </data>
+  <data name="SettingsWindow_Title" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="SettingsWindow_Label_Language" xml:space="preserve">
+    <value>Language:</value>
+  </data>
+  <data name="SettingsWindow__Button_Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="SettingsWindow__Button_Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Ribbon_GroupBox_Markup" xml:space="preserve">
+    <value>Markup</value>
+  </data>
+  <data name="Ribbon_Button_EnableMarkup" xml:space="preserve">
+    <value>Markup mode</value>
+  </data>
+  <data name="Ribbon_Button_ClearMarkup" xml:space="preserve">
+    <value>Clear markup</value>
+  </data>
+  <data name="Ribbon_Button_RectangleMarkup" xml:space="preserve">
+    <value>Rectangle</value>
+  </data>
+  <data name="Ribbon_Button_VerticalLineMarkup" xml:space="preserve">
+    <value>Vertical line</value>
+  </data>
+  <data name="Ribbon_Button_HorizontalLineMarkup" xml:space="preserve">
+    <value>Horizontal line</value>
+  </data>
+  <data name="Ribbon_GroupBox_MarkupCopy" xml:space="preserve">
+    <value>Markup copy</value>
+  </data>
+  <data name="Ribbon_Button_MarkupCopy" xml:space="preserve">
+    <value>Copy</value>
+  </data>
+  <data name="Ribbon_Button_MarkupPaste" xml:space="preserve">
+    <value>Paste</value>
+  </data>
+  <data name="Ribbon_TabItem_Transformation" xml:space="preserve">
+    <value>Transformation</value>
+  </data>
+  <data name="Ribbon_GroupBox_Color" xml:space="preserve">
+    <value>Color</value>
+  </data>
+  <data name="Ribbon_GroupBox_Size" xml:space="preserve">
+    <value>Size</value>
+  </data>
+  <data name="Ribbon_GroupBox_Correction" xml:space="preserve">
+    <value>Correction</value>
+  </data>
+  <data name="Ribbon_Button_Binarize" xml:space="preserve">
+    <value>Binarize</value>
+  </data>
+  <data name="Ribbon_Button_Brightness" xml:space="preserve">
+    <value>Brightness</value>
+  </data>
+  <data name="Ribbon_Button_Contrast" xml:space="preserve">
+    <value>Contrast</value>
+  </data>
+  <data name="Ribbon_Button_Gamma" xml:space="preserve">
+    <value>Gamma</value>
+  </data>
+  <data name="Ribbon_Button_AutoRotate" xml:space="preserve">
+    <value>Auto rotate</value>
+  </data>
+  <data name="Ribbon_Button_ManualRotate" xml:space="preserve">
+    <value>Rotate</value>
+  </data>
+  <data name="Ribbon_Button_AutoResize" xml:space="preserve">
+    <value>Auto crop</value>
+  </data>
+  <data name="Ribbon_Button_ManualResize" xml:space="preserve">
+    <value>Crop</value>
+  </data>
+  <data name="Ribbon_Button_Dilation" xml:space="preserve">
+    <value>Dilation</value>
+  </data>
+  <data name="Ribbon_Button_Erosion" xml:space="preserve">
+    <value>Erosion</value>
+  </data>
+  <data name="Ribbon_Button_RemoveObjects" xml:space="preserve">
+    <value>RemoveObjects</value>
+  </data>
+  <data name="Ribbon_Button_RemoveLines" xml:space="preserve">
+    <value>Lines</value>
+  </data>
+  <data name="Ribbon_Button_RemoveNoise" xml:space="preserve">
+    <value>Noise</value>
+  </data>
+  <data name="Ribbon_Button_RemoveHoles" xml:space="preserve">
+    <value>Holes</value>
+  </data>
+  <data name="Ribbon_Button_RemoveClipHoles" xml:space="preserve">
+    <value>Clip holes</value>
+  </data>
+  <data name="Ribbon_Button_Export_Json" xml:space="preserve">
+    <value>Json</value>
+  </data>
+  <data name="Ribbon_Button_Export_Xls" xml:space="preserve">
+    <value>Excel (xls)</value>
+  </data>
+  <data name="Ribbon_Button_Export_Xlsx" xml:space="preserve">
+    <value>Excel (xlsx)</value>
+  </data>
+  <data name="Ribbon_Button_Export_Csv" xml:space="preserve">
+    <value>CSV</value>
   </data>
 </root>

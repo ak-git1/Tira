@@ -37,9 +37,9 @@
         <Label Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Content="{x:Static properties:Resources.ProjectCreationWindow_Label_DataInvalid}"
                Style="{StaticResource ErrorLabel}" Visibility="{Binding IsDataValid, Converter={converters:BoolToInvisibilityConverter}}"/>
         <StackPanel Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" Orientation="Horizontal" HorizontalAlignment="Right">
-            <Button Content="{x:Static properties:Resources.ProjectCreationWindow_Button_Create}" Style="{StaticResource ProjectCreationButton}"
+            <Button Content="{x:Static properties:Resources.ProjectCreationWindow_Button_Create}" Style="{StaticResource DialogFormButton}"
                     dialogs:ShowDialogButtonHelper.DialogResult="True" IsEnabled="{Binding IsDataValid}"/>
-            <Button Content="{x:Static properties:Resources.ProjectCreationWindow_Button_Cancel}" Style="{StaticResource ProjectCreationButton}"
+            <Button Content="{x:Static properties:Resources.ProjectCreationWindow_Button_Cancel}" Style="{StaticResource DialogFormButton}"
                     IsCancel="True" />
         </StackPanel>
     </Grid>

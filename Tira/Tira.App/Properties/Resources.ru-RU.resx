@@ -239,7 +239,7 @@
     <value>Экспортировать данные</value>
   </data>
   <data name="Ribbon_Button_ProjectSettings" xml:space="preserve">
-    <value>Настройки</value>
+    <value>Настройки проекта</value>
   </data>
   <data name="ProjectWindow_OcrCompletedMessage_Caption" xml:space="preserve">
     <value>Распознавание</value>
@@ -252,5 +252,140 @@
   </data>
   <data name="Ribbon_Button_RemoveImages" xml:space="preserve">
     <value>Удалить изображения</value>
+  </data>
+  <data name="Ribbon_MainMenu_Help" xml:space="preserve">
+    <value>Справка</value>
+  </data>
+  <data name="Ribbon_TabItem_Image" xml:space="preserve">
+    <value>Изображение</value>
+  </data>
+  <data name="Ribbon_TabGroup_Image" xml:space="preserve">
+    <value>Работа с изображением</value>
+  </data>
+  <data name="Ribbon_GroupBox_Zoom" xml:space="preserve">
+    <value>Масштаб</value>
+  </data>
+  <data name="Ribbon_Button_ZoomIn" xml:space="preserve">
+    <value>Увеличить</value>
+  </data>
+  <data name="Ribbon_Button_ZoomOut" xml:space="preserve">
+    <value>Уменьшить</value>
+  </data>
+  <data name="Ribbon_Button_FitSize" xml:space="preserve">
+    <value>Заполнить по размеру</value>
+  </data>
+  <data name="Ribbon_Button_FitWidth" xml:space="preserve">
+    <value>Заполнить по ширине</value>
+  </data>
+  <data name="Ribbon_Button_FitHeight" xml:space="preserve">
+    <value>Заполнить по высоте</value>
+  </data>
+  <data name="SettingsWindow_Title" xml:space="preserve">
+    <value>Настройки</value>
+  </data>
+  <data name="SettingsWindow_Label_Language" xml:space="preserve">
+    <value>Язык:</value>
+  </data>
+  <data name="SettingsWindow__Button_Save" xml:space="preserve">
+    <value>Сохранить</value>
+  </data>
+  <data name="SettingsWindow__Button_Cancel" xml:space="preserve">
+    <value>Отмена</value>
+  </data>
+  <data name="Ribbon_GroupBox_Markup" xml:space="preserve">
+    <value>Разметка</value>
+  </data>
+  <data name="Ribbon_Button_EnableMarkup" xml:space="preserve">
+    <value>Режим разметки</value>
+  </data>
+  <data name="Ribbon_Button_ClearMarkup" xml:space="preserve">
+    <value>Очистить разметку</value>
+  </data>
+  <data name="Ribbon_Button_RectangleMarkup" xml:space="preserve">
+    <value>Прямоугольник</value>
+  </data>
+  <data name="Ribbon_Button_VerticalLineMarkup" xml:space="preserve">
+    <value>Вертикальная линия</value>
+  </data>
+  <data name="Ribbon_Button_HorizontalLineMarkup" xml:space="preserve">
+    <value>Горизонтальная линия</value>
+  </data>
+  <data name="Ribbon_GroupBox_MarkupCopy" xml:space="preserve">
+    <value>Копирование разметки</value>
+  </data>
+  <data name="Ribbon_Button_MarkupCopy" xml:space="preserve">
+    <value>Копировать</value>
+  </data>
+  <data name="Ribbon_Button_MarkupPaste" xml:space="preserve">
+    <value>Вставить</value>
+  </data>
+  <data name="Ribbon_TabItem_Transformation" xml:space="preserve">
+    <value>Преобразования</value>
+  </data>
+  <data name="Ribbon_GroupBox_Color" xml:space="preserve">
+    <value>Цвет</value>
+  </data>
+  <data name="Ribbon_GroupBox_Size" xml:space="preserve">
+    <value>Размер</value>
+  </data>
+  <data name="Ribbon_GroupBox_Correction" xml:space="preserve">
+    <value>Коррекция</value>
+  </data>
+  <data name="Ribbon_Button_Binarize" xml:space="preserve">
+    <value>Черно-белый</value>
+  </data>
+  <data name="Ribbon_Button_Brightness" xml:space="preserve">
+    <value>Яркость</value>
+  </data>
+  <data name="Ribbon_Button_ManualRotate" xml:space="preserve">
+    <value>Поворот</value>
+  </data>
+  <data name="Ribbon_Button_AutoRotate" xml:space="preserve">
+    <value>Автоповорот</value>
+  </data>
+  <data name="Ribbon_Button_Contrast" xml:space="preserve">
+    <value>Контраст</value>
+  </data>
+  <data name="Ribbon_Button_Gamma" xml:space="preserve">
+    <value>Гамма</value>
+  </data>
+  <data name="Ribbon_Button_AutoResize" xml:space="preserve">
+    <value>Автообрезка</value>
+  </data>
+  <data name="Ribbon_Button_ManualResize" xml:space="preserve">
+    <value>Обрезка</value>
+  </data>
+  <data name="Ribbon_Button_Dilation" xml:space="preserve">
+    <value>Диляция</value>
+  </data>
+  <data name="Ribbon_Button_Erosion" xml:space="preserve">
+    <value>Эрозия</value>
+  </data>
+  <data name="Ribbon_Button_RemoveObjects" xml:space="preserve">
+    <value>Удаление объектов</value>
+  </data>
+  <data name="Ribbon_Button_RemoveLines" xml:space="preserve">
+    <value>Линии</value>
+  </data>
+  <data name="Ribbon_Button_RemoveNoise" xml:space="preserve">
+    <value>Шум</value>
+  </data>
+  <data name="Ribbon_Button_RemoveHoles" xml:space="preserve">
+    <value>Дырки от дырокола</value>
+  </data>
+  <data name="Ribbon_Button_RemoveClipHoles" xml:space="preserve">
+    <value>Дырки от скрепок</value>
+  </data>
+  <data name="Ribbon_Button_Export_Json" xml:space="preserve">
+    <value>Json</value>
+  </data>
+  <data name="Ribbon_Button_Export_Xls" xml:space="preserve">
+    <value>Excel (xls)</value>
+  </data>
+  <data name="Ribbon_Button_Export_Xlsx" xml:space="preserve">
+    <value>Excel (xlsx)</value>
+  </data>
+  <data name="Ribbon_Button_Export_Csv" xml:space="preserve">
+    <value>CSV</value>
   </data>
 </root>

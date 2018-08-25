@@ -1,10 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
-using Ak.Framework.Wpf.Commands.Interfaces;
 using Tira.App.Logic.Events;
 using Tira.Logic.Models;
 

@@ -296,11 +296,209 @@ namespace Tira.App.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Auto crop.
+        /// </summary>
+        public static string Ribbon_Button_AutoResize {
+            get {
+                return ResourceManager.GetString("Ribbon_Button_AutoResize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Auto rotate.
+        /// </summary>
+        public static string Ribbon_Button_AutoRotate {
+            get {
+                return ResourceManager.GetString("Ribbon_Button_AutoRotate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Binarize.
+        /// </summary>
+        public static string Ribbon_Button_Binarize {
+            get {
+                return ResourceManager.GetString("Ribbon_Button_Binarize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Brightness.
+        /// </summary>
+        public static string Ribbon_Button_Brightness {
+            get {
+                return ResourceManager.GetString("Ribbon_Button_Brightness", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Clear markup.
+        /// </summary>
+        public static string Ribbon_Button_ClearMarkup {
+            get {
+                return ResourceManager.GetString("Ribbon_Button_ClearMarkup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Contrast.
+        /// </summary>
+        public static string Ribbon_Button_Contrast {
+            get {
+                return ResourceManager.GetString("Ribbon_Button_Contrast", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dilation.
+        /// </summary>
+        public static string Ribbon_Button_Dilation {
+            get {
+                return ResourceManager.GetString("Ribbon_Button_Dilation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Markup mode.
+        /// </summary>
+        public static string Ribbon_Button_EnableMarkup {
+            get {
+                return ResourceManager.GetString("Ribbon_Button_EnableMarkup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Erosion.
+        /// </summary>
+        public static string Ribbon_Button_Erosion {
+            get {
+                return ResourceManager.GetString("Ribbon_Button_Erosion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Export data.
         /// </summary>
         public static string Ribbon_Button_Export {
             get {
                 return ResourceManager.GetString("Ribbon_Button_Export", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CSV.
+        /// </summary>
+        public static string Ribbon_Button_Export_Csv {
+            get {
+                return ResourceManager.GetString("Ribbon_Button_Export_Csv", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Json.
+        /// </summary>
+        public static string Ribbon_Button_Export_Json {
+            get {
+                return ResourceManager.GetString("Ribbon_Button_Export_Json", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Excel (xls).
+        /// </summary>
+        public static string Ribbon_Button_Export_Xls {
+            get {
+                return ResourceManager.GetString("Ribbon_Button_Export_Xls", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Excel (xlsx).
+        /// </summary>
+        public static string Ribbon_Button_Export_Xlsx {
+            get {
+                return ResourceManager.GetString("Ribbon_Button_Export_Xlsx", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fit height.
+        /// </summary>
+        public static string Ribbon_Button_FitHeight {
+            get {
+                return ResourceManager.GetString("Ribbon_Button_FitHeight", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fit size.
+        /// </summary>
+        public static string Ribbon_Button_FitSize {
+            get {
+                return ResourceManager.GetString("Ribbon_Button_FitSize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fit width.
+        /// </summary>
+        public static string Ribbon_Button_FitWidth {
+            get {
+                return ResourceManager.GetString("Ribbon_Button_FitWidth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gamma.
+        /// </summary>
+        public static string Ribbon_Button_Gamma {
+            get {
+                return ResourceManager.GetString("Ribbon_Button_Gamma", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Horizontal line.
+        /// </summary>
+        public static string Ribbon_Button_HorizontalLineMarkup {
+            get {
+                return ResourceManager.GetString("Ribbon_Button_HorizontalLineMarkup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Crop.
+        /// </summary>
+        public static string Ribbon_Button_ManualResize {
+            get {
+                return ResourceManager.GetString("Ribbon_Button_ManualResize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rotate.
+        /// </summary>
+        public static string Ribbon_Button_ManualRotate {
+            get {
+                return ResourceManager.GetString("Ribbon_Button_ManualRotate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Copy.
+        /// </summary>
+        public static string Ribbon_Button_MarkupCopy {
+            get {
+                return ResourceManager.GetString("Ribbon_Button_MarkupCopy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Paste.
+        /// </summary>
+        public static string Ribbon_Button_MarkupPaste {
+            get {
+                return ResourceManager.GetString("Ribbon_Button_MarkupPaste", resourceCulture);
             }
         }
         
@@ -314,11 +512,38 @@ namespace Tira.App.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Settings.
+        ///   Looks up a localized string similar to Project settings.
         /// </summary>
         public static string Ribbon_Button_ProjectSettings {
             get {
                 return ResourceManager.GetString("Ribbon_Button_ProjectSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rectangle.
+        /// </summary>
+        public static string Ribbon_Button_RectangleMarkup {
+            get {
+                return ResourceManager.GetString("Ribbon_Button_RectangleMarkup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Clip holes.
+        /// </summary>
+        public static string Ribbon_Button_RemoveClipHoles {
+            get {
+                return ResourceManager.GetString("Ribbon_Button_RemoveClipHoles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Holes.
+        /// </summary>
+        public static string Ribbon_Button_RemoveHoles {
+            get {
+                return ResourceManager.GetString("Ribbon_Button_RemoveHoles", resourceCulture);
             }
         }
         
@@ -332,6 +557,78 @@ namespace Tira.App.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Lines.
+        /// </summary>
+        public static string Ribbon_Button_RemoveLines {
+            get {
+                return ResourceManager.GetString("Ribbon_Button_RemoveLines", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Noise.
+        /// </summary>
+        public static string Ribbon_Button_RemoveNoise {
+            get {
+                return ResourceManager.GetString("Ribbon_Button_RemoveNoise", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to RemoveObjects.
+        /// </summary>
+        public static string Ribbon_Button_RemoveObjects {
+            get {
+                return ResourceManager.GetString("Ribbon_Button_RemoveObjects", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vertical line.
+        /// </summary>
+        public static string Ribbon_Button_VerticalLineMarkup {
+            get {
+                return ResourceManager.GetString("Ribbon_Button_VerticalLineMarkup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zoom in.
+        /// </summary>
+        public static string Ribbon_Button_ZoomIn {
+            get {
+                return ResourceManager.GetString("Ribbon_Button_ZoomIn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zoom out.
+        /// </summary>
+        public static string Ribbon_Button_ZoomOut {
+            get {
+                return ResourceManager.GetString("Ribbon_Button_ZoomOut", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Color.
+        /// </summary>
+        public static string Ribbon_GroupBox_Color {
+            get {
+                return ResourceManager.GetString("Ribbon_GroupBox_Color", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Correction.
+        /// </summary>
+        public static string Ribbon_GroupBox_Correction {
+            get {
+                return ResourceManager.GetString("Ribbon_GroupBox_Correction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Gallery.
         /// </summary>
         public static string Ribbon_GroupBox_Gallery {
@@ -341,11 +638,47 @@ namespace Tira.App.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Markup.
+        /// </summary>
+        public static string Ribbon_GroupBox_Markup {
+            get {
+                return ResourceManager.GetString("Ribbon_GroupBox_Markup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Markup copy.
+        /// </summary>
+        public static string Ribbon_GroupBox_MarkupCopy {
+            get {
+                return ResourceManager.GetString("Ribbon_GroupBox_MarkupCopy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Project.
         /// </summary>
         public static string Ribbon_GroupBox_Project {
             get {
                 return ResourceManager.GetString("Ribbon_GroupBox_Project", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Size.
+        /// </summary>
+        public static string Ribbon_GroupBox_Size {
+            get {
+                return ResourceManager.GetString("Ribbon_GroupBox_Size", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zoom.
+        /// </summary>
+        public static string Ribbon_GroupBox_Zoom {
+            get {
+                return ResourceManager.GetString("Ribbon_GroupBox_Zoom", resourceCulture);
             }
         }
         
@@ -373,6 +706,15 @@ namespace Tira.App.Properties {
         public static string Ribbon_MainMenu_CreateProject {
             get {
                 return ResourceManager.GetString("Ribbon_MainMenu_CreateProject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Help.
+        /// </summary>
+        public static string Ribbon_MainMenu_Help {
+            get {
+                return ResourceManager.GetString("Ribbon_MainMenu_Help", resourceCulture);
             }
         }
         
@@ -413,11 +755,74 @@ namespace Tira.App.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Work with images.
+        /// </summary>
+        public static string Ribbon_TabGroup_Image {
+            get {
+                return ResourceManager.GetString("Ribbon_TabGroup_Image", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Image.
+        /// </summary>
+        public static string Ribbon_TabItem_Image {
+            get {
+                return ResourceManager.GetString("Ribbon_TabItem_Image", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Main.
         /// </summary>
         public static string Ribbon_TabItem_Main {
             get {
                 return ResourceManager.GetString("Ribbon_TabItem_Main", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Transformation.
+        /// </summary>
+        public static string Ribbon_TabItem_Transformation {
+            get {
+                return ResourceManager.GetString("Ribbon_TabItem_Transformation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        public static string SettingsWindow__Button_Cancel {
+            get {
+                return ResourceManager.GetString("SettingsWindow__Button_Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save.
+        /// </summary>
+        public static string SettingsWindow__Button_Save {
+            get {
+                return ResourceManager.GetString("SettingsWindow__Button_Save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Language:.
+        /// </summary>
+        public static string SettingsWindow_Label_Language {
+            get {
+                return ResourceManager.GetString("SettingsWindow_Label_Language", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Settings.
+        /// </summary>
+        public static string SettingsWindow_Title {
+            get {
+                return ResourceManager.GetString("SettingsWindow_Title", resourceCulture);
             }
         }
         

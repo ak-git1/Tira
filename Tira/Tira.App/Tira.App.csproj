@@ -47,8 +47,8 @@
     <Reference Include="Ak.Framework.Core, Version=1.0.3.0, Culture=neutral, PublicKeyToken=42ef31747320a29d, processorArchitecture=MSIL">
       <HintPath>..\packages\Ak.Framework.Core.1.0.3\lib\Ak.Framework.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Ak.Framework.Wpf, Version=1.5.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Ak.Framework.Wpf.1.5.0\lib\Ak.Framework.Wpf.dll</HintPath>
+    <Reference Include="Ak.Framework.Wpf, Version=1.6.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ak.Framework.Wpf.1.6.1\lib\Ak.Framework.Wpf.dll</HintPath>
     </Reference>
     <Reference Include="ControlzEx, Version=3.0.2.4, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\ControlzEx.3.0.2.4\lib\net462\ControlzEx.dll</HintPath>
@@ -57,7 +57,7 @@
       <HintPath>..\packages\Fluent.Ribbon.6.1.0.326\lib\net462\Fluent.dll</HintPath>
     </Reference>
     <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
-      <HintPath>..\packages\NLog.4.5.8\lib\net45\NLog.dll</HintPath>
+      <HintPath>..\packages\NLog.4.5.9\lib\net45\NLog.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -109,9 +109,11 @@
     <Compile Include="Logic\Extensions\ExceptionExtensions.cs" />
     <Compile Include="Logic\Helpers\CultureResources.cs" />
     <Compile Include="Logic\Helpers\FormsHelper.cs" />
+    <Compile Include="Logic\Helpers\ZoomManager.cs" />
     <Compile Include="Logic\ViewModels\AboutViewModel.cs" />
     <Compile Include="Logic\ViewModels\ProjectCreationViewModel.cs" />
     <Compile Include="Logic\ViewModels\ProjectViewModel.cs" />
+    <Compile Include="Logic\ViewModels\SettingsViewModel.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Logic\ViewModels\ExceptionViewModel.cs" />
     <Compile Include="Logic\ViewModels\IntroductionViewModel.cs" />
@@ -139,6 +141,9 @@
     <Compile Include="Windows\ProjectDataColumnsWindow.xaml.cs">
       <DependentUpon>ProjectDataColumnsWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Windows\ProjectSettingsWindow.xaml.cs">
+      <DependentUpon>ProjectSettingsWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\ProjectWindow.xaml.cs">
       <DependentUpon>ProjectWindow.xaml</DependentUpon>
     </Compile>
@@ -149,7 +154,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Themes\Common\Brushes.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Themes\Common\Buttons.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Common\ComboBoxes.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -209,6 +222,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Windows\ProjectSettingsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Windows\ProjectWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -227,6 +244,68 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Resource Include="Content\Images\Ribbon\csv_24x24.png" />
+    <Resource Include="Content\Images\Ribbon\csv_64x64.png" />
+    <Resource Include="Content\Images\Ribbon\json_24x24.png" />
+    <Resource Include="Content\Images\Ribbon\json_64x64.png" />
+    <Resource Include="Content\Images\Ribbon\xlsx_24x24.png" />
+    <Resource Include="Content\Images\Ribbon\xlsx_64x64.png" />
+    <Resource Include="Content\Images\Ribbon\xls_24x24.png" />
+    <Resource Include="Content\Images\Ribbon\xls_64x64.png" />
+    <Resource Include="Content\Images\Ribbon\remove_clipholes_24x24.png" />
+    <Resource Include="Content\Images\Ribbon\remove_clipholes_64x64.png" />
+    <Resource Include="Content\Images\Ribbon\remove_holes_24x24.png" />
+    <Resource Include="Content\Images\Ribbon\remove_holes_64x64.png" />
+    <Resource Include="Content\Images\Ribbon\remove_lines_24x24.png" />
+    <Resource Include="Content\Images\Ribbon\remove_lines_64x64.png" />
+    <Resource Include="Content\Images\Ribbon\remove_noise_24x24.png" />
+    <Resource Include="Content\Images\Ribbon\remove_noise_64x64.png" />
+    <Resource Include="Content\Images\Ribbon\remove_objects_24x24.png" />
+    <Resource Include="Content\Images\Ribbon\remove_objects_64x64.png" />
+    <Resource Include="Content\Images\Ribbon\dilation_24x24.png" />
+    <Resource Include="Content\Images\Ribbon\dilation_64x64.png" />
+    <Resource Include="Content\Images\Ribbon\erosion_24x24.png" />
+    <Resource Include="Content\Images\Ribbon\erosion_64x64.png" />
+    <Resource Include="Content\Images\Ribbon\auto_crop_24x24.png" />
+    <Resource Include="Content\Images\Ribbon\auto_crop_64x64.png" />
+    <Resource Include="Content\Images\Ribbon\auto_rotate_24x24.png" />
+    <Resource Include="Content\Images\Ribbon\auto_rotate_64x64.png" />
+    <Resource Include="Content\Images\Ribbon\crop_24x24.png" />
+    <Resource Include="Content\Images\Ribbon\crop_64x64.png" />
+    <Resource Include="Content\Images\Ribbon\rotate_24x24.png" />
+    <Resource Include="Content\Images\Ribbon\rotate_64x64.png" />
+    <Resource Include="Content\Images\Ribbon\brightness_24x24.png" />
+    <Resource Include="Content\Images\Ribbon\brightness_64x64.png" />
+    <Resource Include="Content\Images\Ribbon\contrast_24x24.png" />
+    <Resource Include="Content\Images\Ribbon\contrast_64x64.png" />
+    <Resource Include="Content\Images\Ribbon\gamma_24x24.png" />
+    <Resource Include="Content\Images\Ribbon\gamma_64x64.png" />
+    <Resource Include="Content\Images\Ribbon\black_white_24x24.png" />
+    <Resource Include="Content\Images\Ribbon\black_white_64x64.png" />
+    <Resource Include="Content\Images\Ribbon\paste_24x24.png" />
+    <Resource Include="Content\Images\Ribbon\paste_64x64.png" />
+    <Resource Include="Content\Images\Ribbon\copy_24x24.png" />
+    <Resource Include="Content\Images\Ribbon\copy_64x64.png" />
+    <Resource Include="Content\Images\Ribbon\horizontal_line_24x24.png" />
+    <Resource Include="Content\Images\Ribbon\horizontal_line_64x64.png" />
+    <Resource Include="Content\Images\Ribbon\rectangle_24x24.png" />
+    <Resource Include="Content\Images\Ribbon\rectangle_64x64.png" />
+    <Resource Include="Content\Images\Ribbon\vertical_line_24x24.png" />
+    <Resource Include="Content\Images\Ribbon\vertical_line_64x64.png" />
+    <Resource Include="Content\Images\Ribbon\clear_markup_24x24.png" />
+    <Resource Include="Content\Images\Ribbon\clear_markup_64x64.png" />
+    <Resource Include="Content\Images\Ribbon\enable_markup_24x24.png" />
+    <Resource Include="Content\Images\Ribbon\enable_markup_48x48.png" />
+    <Resource Include="Content\Images\Ribbon\fit_height_24x24.png" />
+    <Resource Include="Content\Images\Ribbon\fit_height_64x64.png" />
+    <Resource Include="Content\Images\Ribbon\fit_size_24x24.png" />
+    <Resource Include="Content\Images\Ribbon\fit_size_64x64.png" />
+    <Resource Include="Content\Images\Ribbon\fit_width_24x24.png" />
+    <Resource Include="Content\Images\Ribbon\fit_width_64x64.png" />
+    <Resource Include="Content\Images\Ribbon\zoom_in_24x24.png" />
+    <Resource Include="Content\Images\Ribbon\zoom_in_64x64.png" />
+    <Resource Include="Content\Images\Ribbon\zoom_out_24x24.png" />
+    <Resource Include="Content\Images\Ribbon\zoom_out_64x64.png" />
     <Resource Include="Content\Cursors\HandMousePressed.cur" />
     <Resource Include="Content\Cursors\HandMouseReleased.cur" />
     <Resource Include="Content\Images\Ribbon\remove_24x24.png" />

@@ -7,7 +7,7 @@
         <Setter Property="Width" Value="200" />
         <Setter Property="Margin" Value="10,0,10,0"/>
     </Style>
-    <Style x:Key="ProjectCreationButton" TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
+    <Style x:Key="DialogFormButton" TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
         <Setter Property="Width" Value="100" />
         <Setter Property="Margin" Value="10,0,10,0"/>
     </Style>

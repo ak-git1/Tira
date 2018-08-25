@@ -3,8 +3,8 @@ using System.Globalization;
 using System.Threading;
 using System.Windows;
 using System.Windows.Threading;
+using Ak.Framework.Wpf.Culture;
 using Tira.App.Logic.Extensions;
-using Tira.App.Logic.Helpers;
 using Tira.App.Logic.ViewModels;
 using Tira.App.Windows;
 using Tira.Logic.Helpers;
@@ -89,7 +89,7 @@ namespace Tira.App
             {
                 // Setting interface language
                 Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo(LanguageSettings.CurrentLanguageCode);
-                CultureResources.ChangeCulture(new CultureInfo(LanguageSettings.CurrentLanguageCode));
+                CultureResourcesBase.ChangeCulture(new CultureInfo(LanguageSettings.CurrentLanguageCode));
             }
             catch (Exception ex)
             {

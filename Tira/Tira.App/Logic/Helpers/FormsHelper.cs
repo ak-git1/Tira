@@ -7,7 +7,7 @@ namespace Tira.App.Logic.Helpers
     /// <summary>
     /// Class for execution operation with forms
     /// </summary>
-    internal static class FormsHelper
+    public static class FormsHelper
     {
         #region Public methods
 

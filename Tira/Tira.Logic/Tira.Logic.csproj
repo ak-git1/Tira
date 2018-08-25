@@ -45,10 +45,11 @@
       <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
-      <HintPath>..\packages\NLog.4.5.8\lib\net45\NLog.dll</HintPath>
+      <HintPath>..\packages\NLog.4.5.9\lib\net45\NLog.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.SQLite, Version=1.0.109.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Data.SQLite.Core.1.0.109.1\lib\net46\System.Data.SQLite.dll</HintPath>
@@ -74,8 +75,10 @@
   <ItemGroup>
     <Compile Include="Enums\ActionResultType.cs" />
     <Compile Include="Enums\DrawingObjectsValidationResult.cs" />
+    <Compile Include="Enums\ExportFormat.cs" />
     <Compile Include="Enums\InterfaceLanguage.cs" />
     <Compile Include="Enums\Languages.cs" />
+    <Compile Include="Helpers\ExportFormatHelper.cs" />
     <Compile Include="Helpers\LogHelper.cs" />
     <Compile Include="Helpers\SerializationHelper.cs" />
     <Compile Include="Models\ActionResult.cs" />

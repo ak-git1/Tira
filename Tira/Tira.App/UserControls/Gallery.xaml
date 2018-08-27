@@ -5,14 +5,18 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:logic="clr-namespace:Tira.Logic.Models;assembly=Tira.Logic"
+             xmlns:dd="clr-namespace:GongSolutions.Wpf.DragDrop;assembly=GongSolutions.Wpf.DragDrop"
              mc:Ignorable="d" 
              d:DesignHeight="300" 
              d:DesignWidth="120">
     <ListBox x:Name="GalleryListBox"
-             ItemsSource="{Binding ElementName=Root, Path=Images}" 
-             HorizontalAlignment="Stretch" 
+             ItemsSource="{Binding ElementName=Root, Path=Images, Mode=TwoWay}" 
+             HorizontalAlignment="Stretch"
              SelectionMode="Multiple"
-             SelectionChanged="Selector_OnSelectionChanged">
+             SelectionChanged="Selector_OnSelectionChanged"
+             dd:DragDrop.IsDragSource="True"
+             dd:DragDrop.IsDropTarget="True"
+             dd:DragDrop.DropHandler="{Binding RelativeSource={RelativeSource Self}}">
         <ListBox.ItemTemplate>
             <DataTemplate DataType="{x:Type logic:GalleryImage}">
                 <StackPanel Margin="5" Orientation="Vertical" HorizontalAlignment="Stretch">

@@ -292,6 +292,8 @@ namespace Tira.App.Logic.ViewModels
             ImageFitSizeCommand = new NotifyCommand(_ => ImageFitSize(), _ => CanPerformOperationsWithImage());
             ImageFitWidthCommand = new NotifyCommand(_ => ImageFitWidth(), _ => CanPerformOperationsWithImage());
             ImageFitHeightCommand = new NotifyCommand(_ => ImageFitHeight(), _ => CanPerformOperationsWithImage());
+
+            Images.ListChanged += ImagesOnListChanged;
         }
 
         #endregion
@@ -473,6 +475,19 @@ namespace Tira.App.Logic.ViewModels
         #region Gallery operations
 
         /// <summary>
+        /// Fills the gallery control
+        /// </summary>
+        public void FillGallery()
+        {
+            _images = new BindingList<GalleryImage>();
+            if (Project.Gallery.Images.Count > 0)
+                foreach (GalleryImage galleryImage in Project.Gallery.Images)
+                    _images.Add(galleryImage);
+
+            OnPropertyChanged(() => Images);
+        }
+
+        /// <summary>
         /// Adds images to gallery
         /// </summary>
         private void AddImagesToGallery()
@@ -502,19 +517,6 @@ namespace Tira.App.Logic.ViewModels
             {
                 FormsHelper.ShowMessage(Resources.NoImageToRemoveWarning_Text, Resources.NoImageToRemoveWarning_Caption);
             }
-        }
-
-        /// <summary>
-        /// Fills the gallery control
-        /// </summary>
-        private void FillGallery()
-        {
-            _images = new BindingList<GalleryImage>();
-            if (Project.Gallery.Images.Count > 0)
-                foreach (GalleryImage galleryImage in Project.Gallery.Images)
-                    _images.Add(galleryImage);
-
-            OnPropertyChanged(() => Images);
         }
 
         #endregion
@@ -628,9 +630,18 @@ namespace Tira.App.Logic.ViewModels
                     Width = 150
                 });
             OnPropertyChanged(() => DataGridColumns);
-        }        
+        }
 
         #endregion
+
+        #endregion
+
+        #region Events handlers
+
+        private void ImagesOnListChanged(object sender, ListChangedEventArgs listChangedEventArgs)
+        {
+            // TODO
+        }
 
         #endregion
     }

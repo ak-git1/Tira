@@ -303,7 +303,7 @@
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <userControls:Gallery Grid.Column="0" 
+            <userControls:Gallery Grid.Column="0"
                                   Images="{Binding Images, Mode=TwoWay}" 
                                   GalleryImageSelected="{binding:EventBinding Command=HandleGalleryImageSelectedCommand, CommandParameter=$e}"
                                   GalleryImagesUidsSelected="{binding:EventBinding Command=HandleGalleryImagesIdsSelectedCommand, CommandParameter=$e}"/>

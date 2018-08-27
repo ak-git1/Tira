@@ -1,9 +1,7 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using Ak.Framework.Core.Extensions;
 using Tira.App.Logic.Events;
 using Tira.Logic.Models;
 

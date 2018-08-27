@@ -8,7 +8,11 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" 
              d:DesignWidth="120">
-    <ListBox ItemsSource="{Binding ElementName=Root, Path=Images}" HorizontalAlignment="Stretch" SelectionChanged="Selector_OnSelectionChanged">
+    <ListBox x:Name="GalleryListBox"
+             ItemsSource="{Binding ElementName=Root, Path=Images}" 
+             HorizontalAlignment="Stretch" 
+             SelectionMode="Multiple"
+             SelectionChanged="Selector_OnSelectionChanged">
         <ListBox.ItemTemplate>
             <DataTemplate DataType="{x:Type logic:GalleryImage}">
                 <StackPanel Margin="5" Orientation="Vertical" HorizontalAlignment="Stretch">

@@ -1,9 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Media.Imaging;
 using Ak.Framework.Core.Helpers;
@@ -52,6 +56,11 @@ namespace Tira.App.Logic.ViewModels
         /// </summary>
         private bool _imageLoadedToViewer;
 
+        /// <summary>
+        /// Data grid columns
+        /// </summary>
+        private ObservableCollection<DataGridColumn> _dataGridColumns;
+
         #endregion
 
         #region Properties
@@ -80,7 +89,7 @@ namespace Tira.App.Logic.ViewModels
         }
 
         /// <summary>
-        /// Gets or sets the image.
+        /// Selected image
         /// </summary>
         public BitmapSource SelectedImage
         {
@@ -89,6 +98,37 @@ namespace Tira.App.Logic.ViewModels
             {
                 _selectedImage = value;
                 OnPropertyChanged(() => SelectedImage);
+            }
+        }
+
+        /// <summary>
+        /// Selected gallery image
+        /// </summary>
+        public GalleryImage SelectedGalleryImage
+        {
+            get => _selectedGalleryImage;
+            set
+            {
+                _selectedGalleryImage = value;
+                OnPropertyChanged(() => SelectedGalleryImage);
+            }
+        }
+
+        /// <summary>
+        /// Gets the selected images uids.
+        /// </summary>
+        public List<Guid> SelectedImagesUids { get; private set; }
+
+        /// <summary>
+        /// Data grid columns
+        /// </summary>
+        public ObservableCollection<DataGridColumn> DataGridColumns
+        {
+            get => _dataGridColumns;
+            private set
+            {
+                _dataGridColumns = value;
+                OnPropertyChanged(() => DataGridColumns);
             }
         }
 
@@ -159,6 +199,11 @@ namespace Tira.App.Logic.ViewModels
         /// </summary>
         public INotifyCommand PerformOcrCommand { get; }
 
+        /// <summary>
+        /// Command for showing project settings window
+        /// </summary>
+        public INotifyCommand ShowProjectSettingsWindowCommand { get; }
+
         #region Gallery commands
 
         /// <summary>
@@ -175,6 +220,11 @@ namespace Tira.App.Logic.ViewModels
         /// Command for handling gallery image selection
         /// </summary>
         public INotifyCommand HandleGalleryImageSelectedCommand { get; }
+
+        /// <summary>
+        /// Command for handling gallery images ids selection
+        /// </summary>
+        public INotifyCommand HandleGalleryImagesIdsSelectedCommand { get; }
 
         #endregion
 
@@ -219,19 +269,24 @@ namespace Tira.App.Logic.ViewModels
         {
             Project = project;
             FillGallery();
+            FillDataGridColumns();
 
             CreateProjectCommand = new NotifyCommand(_ => CreateProject());
             OpenProjectCommand = new NotifyCommand(_ => OpenProject());
             SaveProjectCommand = new NotifyCommand(_ => SaveProject());
-            ExportProjectDataCommand = new NotifyCommand(ExportProjectData);
+            ExportProjectDataCommand = new NotifyCommand(o => ExportProjectData((ExportFormat)o));
             ShowSettingsWindowCommand = new NotifyCommand(_ => ShowSettingsWindow());
             ShowHelpCommand = new NotifyCommand(_ => ShowHelp());
             ShowAboutWindowCommand = new NotifyCommand(_ => ShowAboutWindow());
-            CloseWindowCommand = new NotifyCommand(CloseWindow);
+            CloseWindowCommand = new NotifyCommand(o => CloseWindow((Window)o));
             PerformOcrCommand = new NotifyCommand(_ => PerformOcr());
+            ShowProjectSettingsWindowCommand = new NotifyCommand(_ => ShowProjectSettingsWindow());
+
             AddImagesToGalleryCommand = new NotifyCommand(_ => AddImagesToGallery());
             RemoveImagesFromGalleryCommand = new NotifyCommand(_ => RemoveImagesFromGallery());
             HandleGalleryImageSelectedCommand = new NotifyCommand(e => FillGalleryImage((GalleryImageEventArgs)e));
+            HandleGalleryImagesIdsSelectedCommand = new NotifyCommand(e => GetGalleryImagesUids((GalleryImagesUidsSelectionEventArgs)e));
+
             ImageZoomInCommand = new NotifyCommand(_ => ImageZoomIn(), _ => CanPerformOperationsWithImage());
             ImageZoomOutCommand = new NotifyCommand(_ => ImageZoomOut(), _ => CanPerformOperationsWithImage());
             ImageFitSizeCommand = new NotifyCommand(_ => ImageFitSize(), _ => CanPerformOperationsWithImage());
@@ -332,9 +387,9 @@ namespace Tira.App.Logic.ViewModels
         /// Closes the window
         /// </summary>
         /// <param name="window">Window</param>
-        private void CloseWindow(object window)
+        private void CloseWindow(Window window)
         {
-            ((Window)window).Close();
+            window.Close();
         }
 
         /// <summary>
@@ -364,10 +419,8 @@ namespace Tira.App.Logic.ViewModels
         /// Exports project data
         /// </summary>
         /// <param name="exportFormat">ExportFormat</param>
-        private void ExportProjectData(object exportFormat)
+        private void ExportProjectData(ExportFormat exportFormat)
         {
-            ExportFormat e = (ExportFormat) exportFormat;
-
             try
             {
                 ActionResult result = Project.CheckRecognitionResultExportAllowed();
@@ -379,12 +432,12 @@ namespace Tira.App.Logic.ViewModels
                 {
                     SaveFileDialog exportDataFileDialog = new SaveFileDialog
                     {
-                        FileName = $"{Project.Name}.{ExportFormatHelper.GetFileExtension(e)}",
-                        Filter = ExportFormatHelper.GetFileFilterForSaveDialog(e)
+                        FileName = $"{Project.Name}.{ExportFormatHelper.GetFileExtension(exportFormat)}",
+                        Filter = ExportFormatHelper.GetFileFilterForSaveDialog(exportFormat)
                     };
                     if (exportDataFileDialog.ShowDialog() == DialogResult.OK)
                     {
-                        Project.Export(exportDataFileDialog.FileName, e);
+                        Project.Export(exportDataFileDialog.FileName, exportFormat);
                         Process.Start(Path.GetDirectoryName(exportDataFileDialog.FileName));
                     }
                 }
@@ -392,6 +445,28 @@ namespace Tira.App.Logic.ViewModels
             catch (Exception exception)
             {
                 LogHelper.Logger.Error(exception, "Unable to export project recognized data");
+            }
+        }
+
+        /// <summary>
+        /// Shows project settings window
+        /// </summary>
+        private void ShowProjectSettingsWindow()
+        {
+            try
+            {
+                ProjectSettingsViewModel vm = new ProjectSettingsViewModel(Project.DataColumns);
+                bool? result = ShowDialogAgent.Instance.ShowDialog<ProjectSettingsWindow>(vm);
+                if (result.HasValue && result.Value)
+                {
+                    Project.DataColumns = new List<DataColumn>(vm.DataColumns);
+                    FillDataGridColumns();
+                }
+            }
+            catch (Exception ex)
+            {
+                LogHelper.Logger.Error(ex, "Unable to show project settings window.");
+                FormsHelper.ShowUnexpectedError();
             }
         }
 
@@ -415,8 +490,18 @@ namespace Tira.App.Logic.ViewModels
         /// </summary>
         private void RemoveImagesFromGallery()
         {
-            //TODO
-            // Если изображений нет, то нужно скрывать панель работы с изображением
+            if (SelectedImagesUids != null && SelectedImagesUids.Any())
+            {
+                Project.Gallery.Images.RemoveAll(r => SelectedImagesUids.Contains(r.Uid));
+                if (SelectedImagesUids.Contains(SelectedGalleryImage.Uid))
+                    ClearImageViewer();
+
+                FillGallery();
+            }
+            else
+            {
+                FormsHelper.ShowMessage(Resources.NoImageToRemoveWarning_Text, Resources.NoImageToRemoveWarning_Caption);
+            }
         }
 
         /// <summary>
@@ -426,10 +511,8 @@ namespace Tira.App.Logic.ViewModels
         {
             _images = new BindingList<GalleryImage>();
             if (Project.Gallery.Images.Count > 0)
-            {
                 foreach (GalleryImage galleryImage in Project.Gallery.Images)
                     _images.Add(galleryImage);
-            }
 
             OnPropertyChanged(() => Images);
         }
@@ -441,14 +524,37 @@ namespace Tira.App.Logic.ViewModels
         /// <summary>
         /// Fills the gallery image.
         /// </summary>
+        /// <param name="args">The <see cref="GalleryImageEventArgs"/> instance containing the event data.</param>
         private void FillGalleryImage(GalleryImageEventArgs args)
         {
             ImageViewerZoomManager = new ZoomManager();
-            _selectedGalleryImage = args.Image;
-            SelectedImage = new BitmapImage(new Uri(_selectedGalleryImage.ImageFilePath));
+            SelectedGalleryImage = args.Image;
+            SelectedImage = new BitmapImage(new Uri(SelectedGalleryImage.ImageFilePath));
             OnPropertyChanged(() => ImageViewerZoomManager);
 
             ImageLoadedToViewer = true;
+        }
+
+        /// <summary>
+        /// Clears image viewer
+        /// </summary>
+        private void ClearImageViewer()
+        {
+            ImageViewerZoomManager = new ZoomManager();
+            SelectedGalleryImage = null;
+            SelectedImage = null;
+            OnPropertyChanged(() => ImageViewerZoomManager);
+
+            ImageLoadedToViewer = false;
+        }
+
+        /// <summary>
+        /// Gets gallery images uids 
+        /// </summary>
+        /// <param name="args">The <see cref="GalleryImagesUidsSelectionEventArgs"/> instance containing the event data.</param>
+        private void GetGalleryImagesUids(GalleryImagesUidsSelectionEventArgs args)
+        {
+            SelectedImagesUids = args.Uids;
         }
 
         /// <summary>
@@ -457,7 +563,7 @@ namespace Tira.App.Logic.ViewModels
         /// <returns></returns>
         private bool CanPerformOperationsWithImage()
         {
-            return ImageLoadedToViewer && _selectedGalleryImage != null && SelectedImage != null;
+            return ImageLoadedToViewer && SelectedGalleryImage != null && SelectedImage != null;
         }
 
         /// <summary>
@@ -504,6 +610,25 @@ namespace Tira.App.Logic.ViewModels
             ImageViewerZoomManager.FitMode = FitOption.FitWidth;
             OnPropertyChanged(() => ImageViewerZoomManager);
         }
+
+        #endregion
+
+        #region DataGrid operations
+
+        /// <summary>
+        /// Fills the data grid columns.
+        /// </summary>
+        private void FillDataGridColumns()
+        {
+            DataGridColumns = new ObservableCollection<DataGridColumn>();
+            foreach (DataColumn dataColumn in Project.DataColumns)
+                DataGridColumns.Add(new DataGridTextColumn
+                {
+                    Header = dataColumn.Name,
+                    Width = 150
+                });
+            OnPropertyChanged(() => DataGridColumns);
+        }        
 
         #endregion
 

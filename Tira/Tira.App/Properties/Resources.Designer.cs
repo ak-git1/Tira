@@ -115,6 +115,78 @@ namespace Tira.App.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        public static string DataColumnWindow_Button_Cancel {
+            get {
+                return ResourceManager.GetString("DataColumnWindow_Button_Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save.
+        /// </summary>
+        public static string DataColumnWindow_Button_Save {
+            get {
+                return ResourceManager.GetString("DataColumnWindow_Button_Save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Type:.
+        /// </summary>
+        public static string DataColumnWindow_Label_ColumnType {
+            get {
+                return ResourceManager.GetString("DataColumnWindow_Label_ColumnType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name:.
+        /// </summary>
+        public static string DataColumnWindow_Label_Name {
+            get {
+                return ResourceManager.GetString("DataColumnWindow_Label_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove extra spaces:.
+        /// </summary>
+        public static string DataColumnWindow_Label_RemoveExtraSpaces {
+            get {
+                return ResourceManager.GetString("DataColumnWindow_Label_RemoveExtraSpaces", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove line breaks:.
+        /// </summary>
+        public static string DataColumnWindow_Label_RemoveLineBreaks {
+            get {
+                return ResourceManager.GetString("DataColumnWindow_Label_RemoveLineBreaks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove punctuation:.
+        /// </summary>
+        public static string DataColumnWindow_Label_RemovePunctuation {
+            get {
+                return ResourceManager.GetString("DataColumnWindow_Label_RemovePunctuation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Data column.
+        /// </summary>
+        public static string DataColumnWindow_Title {
+            get {
+                return ResourceManager.GetString("DataColumnWindow_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error.
         /// </summary>
         public static string Error_Caption {
@@ -184,6 +256,24 @@ namespace Tira.App.Properties {
         public static string IntroductionWindow_ProjectDoesNotExistMessage_Text {
             get {
                 return ResourceManager.GetString("IntroductionWindow_ProjectDoesNotExistMessage_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Removing images.
+        /// </summary>
+        public static string NoImageToRemoveWarning_Caption {
+            get {
+                return ResourceManager.GetString("NoImageToRemoveWarning_Caption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You must select images to remove..
+        /// </summary>
+        public static string NoImageToRemoveWarning_Text {
+            get {
+                return ResourceManager.GetString("NoImageToRemoveWarning_Text", resourceCulture);
             }
         }
         
@@ -265,6 +355,114 @@ namespace Tira.App.Properties {
         public static string ProjectCreationWindow_Title {
             get {
                 return ResourceManager.GetString("ProjectCreationWindow_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add.
+        /// </summary>
+        public static string ProjectSettingsWindow_Button_AddDataColumn {
+            get {
+                return ResourceManager.GetString("ProjectSettingsWindow_Button_AddDataColumn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        public static string ProjectSettingsWindow_Button_Cancel {
+            get {
+                return ResourceManager.GetString("ProjectSettingsWindow_Button_Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete.
+        /// </summary>
+        public static string ProjectSettingsWindow_Button_DeleteDataColumn {
+            get {
+                return ResourceManager.GetString("ProjectSettingsWindow_Button_DeleteDataColumn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit.
+        /// </summary>
+        public static string ProjectSettingsWindow_Button_EditDataColumn {
+            get {
+                return ResourceManager.GetString("ProjectSettingsWindow_Button_EditDataColumn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save.
+        /// </summary>
+        public static string ProjectSettingsWindow_Button_Save {
+            get {
+                return ResourceManager.GetString("ProjectSettingsWindow_Button_Save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Type.
+        /// </summary>
+        public static string ProjectSettingsWindow_GridColumn_ColumnTypeName {
+            get {
+                return ResourceManager.GetString("ProjectSettingsWindow_GridColumn_ColumnTypeName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name.
+        /// </summary>
+        public static string ProjectSettingsWindow_GridColumn_Name {
+            get {
+                return ResourceManager.GetString("ProjectSettingsWindow_GridColumn_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Extra spaces.
+        /// </summary>
+        public static string ProjectSettingsWindow_GridColumn_RemoveExtraSpaces {
+            get {
+                return ResourceManager.GetString("ProjectSettingsWindow_GridColumn_RemoveExtraSpaces", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Line breaks.
+        /// </summary>
+        public static string ProjectSettingsWindow_GridColumn_RemoveLineBreaks {
+            get {
+                return ResourceManager.GetString("ProjectSettingsWindow_GridColumn_RemoveLineBreaks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Punctuation.
+        /// </summary>
+        public static string ProjectSettingsWindow_GridColumn_RemovePunctuation {
+            get {
+                return ResourceManager.GetString("ProjectSettingsWindow_GridColumn_RemovePunctuation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter data columns for recognition:.
+        /// </summary>
+        public static string ProjectSettingsWindow_Label_DataGridLabelText {
+            get {
+                return ResourceManager.GetString("ProjectSettingsWindow_Label_DataGridLabelText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Project settings.
+        /// </summary>
+        public static string ProjectSettingsWindow_Title {
+            get {
+                return ResourceManager.GetString("ProjectSettingsWindow_Title", resourceCulture);
             }
         }
         

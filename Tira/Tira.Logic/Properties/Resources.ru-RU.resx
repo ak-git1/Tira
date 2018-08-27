@@ -141,4 +141,16 @@
   <data name="Language_En" xml:space="preserve">
     <value>Английский</value>
   </data>
+  <data name="DataColumnType_AnySymbols" xml:space="preserve">
+    <value>Любые символы</value>
+  </data>
+  <data name="DataColumnType_EmptyColumn" xml:space="preserve">
+    <value>Пустой столбец</value>
+  </data>
+  <data name="DataColumnType_LettersOnly" xml:space="preserve">
+    <value>Только буквы</value>
+  </data>
+  <data name="DataColumnType_NumbersOnly" xml:space="preserve">
+    <value>Только цифры</value>
+  </data>
 </root>

@@ -385,4 +385,70 @@ Do you want to remove it from the list?</value>
   <data name="Ribbon_Button_Export_Csv" xml:space="preserve">
     <value>CSV</value>
   </data>
+  <data name="NoImageToRemoveWarning_Text" xml:space="preserve">
+    <value>You must select images to remove.</value>
+  </data>
+  <data name="NoImageToRemoveWarning_Caption" xml:space="preserve">
+    <value>Removing images</value>
+  </data>
+  <data name="ProjectSettingsWindow_Title" xml:space="preserve">
+    <value>Project settings</value>
+  </data>
+  <data name="ProjectSettingsWindow_Button_Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="ProjectSettingsWindow_Button_Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="ProjectSettingsWindow_GridColumn_Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="ProjectSettingsWindow_GridColumn_ColumnTypeName" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="ProjectSettingsWindow_GridColumn_RemoveExtraSpaces" xml:space="preserve">
+    <value>Extra spaces</value>
+  </data>
+  <data name="ProjectSettingsWindow_GridColumn_RemoveLineBreaks" xml:space="preserve">
+    <value>Line breaks</value>
+  </data>
+  <data name="ProjectSettingsWindow_GridColumn_RemovePunctuation" xml:space="preserve">
+    <value>Punctuation</value>
+  </data>
+  <data name="ProjectSettingsWindow_Button_AddDataColumn" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="ProjectSettingsWindow_Button_EditDataColumn" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="ProjectSettingsWindow_Button_DeleteDataColumn" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="ProjectSettingsWindow_Label_DataGridLabelText" xml:space="preserve">
+    <value>Enter data columns for recognition:</value>
+  </data>
+  <data name="DataColumnWindow_Title" xml:space="preserve">
+    <value>Data column</value>
+  </data>
+  <data name="DataColumnWindow_Button_Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="DataColumnWindow_Button_Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="DataColumnWindow_Label_Name" xml:space="preserve">
+    <value>Name:</value>
+  </data>
+  <data name="DataColumnWindow_Label_ColumnType" xml:space="preserve">
+    <value>Type:</value>
+  </data>
+  <data name="DataColumnWindow_Label_RemoveExtraSpaces" xml:space="preserve">
+    <value>Remove extra spaces:</value>
+  </data>
+  <data name="DataColumnWindow_Label_RemoveLineBreaks" xml:space="preserve">
+    <value>Remove line breaks:</value>
+  </data>
+  <data name="DataColumnWindow_Label_RemovePunctuation" xml:space="preserve">
+    <value>Remove punctuation:</value>
+  </data>
 </root>

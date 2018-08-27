@@ -2,6 +2,7 @@
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="Brushes.xaml" />
         <ResourceDictionary Source="Buttons.xaml" />
+        <ResourceDictionary Source="CheckBoxes.xaml" />
         <ResourceDictionary Source="ComboBoxes.xaml" />
         <ResourceDictionary Source="Grids.xaml" />
         <ResourceDictionary Source="GridSplitters.xaml" />

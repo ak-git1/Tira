@@ -3,11 +3,69 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:properties="clr-namespace:Tira.App.Properties"
+        xmlns:viewModels="clr-namespace:Tira.App.Logic.ViewModels"
+        xmlns:dialogs="clr-namespace:Ak.Framework.Wpf.Dialogs;assembly=Ak.Framework.Wpf"
         mc:Ignorable="d"
-        Title="ProjectSettingsWindow" 
-        Height="450" 
-        Width="800">
-    <Grid>
-        
+        Title="{x:Static properties:Resources.ProjectSettingsWindow_Title}" 
+        Height="510" 
+        Width="800"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        ShowInTaskbar="False"
+        d:DataContext="{d:DesignInstance Type=viewModels:ProjectSettingsViewModel, IsDesignTimeCreatable=True}">
+    <Grid Style="{StaticResource ExternalGrid}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="650"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Label Grid.Row="0" Grid.Column="0" Content="{x:Static properties:Resources.ProjectSettingsWindow_Label_DataGridLabelText}"/>
+        <DataGrid x:Name="DataColumnsGrid"
+                  Grid.Row="1" 
+                  Grid.Column="0"
+                  ItemsSource="{Binding DataColumns, Mode=TwoWay}"
+                  Height="400"
+                  Margin="5"
+                  AutoGenerateColumns="False"
+                  CanUserAddRows="False"
+                  CanUserDeleteRows="False"
+                  CanUserReorderColumns="False"
+                  CanUserSortColumns="False"
+                  SelectionMode="Single"
+                  SelectionUnit="FullRow"
+                  IsReadOnly="True">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="{x:Static properties:Resources.ProjectSettingsWindow_GridColumn_Name}" Binding="{Binding Name}" Width="200" />
+                <DataGridTextColumn Header="{x:Static properties:Resources.ProjectSettingsWindow_GridColumn_ColumnTypeName}" Binding="{Binding Path=ColumnType}" Width="150" />
+                <DataGridCheckBoxColumn Header="{x:Static properties:Resources.ProjectSettingsWindow_GridColumn_RemoveExtraSpaces}" Binding="{Binding Path=RemoveExtraSpaces}" Width="80" />
+                <DataGridCheckBoxColumn Header="{x:Static properties:Resources.ProjectSettingsWindow_GridColumn_RemoveLineBreaks}" Binding="{Binding Path=RemoveLineBreaks}" Width="80" />
+                <DataGridCheckBoxColumn Header="{x:Static properties:Resources.ProjectSettingsWindow_GridColumn_RemovePunctuation}" Binding="{Binding Path=RemovePunctuation}" Width="80" />
+            </DataGrid.Columns>
+        </DataGrid>
+        <StackPanel Grid.Row="1" Grid.Column="1">
+            <Button Content="{x:Static properties:Resources.ProjectSettingsWindow_Button_AddDataColumn}" 
+                    Style="{StaticResource VerticalStackButton}"
+                    Command="{Binding AddDataColumnCommand}"/>
+            <Button Content="{x:Static properties:Resources.ProjectSettingsWindow_Button_EditDataColumn}" 
+                    Style="{StaticResource VerticalStackButton}"
+                    Command="{Binding EditDataColumnCommand}"
+                    CommandParameter="{Binding ElementName=DataColumnsGrid, Path=SelectedItem}"/>
+            <Button Content="{x:Static properties:Resources.ProjectSettingsWindow_Button_DeleteDataColumn}" 
+                    Style="{StaticResource VerticalStackButton}"
+                    Command="{Binding DeleteDataColumnCommand}"
+                    CommandParameter="{Binding ElementName=DataColumnsGrid, Path=SelectedItem}"/>
+        </StackPanel>
+        <StackPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Content="{x:Static properties:Resources.ProjectSettingsWindow_Button_Save}" Style="{StaticResource DialogFormButton}"
+                    dialogs:ShowDialogButtonHelper.DialogResult="True" />
+            <Button Content="{x:Static properties:Resources.ProjectSettingsWindow_Button_Cancel}" Style="{StaticResource DialogFormButton}"
+                    IsCancel="True" />
+        </StackPanel>
     </Grid>
 </Window>

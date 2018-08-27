@@ -47,8 +47,8 @@
     <Reference Include="Ak.Framework.Core, Version=1.0.3.0, Culture=neutral, PublicKeyToken=42ef31747320a29d, processorArchitecture=MSIL">
       <HintPath>..\packages\Ak.Framework.Core.1.0.3\lib\Ak.Framework.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Ak.Framework.Wpf, Version=1.6.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Ak.Framework.Wpf.1.6.1\lib\Ak.Framework.Wpf.dll</HintPath>
+    <Reference Include="Ak.Framework.Wpf, Version=1.7.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ak.Framework.Wpf.1.7.0\lib\Ak.Framework.Wpf.dll</HintPath>
     </Reference>
     <Reference Include="ControlzEx, Version=3.0.2.4, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\ControlzEx.3.0.2.4\lib\net462\ControlzEx.dll</HintPath>
@@ -105,13 +105,16 @@
     </ApplicationDefinition>
     <Compile Include="Logic\Enums\FitOption.cs" />
     <Compile Include="Logic\Enums\MessageType.cs" />
-    <Compile Include="Logic\Events\ExceptionEventArgs.cs" />
+    <Compile Include="Logic\Events\GalleryImageEventArgs.cs" />
+    <Compile Include="Logic\Events\GalleryImagesUidsSelectionEventArgs.cs" />
     <Compile Include="Logic\Extensions\ExceptionExtensions.cs" />
     <Compile Include="Logic\Helpers\CultureResources.cs" />
     <Compile Include="Logic\Helpers\FormsHelper.cs" />
     <Compile Include="Logic\Helpers\ZoomManager.cs" />
     <Compile Include="Logic\ViewModels\AboutViewModel.cs" />
+    <Compile Include="Logic\ViewModels\DataColumnViewModel.cs" />
     <Compile Include="Logic\ViewModels\ProjectCreationViewModel.cs" />
+    <Compile Include="Logic\ViewModels\ProjectSettingsViewModel.cs" />
     <Compile Include="Logic\ViewModels\ProjectViewModel.cs" />
     <Compile Include="Logic\ViewModels\SettingsViewModel.cs" />
     <Compile Include="Properties\Annotations.cs" />
@@ -129,6 +132,9 @@
     <Compile Include="Windows\AboutWindow.xaml.cs">
       <DependentUpon>AboutWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Windows\DataColumnWindow.xaml.cs">
+      <DependentUpon>DataColumnWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\ExceptionWindow.xaml.cs">
       <DependentUpon>ExceptionWindow.xaml</DependentUpon>
     </Compile>
@@ -137,9 +143,6 @@
     </Compile>
     <Compile Include="Windows\ProjectCreationWindow.xaml.cs">
       <DependentUpon>ProjectCreationWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Windows\ProjectDataColumnsWindow.xaml.cs">
-      <DependentUpon>ProjectDataColumnsWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\ProjectSettingsWindow.xaml.cs">
       <DependentUpon>ProjectSettingsWindow.xaml</DependentUpon>
@@ -159,6 +162,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Themes\Common\Buttons.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Common\CheckBoxes.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -202,6 +209,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Windows\DataColumnWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Windows\ExceptionWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -215,10 +226,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Windows\ProjectCreationWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Windows\ProjectDataColumnsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

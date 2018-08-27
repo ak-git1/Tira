@@ -13,7 +13,7 @@
                      xmlns:fluent="urn:fluent-ribbon"                     
                      mc:Ignorable="d"
                      Title="{x:Static properties:Resources.Application_FullName}"
-                     Height="800" 
+                     Height="800"
                      Width="1280"
                      WindowStartupLocation="CenterScreen"                     
                      d:DataContext="{d:DesignInstance Type=viewModels:ProjectViewModel, IsDesignTimeCreatable=True}">
@@ -111,20 +111,22 @@
                                     ToolTip="{x:Static properties:Resources.Ribbon_Button_ProjectSettings}"
                                     LargeIcon="/Tira.App;component/Content/Images/Ribbon/project_settings_64x64.png"
                                     Icon="/Tira.App;component/Content/Images/Ribbon/project_settings_24x24.png"
-                                    SizeDefinition="Large" />
+                                    SizeDefinition="Large"
+                                    Command="{Binding ShowProjectSettingsWindowCommand}"/>
                 </fluent:RibbonGroupBox>
                 <fluent:RibbonGroupBox Header="{x:Static properties:Resources.Ribbon_GroupBox_Gallery}">
                     <fluent:Button  Header="{x:Static properties:Resources.Ribbon_Button_AddImages}"
                                     ToolTip="{x:Static properties:Resources.Ribbon_Button_AddImages}"
                                     LargeIcon="/Tira.App;component/Content/Images/Ribbon/add_64x64.png"
                                     Icon="/Tira.App;component/Content/Images/Ribbon/add_24x24.png"
-                                    SizeDefinition="Large" 
+                                    SizeDefinition="Large"
                                     Command="{Binding AddImagesToGalleryCommand}"/>
                     <fluent:Button  Header="{x:Static properties:Resources.Ribbon_Button_RemoveImages}"
                                     ToolTip="{x:Static properties:Resources.Ribbon_Button_RemoveImages}"
                                     LargeIcon="/Tira.App;component/Content/Images/Ribbon/remove_64x64.png"
                                     Icon="/Tira.App;component/Content/Images/Ribbon/remove_24x24.png"
-                                    SizeDefinition="Large" />
+                                    SizeDefinition="Large"
+                                    Command="{Binding RemoveImagesFromGalleryCommand}"/>
                 </fluent:RibbonGroupBox>
             </fluent:RibbonTabItem>
             <fluent:RibbonTabItem Header="{x:Static properties:Resources.Ribbon_TabItem_Image}"
@@ -301,7 +303,10 @@
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <userControls:Gallery Grid.Column="0" Images="{Binding Images, Mode=TwoWay}" GalleryImageSelected="{binding:EventBinding Command=HandleGalleryImageSelectedCommand, CommandParameter=$e}"/>
+            <userControls:Gallery Grid.Column="0" 
+                                  Images="{Binding Images, Mode=TwoWay}" 
+                                  GalleryImageSelected="{binding:EventBinding Command=HandleGalleryImageSelectedCommand, CommandParameter=$e}"
+                                  GalleryImagesUidsSelected="{binding:EventBinding Command=HandleGalleryImagesIdsSelectedCommand, CommandParameter=$e}"/>
             <GridSplitter Grid.Column="1" ShowsPreview="False" Width="3" HorizontalAlignment="Center" VerticalAlignment="Stretch" Style="{StaticResource VerticalGridSplitter}" />
             <Grid Grid.Column="2" Margin="0,5,0,5">
                 <Grid.RowDefinitions>
@@ -319,8 +324,17 @@
                                           Scale="{Binding ImageViewerZoomManager.Scale, Mode=TwoWay}"
                                           FitMode="{Binding ImageViewerZoomManager.FitMode, Mode=TwoWay}"/>
                 <GridSplitter Grid.Row="1" ShowsPreview="False" Height="3" HorizontalAlignment="Stretch" VerticalAlignment="Center" Style="{StaticResource HorizontalGridSplitter}" />
-                <DataGrid Grid.Row="2">
-                    <!-- data -->
+                <DataGrid x:Name="DataColumnsGrid"
+                          Grid.Row="2"
+                          binding:DataGridColumnsBehavior.BindableColumns="{Binding DataGridColumns}"
+                          AutoGenerateColumns="False"
+                          CanUserAddRows="False"
+                          CanUserDeleteRows="False"
+                          CanUserReorderColumns="False"
+                          CanUserSortColumns="False"
+                          SelectionMode="Single"
+                          SelectionUnit="Cell"
+                          IsReadOnly="False">
                 </DataGrid>
             </Grid>
         </Grid>

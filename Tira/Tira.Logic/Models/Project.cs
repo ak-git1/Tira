@@ -61,7 +61,7 @@ namespace Tira.Logic.Models
         /// Data columns
         /// </summary>
         [XmlElement]
-        public List<string> DataColumns { get; set; }
+        public List<DataColumn> DataColumns { get; set; }
 
         #endregion
 
@@ -80,7 +80,7 @@ namespace Tira.Logic.Models
                 ProjectDataFolderPath = Path.Combine(Path.GetDirectoryName(projectPath), $@"{DataFolderPrefix}")
             };
             project.Gallery = new Gallery(project.ProjectDataFolderPath);
-            project.DataColumns = new List<string>();
+            project.DataColumns = new List<DataColumn>();
             project.Save();
 
             // Adding project to recent projects list
@@ -126,7 +126,7 @@ namespace Tira.Logic.Models
         /// Updates the data columns.
         /// </summary>
         /// <param name="dataColumns">Data columns.</param>
-        public void UpdateDataColumns(List<string> dataColumns)
+        public void UpdateDataColumns(List<DataColumn> dataColumns)
         {
             DataColumns = dataColumns;
             int maxNumberOfVerticalLines = DataColumns.Count - 1;

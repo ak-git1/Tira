@@ -1,6 +1,9 @@
-﻿using System.ComponentModel;
+﻿using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using Ak.Framework.Core.Extensions;
 using Tira.App.Logic.Events;
 using Tira.Logic.Models;
 
@@ -43,6 +46,13 @@ namespace Tira.App.UserControls
         /// <param name="e">The <see cref="GalleryImageEventArgs"/> instance containing the event data.</param>
         public delegate void GalleryImageSelectedHandler(object sender, GalleryImageEventArgs e);
 
+        /// <summary>
+        ///  Delegate for gallery images uids selected event
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="GalleryImagesUidsSelectionEventArgs"/> instance containing the event data.</param>
+        public delegate void GalleryImagesIdsSelectedHandler(object sender, GalleryImagesUidsSelectionEventArgs e);
+
         #endregion
 
         #region Events
@@ -51,6 +61,11 @@ namespace Tira.App.UserControls
         /// Gallery image selected event
         /// </summary>
         public event GalleryImageSelectedHandler GalleryImageSelected;
+
+        /// <summary>
+        /// Gallery images uids selected event
+        /// </summary>
+        public event GalleryImagesIdsSelectedHandler GalleryImagesUidsSelected;
 
         #endregion
 
@@ -71,7 +86,10 @@ namespace Tira.App.UserControls
         private void Selector_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (e.AddedItems.Count > 0)
-                GalleryImageSelected?.Invoke(this, new GalleryImageEventArgs((GalleryImage)e.AddedItems[0]));
+            {
+                GalleryImageSelected?.Invoke(this, new GalleryImageEventArgs((GalleryImage) e.AddedItems[0]));
+                GalleryImagesUidsSelected?.Invoke(this, new GalleryImagesUidsSelectionEventArgs(GalleryListBox.SelectedItems.Cast<GalleryImage>().ToList()));
+            }
         }
 
         #endregion

@@ -1,0 +1,53 @@
+﻿<Window x:Class="Tira.App.Windows.DataColumnWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:properties="clr-namespace:Tira.App.Properties"
+        xmlns:viewModels="clr-namespace:Tira.App.Logic.ViewModels"
+        xmlns:dialogs="clr-namespace:Ak.Framework.Wpf.Dialogs;assembly=Ak.Framework.Wpf"
+        mc:Ignorable="d"
+        Title="{x:Static properties:Resources.DataColumnWindow_Title}" 
+        Height="250" 
+        Width="500"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        ShowInTaskbar="False"
+        d:DataContext="{d:DesignInstance Type=viewModels:DataColumnViewModel, IsDesignTimeCreatable=True}">
+    <Grid Style="{StaticResource ExternalGrid}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="150"/>
+            <ColumnDefinition Width="10"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Label Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right" Content="{x:Static properties:Resources.DataColumnWindow_Label_Name}"/>
+        <TextBox Grid.Row="0" Grid.Column="2" Text="{Binding DataColumn.Name}" />
+        <Label Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" Content="{x:Static properties:Resources.DataColumnWindow_Label_ColumnType}"/>
+        <ComboBox Grid.Row="1" 
+                  Grid.Column="2" 
+                  SelectedValuePath="Key" 
+                  DisplayMemberPath="Value"
+                  SelectedValue="{Binding Path=DataColumn.ColumnType}"
+                  ItemsSource="{Binding Path=DataColumn.DataColumnTypesList, Mode=OneTime}"/>
+        <TextBlock Grid.Row="2" Grid.Column="0" TextWrapping="WrapWithOverflow" HorizontalAlignment="Right" Text="{x:Static properties:Resources.DataColumnWindow_Label_RemoveExtraSpaces}"/>
+        <CheckBox Grid.Row="2" Grid.Column="2" IsChecked="{Binding DataColumn.RemoveExtraSpaces}" />
+        <TextBlock Grid.Row="3" Grid.Column="0" TextWrapping="WrapWithOverflow" HorizontalAlignment="Right" Text="{x:Static properties:Resources.DataColumnWindow_Label_RemoveLineBreaks}"/>
+        <CheckBox Grid.Row="3" Grid.Column="2" IsChecked="{Binding DataColumn.RemoveLineBreaks}" />
+        <TextBlock Grid.Row="4" Grid.Column="0" TextWrapping="WrapWithOverflow" HorizontalAlignment="Right" Text="{x:Static properties:Resources.DataColumnWindow_Label_RemovePunctuation}" />
+        <CheckBox Grid.Row="4" Grid.Column="2" IsChecked="{Binding DataColumn.RemovePunctuation}" />
+        <StackPanel Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="3" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Content="{x:Static properties:Resources.DataColumnWindow_Button_Save}" Style="{StaticResource DialogFormButton}"
+                    dialogs:ShowDialogButtonHelper.DialogResult="True" />
+            <Button Content="{x:Static properties:Resources.DataColumnWindow_Button_Cancel}" Style="{StaticResource DialogFormButton}"
+                    IsCancel="True" />
+        </StackPanel>
+    </Grid>
+</Window>

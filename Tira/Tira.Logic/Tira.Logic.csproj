@@ -74,6 +74,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Enums\ActionResultType.cs" />
+    <Compile Include="Enums\DataColumnType.cs" />
     <Compile Include="Enums\DrawingObjectsValidationResult.cs" />
     <Compile Include="Enums\ExportFormat.cs" />
     <Compile Include="Enums\InterfaceLanguage.cs" />
@@ -82,6 +83,7 @@
     <Compile Include="Helpers\LogHelper.cs" />
     <Compile Include="Helpers\SerializationHelper.cs" />
     <Compile Include="Models\ActionResult.cs" />
+    <Compile Include="Models\DataColumn.cs" />
     <Compile Include="Models\Drawing\DrawingObjects.cs" />
     <Compile Include="Models\Drawing\Line.cs" />
     <Compile Include="Models\Gallery.cs" />

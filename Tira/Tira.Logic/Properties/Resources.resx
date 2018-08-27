@@ -121,4 +121,16 @@
   <data name="Language_En" xml:space="preserve">
     <value>English</value>
   </data>
+  <data name="DataColumnType_AnySymbols" xml:space="preserve">
+    <value>Any symbols</value>
+  </data>
+  <data name="DataColumnType_EmptyColumn" xml:space="preserve">
+    <value>Empty column</value>
+  </data>
+  <data name="DataColumnType_LettersOnly" xml:space="preserve">
+    <value>Letters only</value>
+  </data>
+  <data name="DataColumnType_NumbersOnly" xml:space="preserve">
+    <value>Numbers only</value>
+  </data>
 </root>

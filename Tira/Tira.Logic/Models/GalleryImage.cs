@@ -93,7 +93,7 @@ namespace Tira.Logic.Models
         /// Performs OCR recognition
         /// </summary>
         /// <param name="dataColumns">Data columns.</param>
-        public void PerformOcr(List<string> dataColumns)
+        public void PerformOcr(List<DataColumn> dataColumns)
         {
             RecognitionCompleted = false;
             TesseractEngine tesserartEngine = new TesseractEngine(RecognitionLanguage.Russian, RecognitionLanguage.English);
@@ -101,8 +101,8 @@ namespace Tira.Logic.Models
             using (Bitmap bitmap = new Bitmap(Image.FromFile(ImageFilePath)))
             {
                 RecognizedData = new DataTable("RecognizedData");
-                foreach (string dataColumn in dataColumns)
-                    RecognizedData.Columns.Add(dataColumn);
+                foreach (DataColumn dataColumn in dataColumns)
+                    RecognizedData.Columns.Add(dataColumn.Name);
 
                 Rectangle[,] areas = GetRecognitionAreas();
                 for (int j = 0; j < areas.GetLength(1); j++)
@@ -112,9 +112,8 @@ namespace Tira.Logic.Models
                     {
                         Rectangle area = areas[i, j];
                         using (Bitmap croppedBitmap = BitmapHelper.Crop(bitmap, area))
-                        {
                             row[i] = tesserartEngine.Process(croppedBitmap);
-                        }
+                        // TODO добавить проверки dataColumn
                     }
                     RecognizedData.Rows.Add(row);
                 }                

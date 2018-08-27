@@ -70,6 +70,42 @@ namespace Tira.Logic.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Any symbols.
+        /// </summary>
+        internal static string DataColumnType_AnySymbols {
+            get {
+                return ResourceManager.GetString("DataColumnType_AnySymbols", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Empty column.
+        /// </summary>
+        internal static string DataColumnType_EmptyColumn {
+            get {
+                return ResourceManager.GetString("DataColumnType_EmptyColumn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Letters only.
+        /// </summary>
+        internal static string DataColumnType_LettersOnly {
+            get {
+                return ResourceManager.GetString("DataColumnType_LettersOnly", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Numbers only.
+        /// </summary>
+        internal static string DataColumnType_NumbersOnly {
+            get {
+                return ResourceManager.GetString("DataColumnType_NumbersOnly", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to English.
         /// </summary>
         internal static string Language_En {

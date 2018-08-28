@@ -10,6 +10,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Media.Imaging;
+using Ak.Framework.Core.Extensions;
 using Ak.Framework.Core.Helpers;
 using Ak.Framework.Wpf.Commands;
 using Ak.Framework.Wpf.Commands.Interfaces;
@@ -24,6 +25,7 @@ using Tira.App.Windows;
 using Tira.Logic.Enums;
 using Tira.Logic.Helpers;
 using Tira.Logic.Models;
+using Tira.Logic.Models.Markup;
 using Application = System.Windows.Application;
 
 namespace Tira.App.Logic.ViewModels
@@ -60,6 +62,16 @@ namespace Tira.App.Logic.ViewModels
         /// Data grid columns
         /// </summary>
         private ObservableCollection<DataGridColumn> _dataGridColumns;
+
+        /// <summary>
+        /// Current image viewer mode
+        /// </summary>
+        private ImageViewerMode _currentImageViewerMode = ImageViewerMode.None;
+
+        /// <summary>
+        /// Current markup object type
+        /// </summary>
+        private MarkupObjectType _currentMarkupObjectType = MarkupObjectType.None;
 
         #endregion
 
@@ -111,6 +123,7 @@ namespace Tira.App.Logic.ViewModels
             {
                 _selectedGalleryImage = value;
                 OnPropertyChanged(() => SelectedGalleryImage);
+                OnPropertyChanged(() => CurrentMarkupObjects);
             }
         }
 
@@ -149,6 +162,45 @@ namespace Tira.App.Logic.ViewModels
         /// Image viewer zoom manager
         /// </summary>
         public ZoomManager ImageViewerZoomManager { get; set; }
+
+        /// <summary>
+        /// Current image viewer mode
+        /// </summary>
+        public ImageViewerMode CurrentImageViewerMode
+        {
+            get => _currentImageViewerMode;
+            set
+            {
+                _currentImageViewerMode = value;
+                OnPropertyChanged(() => CurrentImageViewerMode);
+            }
+        }
+
+        /// <summary>
+        /// Current markup object type
+        /// </summary>
+        public MarkupObjectType CurrentMarkupObjectType
+        {
+            get => _currentMarkupObjectType;
+            set
+            {
+                _currentMarkupObjectType = value;
+                OnPropertyChanged(() => CurrentMarkupObjectType);
+            }
+        }
+
+        /// <summary>
+        /// Current markup objects
+        /// </summary>
+        public MarkupObjects CurrentMarkupObjects
+        {
+            get => SelectedGalleryImage?.MarkupObjects;
+            set
+            {
+                SelectedGalleryImage.MarkupObjects = value;
+                OnPropertyChanged(() => CurrentMarkupObjects);
+            }
+        }
 
         #endregion
 
@@ -255,6 +307,26 @@ namespace Tira.App.Logic.ViewModels
         /// </summary>
         public INotifyCommand ImageFitHeightCommand { get; }
 
+        /// <summary>
+        /// Command for enabling image markup
+        /// </summary>
+        public INotifyCommand EnableMarkupCommand { get; }
+
+        /// <summary>
+        /// Command for clearing image markup
+        /// </summary>
+        public INotifyCommand ImageClearMarkupCommand { get; }
+
+        /// <summary>
+        /// Command for setting current markup object type
+        /// </summary>
+        public INotifyCommand SetCurrentMarkupObjectTypeCommand { get; }
+
+        /// <summary>
+        /// Command for handling markup objects changed command
+        /// </summary>
+        public INotifyCommand HandleMarkupObjectsChangedCommand { get; }
+
         #endregion
 
         #endregion
@@ -292,6 +364,10 @@ namespace Tira.App.Logic.ViewModels
             ImageFitSizeCommand = new NotifyCommand(_ => ImageFitSize(), _ => CanPerformOperationsWithImage());
             ImageFitWidthCommand = new NotifyCommand(_ => ImageFitWidth(), _ => CanPerformOperationsWithImage());
             ImageFitHeightCommand = new NotifyCommand(_ => ImageFitHeight(), _ => CanPerformOperationsWithImage());
+            EnableMarkupCommand = new NotifyCommand(o => ImageEnableMarkup((bool)o), _ => CanPerformOperationsWithImage());
+            ImageClearMarkupCommand = new NotifyCommand(o => ImageClearMarkup(), _ => CanPerformOperationsWithImage());
+            SetCurrentMarkupObjectTypeCommand = new NotifyCommand(o => SetCurrentMarkupObjectType((MarkupObjectType)o));
+            HandleMarkupObjectsChangedCommand = new NotifyCommand(e => UpdateMarkupObjects((MarkupObjectsEventArgs)e));
 
             Images.ListChanged += ImagesOnListChanged;
         }
@@ -531,8 +607,10 @@ namespace Tira.App.Logic.ViewModels
         {
             ImageViewerZoomManager = new ZoomManager();
             SelectedGalleryImage = args.Image;
+            CurrentMarkupObjects = SelectedGalleryImage.MarkupObjects;
             SelectedImage = new BitmapImage(new Uri(SelectedGalleryImage.ImageFilePath));
             OnPropertyChanged(() => ImageViewerZoomManager);
+            OnPropertyChanged(() => CurrentMarkupObjects);
 
             ImageLoadedToViewer = true;
         }
@@ -613,6 +691,48 @@ namespace Tira.App.Logic.ViewModels
             OnPropertyChanged(() => ImageViewerZoomManager);
         }
 
+        /// <summary>
+        /// Enable markup for image
+        /// </summary>
+        /// <param name="isMarkupModeEnabled">Flag for checking if markup mode enabled</param>
+        private void ImageEnableMarkup(bool isMarkupModeEnabled)
+        {
+            CurrentImageViewerMode = isMarkupModeEnabled ? ImageViewerMode.Markup : ImageViewerMode.None;
+            CurrentMarkupObjectType = MarkupObjectType.None;
+        }
+
+        /// <summary>
+        /// Clears image markup
+        /// </summary>
+        private void ImageClearMarkup()
+        {
+            CurrentMarkupObjectType = MarkupObjectType.None;
+            SelectedGalleryImage.MarkupObjects = new MarkupObjects();
+            OnPropertyChanged(() => SelectedGalleryImage);
+        }
+
+        /// <summary>
+        /// Sets current object for image viewer
+        /// </summary>
+        /// <param name="markupObjectType">Markup object type</param>
+        private void SetCurrentMarkupObjectType(MarkupObjectType markupObjectType)
+        {
+            CurrentMarkupObjectType = markupObjectType;
+        }
+
+        /// <summary>
+        /// Updates markup objects
+        /// </summary>
+        private void UpdateMarkupObjects(MarkupObjectsEventArgs e)
+        {
+            if (SelectedGalleryImage != null)
+            {
+                GalleryImage image = Project.Gallery.Images.WhereEx(x => x.Uid == SelectedGalleryImage.Uid).FirstOrDefault();
+                if (image != null)
+                    image.MarkupObjects = e.MarkupObjects;
+            }
+        }
+
         #endregion
 
         #region DataGrid operations
@@ -640,7 +760,8 @@ namespace Tira.App.Logic.ViewModels
 
         private void ImagesOnListChanged(object sender, ListChangedEventArgs listChangedEventArgs)
         {
-            // TODO
+            if (listChangedEventArgs.ListChangedType == ListChangedType.ItemAdded)
+                Project.Gallery.Sort(Images.Select(x => x.Uid));
         }
 
         #endregion

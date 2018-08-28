@@ -6,7 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Xml.Serialization;
 using Tira.Imaging.Helpers;
-using Tira.Logic.Models.Drawing;
+using Tira.Logic.Models.Markup;
 using Tira.OCR;
 using Tira.OCR.Enums;
 
@@ -71,7 +71,7 @@ namespace Tira.Logic.Models
         /// Drawing objects on the image for OCR 
         /// </summary>
         [XmlIgnore]
-        public DrawingObjects DrawingObjects { get; set; }
+        public MarkupObjects MarkupObjects { get; set; }
 
         /// <summary>
         /// Recognition completed
@@ -84,6 +84,18 @@ namespace Tira.Logic.Models
         /// </summary>
         [XmlIgnore]
         public DataTable RecognizedData { get; set; }
+
+        #endregion
+
+        #region Constructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="GalleryImage"/> class.
+        /// </summary>
+        public GalleryImage()
+        {
+            MarkupObjects = new MarkupObjects();
+        }
 
         #endregion
 
@@ -132,31 +144,31 @@ namespace Tira.Logic.Models
         /// <returns></returns>
         private Rectangle[,] GetRecognitionAreas()
         {
-            List<int> verticalLinesCoordinates = DrawingObjects.VerticalLinesCoordinates.OrderBy(x => x).ToList();
-            List<int> horizontalLinesCoordinates = DrawingObjects.HorizontalLinesCoordinates.OrderBy(x => x).ToList();
+            List<int> verticalLinesCoordinates = MarkupObjects.VerticalLinesCoordinates.OrderBy(x => x).ToList();
+            List<int> horizontalLinesCoordinates = MarkupObjects.HorizontalLinesCoordinates.OrderBy(x => x).ToList();
             int columnsNumber = verticalLinesCoordinates.Count + 1;
             int rowsNumber = horizontalLinesCoordinates.Count + 1;
             Rectangle[,] areas = new Rectangle[columnsNumber, rowsNumber];
 
             for (int i = 0; i < rowsNumber; i++)
             {
-                int y = i == 0 ? DrawingObjects.RectangleArea.Y : horizontalLinesCoordinates[i - 1];
+                int y = i == 0 ? MarkupObjects.RectangleArea.Y : horizontalLinesCoordinates[i - 1];
                 int h = 0;
                 if (rowsNumber == 1)
-                    h = DrawingObjects.RectangleArea.Width;
+                    h = MarkupObjects.RectangleArea.Width;
                 else if (i == rowsNumber - 1)
-                    h = DrawingObjects.RectangleArea.Bottom - y;
+                    h = MarkupObjects.RectangleArea.Bottom - y;
                 else
                     h = horizontalLinesCoordinates[i] - y;
 
                 for (int j = 0; j < columnsNumber; j++)
                 {
-                    int x = j == 0 ? DrawingObjects.RectangleArea.X : verticalLinesCoordinates[j - 1];
+                    int x = j == 0 ? MarkupObjects.RectangleArea.X : verticalLinesCoordinates[j - 1];
                     int w = 0;
                     if (columnsNumber == 1)
-                        w = DrawingObjects.RectangleArea.Width;
+                        w = MarkupObjects.RectangleArea.Width;
                     else if (j == columnsNumber - 1)
-                        w = DrawingObjects.RectangleArea.Right - x;
+                        w = MarkupObjects.RectangleArea.Right - x;
                     else
                         w = verticalLinesCoordinates[j] - x;
 

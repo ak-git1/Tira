@@ -1,6 +1,6 @@
 ﻿using System.Drawing;
 
-namespace Tira.Logic.Models.Drawing
+namespace Tira.Logic.Models.Markup
 {
     /// <summary>
     /// Line

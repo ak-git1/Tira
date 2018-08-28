@@ -131,7 +131,7 @@ namespace Tira.Logic.Models
             DataColumns = dataColumns;
             int maxNumberOfVerticalLines = DataColumns.Count - 1;
             foreach (GalleryImage image in Gallery.Images)
-                image.DrawingObjects.MaxNumberOfVerticalLines = maxNumberOfVerticalLines;
+                image.MarkupObjects.MaxNumberOfVerticalLines = maxNumberOfVerticalLines;
         }
 
         /// <summary>
@@ -148,14 +148,14 @@ namespace Tira.Logic.Models
             StringBuilder stringBuilder = new StringBuilder();
             foreach (GalleryImage image in Gallery.Images)
             {
-                DrawingObjectsValidationResult drawingObjectsValidationResult = image.DrawingObjects.Validate();
-                switch (drawingObjectsValidationResult)
+                MarkupObjectsValidationResult markupObjectsValidationResult = image.MarkupObjects.Validate();
+                switch (markupObjectsValidationResult)
                 {
-                    case DrawingObjectsValidationResult.RectangleNotSet:
+                    case MarkupObjectsValidationResult.RectangleNotSet:
                         stringBuilder.AppendLine(string.Format(Properties.Resources.ValidateOcr_Messages_RectangleNotSet, image.OrderNumber));
                         break;
 
-                    case DrawingObjectsValidationResult.WrongNumberOfVerticalLines:
+                    case MarkupObjectsValidationResult.WrongNumberOfVerticalLines:
                         stringBuilder.AppendLine(string.Format(Properties.Resources.ValidateOcr_Messages_WrongNumberOfVerticalLines, image.OrderNumber));
                         break;
                 }

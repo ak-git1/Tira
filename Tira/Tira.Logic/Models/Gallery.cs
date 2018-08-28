@@ -8,7 +8,7 @@ using Tira.Imaging.Engines;
 using Tira.Imaging.Interfaces;
 using Tira.Logic.Enums;
 using Tira.Logic.Helpers;
-using Tira.Logic.Models.Drawing;
+using Tira.Logic.Models.Markup;
 using Tira.Logic.Settings;
 
 namespace Tira.Logic.Models
@@ -93,6 +93,18 @@ namespace Tira.Logic.Models
                 image.ImageFolderPath = galleryFolderPath;
         }
 
+        /// <summary>
+        /// Sorts by uids list
+        /// </summary>
+        public void Sort(IEnumerable<Guid> uids)
+        {
+            List<GalleryImage> list = new List<GalleryImage>();
+            foreach (Guid uid in uids)
+                list.Add(Images.First(x => x.Uid == uid));
+
+            Images = list;
+        }
+
         #endregion
 
         #region Private methods
@@ -134,7 +146,7 @@ namespace Tira.Logic.Models
                         ImageFileName = imageFileName,
                         ThumbnailFileName = thumbnailFileName,
                         RecognitionCompleted = false,
-                        DrawingObjects = new DrawingObjects
+                        MarkupObjects = new MarkupObjects
                         {
                             MaxNumberOfVerticalLines = maxNumberOfVerticalLines
                         }

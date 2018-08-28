@@ -3,7 +3,7 @@
     /// <summary>
     /// Validation results for drawing objects
     /// </summary>
-    public enum DrawingObjectsValidationResult
+    public enum MarkupObjectsValidationResult
     {
         /// <summary>
         /// Ok

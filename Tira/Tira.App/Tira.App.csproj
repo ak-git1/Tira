@@ -65,6 +65,7 @@
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.IO.Compression" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
@@ -106,10 +107,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Logic\Enums\ImageViewerMode.cs" />
+    <Compile Include="Logic\Enums\MarkupObjectType.cs" />
     <Compile Include="Logic\Enums\FitOption.cs" />
     <Compile Include="Logic\Enums\MessageType.cs" />
     <Compile Include="Logic\Events\GalleryImageEventArgs.cs" />
     <Compile Include="Logic\Events\GalleryImagesUidsSelectionEventArgs.cs" />
+    <Compile Include="Logic\Events\MarkupObjectsEventArgs.cs" />
     <Compile Include="Logic\Extensions\ExceptionExtensions.cs" />
     <Compile Include="Logic\Helpers\CultureResources.cs" />
     <Compile Include="Logic\Helpers\FormsHelper.cs" />
@@ -254,6 +258,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Resource Include="Content\Cursors\HandMouseReleased.cur" />
+    <Resource Include="Content\Cursors\HandMousePressed.cur" />
     <Resource Include="Content\Images\Ribbon\csv_24x24.png" />
     <Resource Include="Content\Images\Ribbon\csv_64x64.png" />
     <Resource Include="Content\Images\Ribbon\json_24x24.png" />
@@ -316,8 +322,6 @@
     <Resource Include="Content\Images\Ribbon\zoom_in_64x64.png" />
     <Resource Include="Content\Images\Ribbon\zoom_out_24x24.png" />
     <Resource Include="Content\Images\Ribbon\zoom_out_64x64.png" />
-    <Resource Include="Content\Cursors\HandMousePressed.cur" />
-    <Resource Include="Content\Cursors\HandMouseReleased.cur" />
     <Resource Include="Content\Images\Ribbon\remove_24x24.png" />
     <Resource Include="Content\Images\Ribbon\remove_64x64.png" />
     <Resource Include="Content\Images\Ribbon\add_24x24.png" />
@@ -333,6 +337,7 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.ru-RU.resx" />
     <Content Include="App_Data\tira.db">

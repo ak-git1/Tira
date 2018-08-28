@@ -5,13 +5,13 @@ using System.Linq;
 using System.Xml.Serialization;
 using Tira.Logic.Enums;
 
-namespace Tira.Logic.Models.Drawing
+namespace Tira.Logic.Models.Markup
 {
     /// <summary>
     /// Drawing objects
     /// </summary>
     [Serializable]
-    public class DrawingObjects
+    public class MarkupObjects
     {
         #region Properties
 
@@ -58,15 +58,15 @@ namespace Tira.Logic.Models.Drawing
         /// Validates the object
         /// </summary>
         /// <returns></returns>
-        public DrawingObjectsValidationResult Validate()
+        public MarkupObjectsValidationResult Validate()
         {
             if (RectangleArea == Rectangle.Empty)
-                return DrawingObjectsValidationResult.RectangleNotSet;
+                return MarkupObjectsValidationResult.RectangleNotSet;
 
             if (VerticalLinesCoordinates.Count != MaxNumberOfVerticalLines)
-                return DrawingObjectsValidationResult.WrongNumberOfVerticalLines;
+                return MarkupObjectsValidationResult.WrongNumberOfVerticalLines;
 
-            return DrawingObjectsValidationResult.Ok;
+            return MarkupObjectsValidationResult.Ok;
         }
 
         /// <summary>
@@ -82,9 +82,9 @@ namespace Tira.Logic.Models.Drawing
         /// <summary>
         /// Clones this instance.
         /// </summary>
-        public DrawingObjects Clone()
+        public MarkupObjects Clone()
         {
-            return new DrawingObjects
+            return new MarkupObjects
             {
                 RectangleArea = RectangleArea,
                 MaxNumberOfVerticalLines = MaxNumberOfVerticalLines,

@@ -13,6 +13,25 @@
     <UserControl.Resources>
         <FrameworkElement x:Key="CursorHandPressed" Cursor="/Tira.App;component/Content/Cursors/HandMousePressed.cur" />
         <FrameworkElement x:Key="CursorHandReleased" Cursor="/Tira.App;component/Content/Cursors/HandMouseReleased.cur" />
+        <Style x:Key="DrawingRectangleAreaStyle" TargetType="{x:Type Rectangle}">
+            <Setter Property="Fill" Value="{StaticResource DrawingRectangleAreaBrush}"/>
+        </Style>
+        <Style x:Key="FixedRectangleAreaStyle" TargetType="{x:Type Rectangle}">
+            <Setter Property="StrokeThickness" Value="3"/>
+            <Setter Property="Stroke" Value="{StaticResource FixedRectangleAreaBorderBrush}"/>
+        </Style>
+        <Style x:Key="DrawingLineStyle" TargetType="{x:Type Line}">
+            <Setter Property="StrokeThickness" Value="3"/>
+            <Setter Property="Stroke" Value="{StaticResource DrawingLineBrush}"/>
+        </Style>
+        <Style x:Key="FixedLineStyle" TargetType="{x:Type Line}">
+            <Setter Property="StrokeThickness" Value="3"/>
+            <Setter Property="Stroke" Value="{StaticResource FixedLineBrush}"/>
+        </Style>
+        <Style x:Key="HighlightedRow" TargetType="{x:Type Line}">
+            <Setter Property="StrokeThickness" Value="3"/>
+            <Setter Property="Stroke" Value="{StaticResource HighlightedRowBrush}"/>
+        </Style>
     </UserControl.Resources>
     <userControls:ScrollRuler x:Name="ScrollViewerElement" 
                               ShowRulers="{Binding ElementName=Root, Path=ShowRulers}" 
@@ -33,24 +52,33 @@
             </Style>
         </userControls:ScrollRuler.Style>
         <AdornerDecorator HorizontalAlignment="Center" 
-                          VerticalAlignment="Center" 
+                          VerticalAlignment="Center"
                           MouseMove="AdornerDecorator_OnMouseMove"
                           MouseLeftButtonDown="AdornerDecorator_OnMouseLeftButtonDown" 
                           MouseLeftButtonUp="AdornerDecorator_OnMouseLeftButtonUp">
             <Border BorderThickness="{Binding ElementName=Root, Path=ImageBorderThickness}" 
                     BorderBrush="{Binding ElementName=Root, Path=ImageBorderBrush}">
-                <Image x:Name="ImageElement"
-                       Stretch="Uniform" 
-                       RenderOptions.BitmapScalingMode="HighQuality" 
-                       VerticalAlignment="Center"
-                       Source="{Binding BitmapSource, ElementName=Root, Mode=OneWay}" 
-                       Effect="{Binding EffectImageOnly, ElementName=Root}" 
-                       Width="{Binding ImageWidth, ElementName=Root}" 
-                       Height="{Binding ImageHeight, ElementName=Root}">
-                    <Image.LayoutTransform>
+                <Canvas x:Name="ImageCanvas"
+                        RenderOptions.BitmapScalingMode="HighQuality" 
+                        VerticalAlignment="Center"
+                        Effect="{Binding EffectImageOnly, ElementName=Root}" 
+                        Width="{Binding ImageWidth, ElementName=Root}" 
+                        Height="{Binding ImageHeight, ElementName=Root}"
+                        MouseDown="ImageCanvas_OnMouseDown"
+                        MouseMove="ImageCanvas_OnMouseMove"
+                        MouseUp="ImageCanvas_OnMouseUp">
+                    <Canvas.CacheMode>
+                        <BitmapCache EnableClearType="False" 
+                                     RenderAtScale="1" 
+                                     SnapsToDevicePixels="True" />
+                    </Canvas.CacheMode>
+                    <Canvas.Background>
+                        <ImageBrush ImageSource="{Binding Path=BitmapSource, ElementName=Root, Mode=OneWay}" Stretch="Uniform"/>
+                    </Canvas.Background>
+                    <Canvas.LayoutTransform>
                         <ScaleTransform ScaleX="{Binding Scale, ElementName=Root}" ScaleY="{Binding Scale, ElementName=Root}" />
-                    </Image.LayoutTransform>
-                </Image>
+                    </Canvas.LayoutTransform>
+                </Canvas>
             </Border>
         </AdornerDecorator>
     </userControls:ScrollRuler>

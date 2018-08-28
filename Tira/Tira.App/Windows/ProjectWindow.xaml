@@ -7,6 +7,7 @@
                      xmlns:properties="clr-namespace:Tira.App.Properties"
                      xmlns:viewModels="clr-namespace:Tira.App.Logic.ViewModels"
                      xmlns:userControls="clr-namespace:Tira.App.UserControls"
+                     xmlns:appEnums="clr-namespace:Tira.App.Logic.Enums"
                      xmlns:enums="clr-namespace:Tira.Logic.Enums;assembly=Tira.Logic"
                      xmlns:binding="clr-namespace:Ak.Framework.Wpf.Binding;assembly=Ak.Framework.Wpf"
                      xmlns:converters="clr-namespace:Ak.Framework.Wpf.Converters;assembly=Ak.Framework.Wpf"
@@ -67,7 +68,7 @@
                                                  BorderBrush="Green"
                                                  Visibility="{Binding ImageLoadedToViewer, Mode=OneWay, Converter={converters:BoolToVisibilityConverter}, ConverterParameter=Collapsed}"/>
             </fluent:Ribbon.ContextualGroups>
-            
+
             <!--Tabs-->
             <fluent:RibbonTabItem Header="{x:Static properties:Resources.Ribbon_TabItem_Main}">
                 <fluent:RibbonGroupBox Header="{x:Static properties:Resources.Ribbon_GroupBox_Project}">
@@ -170,31 +171,40 @@
                                           LargeIcon="/Tira.App;component/Content/Images/Ribbon/enable_markup_48x48.png"
                                           Icon="/Tira.App;component/Content/Images/Ribbon/enable_markup_24x24.png"
                                           SizeDefinition="Large"
-                                          IsChecked="False"/>
+                                          IsChecked="False"                                  
+                                          Command="{Binding EnableMarkupCommand}"
+                                          CommandParameter="{Binding ElementName=EnableMarkupButton, Path=IsChecked}"/>
                     <fluent:Button  Header="{x:Static properties:Resources.Ribbon_Button_ClearMarkup}"
                                     ToolTip="{x:Static properties:Resources.Ribbon_Button_ClearMarkup}"
                                     LargeIcon="/Tira.App;component/Content/Images/Ribbon/clear_markup_64x64.png"
                                     Icon="/Tira.App;component/Content/Images/Ribbon/clear_markup_24x24.png"
                                     SizeDefinition="Large"
-                                    IsEnabled="{Binding ElementName=EnableMarkupButton, Path=IsChecked, Mode=OneWay}"/>
+                                    IsEnabled="{Binding ElementName=EnableMarkupButton, Path=IsChecked, Mode=OneWay}"
+                                    Command="{Binding ImageClearMarkupCommand}"/>
                     <fluent:Button  Header="{x:Static properties:Resources.Ribbon_Button_RectangleMarkup}"
                                     ToolTip="{x:Static properties:Resources.Ribbon_Button_RectangleMarkup}"
                                     LargeIcon="/Tira.App;component/Content/Images/Ribbon/rectangle_64x64.png"
                                     Icon="/Tira.App;component/Content/Images/Ribbon/rectangle_24x24.png"
                                     SizeDefinition="Middle, Small"
-                                    IsEnabled="{Binding ElementName=EnableMarkupButton, Path=IsChecked, Mode=OneWay}"/>
+                                    IsEnabled="{Binding ElementName=EnableMarkupButton, Path=IsChecked, Mode=OneWay}"
+                                    Command="{Binding SetCurrentMarkupObjectTypeCommand}"
+                                    CommandParameter="{x:Static appEnums:MarkupObjectType.Rectangle}"/>
                     <fluent:Button  Header="{x:Static properties:Resources.Ribbon_Button_VerticalLineMarkup}"
                                     ToolTip="{x:Static properties:Resources.Ribbon_Button_VerticalLineMarkup}"
                                     LargeIcon="/Tira.App;component/Content/Images/Ribbon/vertical_line_64x64.png"
                                     Icon="/Tira.App;component/Content/Images/Ribbon/vertical_line_24x24.png"
                                     SizeDefinition="Middle, Small"
-                                    IsEnabled="{Binding ElementName=EnableMarkupButton, Path=IsChecked, Mode=OneWay}"/>
+                                    IsEnabled="{Binding ElementName=EnableMarkupButton, Path=IsChecked, Mode=OneWay}"
+                                    Command="{Binding SetCurrentMarkupObjectTypeCommand}"
+                                    CommandParameter="{x:Static appEnums:MarkupObjectType.VerticalLine}"/>
                     <fluent:Button  Header="{x:Static properties:Resources.Ribbon_Button_HorizontalLineMarkup}"
                                     ToolTip="{x:Static properties:Resources.Ribbon_Button_HorizontalLineMarkup}"
                                     LargeIcon="/Tira.App;component/Content/Images/Ribbon/horizontal_line_64x64.png"
                                     Icon="/Tira.App;component/Content/Images/Ribbon/horizontal_line_24x24.png"
                                     SizeDefinition="Middle, Small"
-                                    IsEnabled="{Binding ElementName=EnableMarkupButton, Path=IsChecked, Mode=OneWay}"/>
+                                    IsEnabled="{Binding ElementName=EnableMarkupButton, Path=IsChecked, Mode=OneWay}"
+                                    Command="{Binding SetCurrentMarkupObjectTypeCommand}"
+                                    CommandParameter="{x:Static appEnums:MarkupObjectType.VerticalLine}"/>
                 </fluent:RibbonGroupBox>
                 <fluent:RibbonGroupBox Header="{x:Static properties:Resources.Ribbon_GroupBox_MarkupCopy}">
                     <fluent:Button  Header="{x:Static properties:Resources.Ribbon_Button_MarkupCopy}"
@@ -290,7 +300,7 @@
                     </fluent:SplitButton>
                 </fluent:RibbonGroupBox>
             </fluent:RibbonTabItem>
-                        
+
             <!-- Quick access toolbar -->
             <fluent:Ribbon.QuickAccessItems>
                 <fluent:QuickAccessMenuItem Target="{Binding ElementName=MainMenuSaveBtn}" IsChecked="True" />
@@ -319,10 +329,14 @@
                                           HorizontalAlignment="Stretch" 
                                           VerticalAlignment="Stretch"
                                           Effect="{StaticResource DropShadowEffect}"
-                                          BitmapSource="{Binding SelectedImage, FallbackValue={x:Null}}"
-                                          ResetToFitSizeWhenBitmapSourceChanged="True"
+                                          FitMode="{Binding ImageViewerZoomManager.FitMode, Mode=TwoWay}"
                                           Scale="{Binding ImageViewerZoomManager.Scale, Mode=TwoWay}"
-                                          FitMode="{Binding ImageViewerZoomManager.FitMode, Mode=TwoWay}"/>
+                                          ResetToFitSizeWhenBitmapSourceChanged="True" 
+                                          BitmapSource="{Binding SelectedImage}"
+                                          CurrentMarkupObjects="{Binding CurrentMarkupObjects, Mode=TwoWay}"                                                                                                                             
+                                          CurrentImageViewerMode="{Binding CurrentImageViewerMode}"
+                                          CurrentMarkupObjectType="{Binding CurrentMarkupObjectType}"
+                                          MarkupObjectsChanged="{binding:EventBinding Command=HandleMarkupObjectsChangedCommand, CommandParameter=$e}"/>
                 <GridSplitter Grid.Row="1" ShowsPreview="False" Height="3" HorizontalAlignment="Stretch" VerticalAlignment="Center" Style="{StaticResource HorizontalGridSplitter}" />
                 <DataGrid x:Name="DataColumnsGrid"
                           Grid.Row="2"

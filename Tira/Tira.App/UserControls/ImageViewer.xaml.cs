@@ -1,13 +1,18 @@
 ﻿using System;
+using System.Diagnostics;
+using System.Drawing;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Effects;
 using System.Windows.Media.Imaging;
 using Tira.App.Logic.Enums;
+using Tira.App.Logic.Events;
+using Tira.Logic.Models.Markup;
+using Brush = System.Windows.Media.Brush;
+using Point = System.Windows.Point;
 
 namespace Tira.App.UserControls
 {
@@ -16,17 +21,12 @@ namespace Tira.App.UserControls
     /// </summary>
     public partial class ImageViewer : UserControl
     {
-        #region Variables
+        #region Variables and constants
 
         /// <summary>
-        /// Cursor hand pressed
+        /// Stopwatch for mouse operations
         /// </summary>
-        private Cursor _cursorHandPressed;
-
-        /// <summary>
-        /// Cursor hand released
-        /// </summary>
-        private Cursor _cursorHandReleased;
+        public static Stopwatch Stopwatch = new Stopwatch();
 
         /// <summary>
         /// Adorner layer
@@ -47,6 +47,41 @@ namespace Tira.App.UserControls
         /// Previous position
         /// </summary>
         private Point _previousPosition;
+
+        /// <summary>
+        /// The drawing is in progress
+        /// </summary>
+        private bool _isDrawingInProgress;
+
+        /// <summary>
+        /// The drawing start point
+        /// </summary>
+        private Point _drawingStartPoint;
+
+        /// <summary>
+        /// The drawing end point
+        /// </summary>
+        private Point _drawingEndPoint;
+
+        /// <summary>
+        /// The line click search area
+        /// </summary>
+        private const int LineClickSearchArea = 5;
+
+        /// <summary>
+        /// Selected Vertical line index
+        /// </summary>
+        private int? _selectedVerticalLineIndex;
+
+        /// <summary>
+        /// Selected horizontal line index
+        /// </summary>
+        private int? _selectedHorizontalLineIndex;
+
+        /// <summary>
+        /// Temporary rectangle
+        /// </summary>
+        private System.Windows.Shapes.Rectangle _tempRectangle;
 
         #endregion
 
@@ -175,15 +210,8 @@ namespace Tira.App.UserControls
         }
 
         /// <summary>
-        /// Cursor hand pressed
+        /// Adorner layer
         /// </summary>
-        private Cursor CursorHandPressed => _cursorHandPressed ?? (_cursorHandPressed = ((FrameworkElement)Resources["CursorHandPressed"]).Cursor);
-
-        /// <summary>
-        /// Cursor hand released
-        /// </summary>
-        private Cursor CursorHandReleased => _cursorHandReleased ?? (_cursorHandReleased = ((FrameworkElement)Resources["CursorHandReleased"]).Cursor);
-
         private AdornerLayer AdornerLayer
         {
             get
@@ -191,7 +219,7 @@ namespace Tira.App.UserControls
                 AdornerLayer adornerLayer = _adornerLayer;
                 if (adornerLayer == null)
                 {
-                    AdornerLayer adornerLayer1 = AdornerLayer.GetAdornerLayer(ImageElement);
+                    AdornerLayer adornerLayer1 = AdornerLayer.GetAdornerLayer(ImageCanvas);
                     AdornerLayer adornerLayer2 = adornerLayer1;
                     _adornerLayer = adornerLayer1;
                     adornerLayer = adornerLayer2;
@@ -199,6 +227,56 @@ namespace Tira.App.UserControls
                 return adornerLayer;
             }
         }
+
+        /// <summary>
+        /// Current image viewer mode
+        /// </summary>
+        public ImageViewerMode CurrentImageViewerMode
+        {
+            get => (ImageViewerMode)GetValue(CurrentImageViewerModeProperty);
+            set => SetValue(CurrentImageViewerModeProperty, value);
+        }
+
+        /// <summary>
+        /// Current drawing object type
+        /// </summary>
+        public MarkupObjectType CurrentMarkupObjectType
+        {
+            get => (MarkupObjectType)GetValue(CurrentMarkupObjectTypeProperty);
+            set => SetValue(CurrentMarkupObjectTypeProperty, value);
+        }
+
+        /// <summary>
+        /// Markup drawing objects
+        /// </summary>
+        public MarkupObjects CurrentMarkupObjects
+        {
+            get => (MarkupObjects)GetValue(CurrentMarkupObjectsProperty);
+            set => SetValue(CurrentMarkupObjectsProperty, value);
+        }
+
+        /// <summary>
+        /// Index of the highlighted row
+        /// </summary>
+        public int? HighlightedRowIndex
+        {
+            get => (int?)GetValue(HighlightedRowIndexProperty);
+            set => SetValue(HighlightedRowIndexProperty, value);
+        }
+
+        #region Cursors
+
+        /// <summary>
+        /// Cursor hand pressed
+        /// </summary>
+        private Cursor CursorHandPressed => ((FrameworkElement)Resources["CursorHandPressed"]).Cursor;
+
+        /// <summary>
+        /// Cursor hand released
+        /// </summary>
+        private Cursor CursorHandReleased => ((FrameworkElement)Resources["CursorHandReleased"]).Cursor;
+
+        #endregion
 
         #endregion
 
@@ -341,6 +419,51 @@ namespace Tira.App.UserControls
         /// </summary>
         public static readonly DependencyProperty ShowRulersProperty = DependencyProperty.Register("ShowRulers", typeof(bool), typeof(ImageViewer), new PropertyMetadata(false));
 
+        /// <summary>
+        /// Current image viewer mode
+        /// </summary>
+        public static readonly DependencyProperty CurrentImageViewerModeProperty = DependencyProperty.Register("CurrentImageViewerMode", typeof(ImageViewerMode), typeof(ImageViewer), new UIPropertyMetadata(ImageViewerMode.None, (source, args) =>
+        {
+            ImageViewer imageViewer = source as ImageViewer;
+            if (imageViewer == null)
+                return;
+
+            imageViewer.DrawMarkupObjects();
+        }));
+
+        /// <summary>
+        /// Current drawing object type
+        /// </summary>
+        public static readonly DependencyProperty CurrentMarkupObjectTypeProperty = DependencyProperty.Register("CurrentMarkupObjectType", typeof(MarkupObjectType), typeof(ImageViewer), new UIPropertyMetadata(MarkupObjectType.None));
+
+        /// <summary>
+        /// Markup drawing objects
+        /// </summary>
+        public static readonly DependencyProperty CurrentMarkupObjectsProperty = DependencyProperty.Register("CurrentMarkupObjects", typeof(MarkupObjects), typeof(ImageViewer), new UIPropertyMetadata(null, (source, args) =>
+        {
+            ImageViewer imageViewer = source as ImageViewer;
+            if (imageViewer == null)
+                return;
+
+            imageViewer.DrawMarkupObjects();
+        }));
+
+        /// <summary>
+        /// Index of the highlighted row
+        /// </summary>
+        public static readonly DependencyProperty HighlightedRowIndexProperty = DependencyProperty.Register("HighlightedRowIndex", typeof(int), typeof(ImageViewer), new UIPropertyMetadata(null));
+
+        #endregion
+
+        #region Delegates
+
+        /// <summary>
+        /// Delegate for markup objects changed event event
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="MarkupObjectsEventArgs"/> instance containing the event data.</param>
+        public delegate void MarkupObjectsChangedHandler(object sender, MarkupObjectsEventArgs e);
+
         #endregion
 
         #region Events
@@ -354,6 +477,11 @@ namespace Tira.App.UserControls
             remove => RemoveHandler(ScrollChangedEvent, value);
         }
 
+        /// <summary>
+        /// Markup drawing objects changed event
+        /// </summary>
+        public event MarkupObjectsChangedHandler MarkupObjectsChanged;
+
         #endregion
 
         #region Constructors
@@ -364,6 +492,7 @@ namespace Tira.App.UserControls
         public ImageViewer()
         {
             InitializeComponent();
+            Stopwatch.Start();
         }
 
         #endregion
@@ -376,24 +505,60 @@ namespace Tira.App.UserControls
         /// <returns></returns>
         public Point GetMousePositionOnImage()
         {
-            return Mouse.GetPosition(ImageElement);
+            return Mouse.GetPosition(ImageCanvas);
+        }
+
+        /// <summary>
+        /// Clears drwaing area
+        /// </summary>
+        public void ClearDrawingArea()
+        {            
+            ImageCanvas.Children.Clear();
+        }
+
+        /// <summary>
+        /// Clears the drawn vertical lines
+        /// </summary>
+        public void ClearVerticalLines()
+        {
+            CurrentMarkupObjects.VerticalLinesCoordinates.Clear();
+        }
+
+        /// <summary>
+        /// Clears the drawn horizontal lines
+        /// </summary>
+        public void ClearHorizontalLines()
+        {
+            CurrentMarkupObjects.HorizontalLinesCoordinates.Clear();
         }
 
         #endregion
 
         #region Private methods
 
+        #region Adorners methods
+
+        /// <summary>
+        /// Draws adorner
+        /// </summary>
+        /// <param name="adorner">Adorner</param>
         private void DrawAdorner(object adorner)
         {
             ContentControl contentControl = new ContentControl();
             DrawAdorner(adorner, contentControl, AdornerTemplateSelector != null ? AdornerTemplateSelector.SelectTemplate(adorner, contentControl) : AdornerTemplate);
         }
 
+        /// <summary>
+        /// Draws adorner
+        /// </summary>
+        /// <param name="model">Model</param>
+        /// <param name="view">View</param>
+        /// <param name="template">Template</param>
         private void DrawAdorner(object model, ContentControl view, DataTemplate template)
         {
             if (template != null && model != null)
             {
-                TemplatedAdorner templatedAdorner = new TemplatedAdorner(ImageElement, view);
+                TemplatedAdorner templatedAdorner = new TemplatedAdorner(ImageCanvas, view);
                 AdornerLayer.Add(templatedAdorner);
                 view.Content = model;
                 view.ContentTemplate = template;
@@ -402,15 +567,22 @@ namespace Tira.App.UserControls
             }
         }
 
+        /// <summary>
+        /// Erases the adorner
+        /// </summary>
+        /// <param name="adorner">Adorner.</param>
         private void EraseAdorner(Adorner adorner)
         {
             BindingOperations.ClearAllBindings(adorner);
             _adornerLayer.Remove(adorner);
         }
 
+        /// <summary>
+        /// Erases the adorners
+        /// </summary>
         private void EraseAdorners()
         {
-            Adorner[] adorners = AdornerLayer.GetAdorners(ImageElement);
+            Adorner[] adorners = AdornerLayer.GetAdorners(ImageCanvas);
             if (adorners != null)
             {
                 Adorner[] adornerArray = adorners;
@@ -418,6 +590,18 @@ namespace Tira.App.UserControls
                     EraseAdorner(adornerArray[i]);
             }
         }
+
+        /// <summary>
+        /// Redraws adorners
+        /// </summary>
+        private void RedrawAdorners()
+        {
+            _adornerLayer = _adornerLayer ?? AdornerLayer.GetAdornerLayer(ImageCanvas);
+        }
+
+        #endregion
+
+        #region Scroll ans zoom methods
 
         /// <summary>
         /// Scrolls to zoom position
@@ -429,13 +613,13 @@ namespace Tira.App.UserControls
             if (_lastMousePositionOnTarget.HasValue)
             {
                 lastCenterPositionOnTarget = _lastMousePositionOnTarget;
-                position = Mouse.GetPosition(ImageElement);
+                position = Mouse.GetPosition(ImageCanvas);
                 _lastMousePositionOnTarget = null;
             }
             else if (_lastCenterPositionOnTarget.HasValue)
             {
                 Point point = new Point(ScrollViewerElement.ViewportWidth / 2, ScrollViewerElement.ViewportHeight / 2);
-                Point point1 = ScrollViewerElement.TranslatePoint(point, ImageElement);
+                Point point1 = ScrollViewerElement.TranslatePoint(point, ImageCanvas);
                 lastCenterPositionOnTarget = _lastCenterPositionOnTarget;
                 position = point1;
             }
@@ -449,8 +633,8 @@ namespace Tira.App.UserControls
                 double y = value.Y;
                 value = lastCenterPositionOnTarget.Value;
                 double y1 = y - value.Y;
-                double extentWidth = ScrollViewerElement.ExtentWidth / ImageElement.ActualWidth;
-                double extentHeight = ScrollViewerElement.ExtentHeight / ImageElement.ActualHeight;
+                double extentWidth = ScrollViewerElement.ExtentWidth / ImageCanvas.ActualWidth;
+                double extentHeight = ScrollViewerElement.ExtentHeight / ImageCanvas.ActualHeight;
                 double horizontalOffset = ScrollViewerElement.HorizontalOffset - num * extentWidth;
                 double verticalOffset = ScrollViewerElement.VerticalOffset - y1 * extentHeight;
                 if (!double.IsNaN(horizontalOffset) && !double.IsNaN(verticalOffset))
@@ -534,52 +718,219 @@ namespace Tira.App.UserControls
             return viewportWidth / (left + imageBorderThickness.Right);
         }
 
+        #endregion
+
+        #region Markup methods
+
         /// <summary>
-        /// Redraws adorners
+        /// Determines whether value in delta area.
         /// </summary>
-        private void RedrawAdorners()
+        /// <param name="value">Value</param>
+        /// <param name="center">Center.</param>
+        /// <param name="delta">Delta</param>
+        /// <returns></returns>
+        private bool IsValueInDeltaArea(double value, int center, int delta)
         {
-            _adornerLayer = _adornerLayer ?? AdornerLayer.GetAdornerLayer(ImageElement);
+            return IsValueInDeltaArea((int)value, center, delta);
         }
+
+        /// <summary>
+        /// Determines whether value in delta area.
+        /// </summary>
+        /// <param name="value">Value</param>
+        /// <param name="center">Center.</param>
+        /// <param name="delta">Delta</param>
+        /// <returns></returns>
+        private bool IsValueInDeltaArea(int value, int center, int delta)
+        {
+            return center - delta <= value && value <= center + delta;
+        }
+
+        /// <summary>
+        /// Determines whether point is in vertical line area
+        /// </summary>
+        /// <param name="p">Point</param>
+        /// <param name="lineIndex">Index of the line.</param>
+        /// <returns></returns>
+        private bool IsPointInVerticalLineArea(Point p, out int? lineIndex)
+        {
+            lineIndex = null;
+
+            if (CurrentMarkupObjects.RectangleArea != Rectangle.Empty && CurrentMarkupObjects.RectangleArea.Contains((int)p.X, (int)p.Y))
+            {
+                for (int i = 0; i < CurrentMarkupObjects.VerticalLinesCoordinates.Count; i++)
+                {
+                    if (IsValueInDeltaArea(p.X, CurrentMarkupObjects.VerticalLinesCoordinates[i], LineClickSearchArea))
+                    {
+                        lineIndex = i;
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Determines whether point is in horizontal line area
+        /// </summary>
+        /// <param name="p">Point</param>
+        /// <param name="lineIndex">Index of the line.</param>
+        /// <returns></returns>
+        private bool IsPointInHorizontalLineArea(Point p, out int? lineIndex)
+        {
+            lineIndex = null;
+
+            if (CurrentMarkupObjects.RectangleArea != Rectangle.Empty && CurrentMarkupObjects.RectangleArea.Contains((int)p.X, (int)p.Y))
+            {
+                for (int i = 0; i < CurrentMarkupObjects.HorizontalLinesCoordinates.Count; i++)
+                {
+                    if (IsValueInDeltaArea(p.Y, CurrentMarkupObjects.HorizontalLinesCoordinates[i], LineClickSearchArea))
+                    {
+                        lineIndex = i;
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Clears the drawing temp objects like temp points, line indexes etc
+        /// </summary>
+        private void ClearDrawingTempObjects()
+        {
+            _isDrawingInProgress = false;
+            _drawingStartPoint = new Point(0, 0);
+            _drawingEndPoint = new Point(0, 0);
+            _selectedVerticalLineIndex = null;
+            _selectedHorizontalLineIndex = null;
+            _tempRectangle = null;
+        }
+
+        /// <summary>
+        /// Creates the rectangle by two points.
+        /// </summary>
+        /// <param name="startPoint">The start point.</param>
+        /// <param name="endPoint">The end point.</param>
+        /// <returns></returns>
+        private Rectangle CreateRectangleByTwoPoints(Point startPoint, Point endPoint)
+        {
+            return new Rectangle
+            {
+                Location = new System.Drawing.Point((int)Math.Min(startPoint.X, endPoint.X), (int)Math.Min(startPoint.Y, endPoint.Y)),
+                Size = new System.Drawing.Size((int)Math.Abs(startPoint.X - endPoint.X), (int)Math.Abs(startPoint.Y - endPoint.Y))
+            };
+        }
+
+        /// <summary>
+        /// Checks the point is in image area.
+        /// </summary>
+        /// <param name="p">Point</param>
+        /// <returns></returns>
+        private bool CheckPointIsInImageArea(Point p)
+        {            
+            if (new Rectangle(0, 0, (int)ImageCanvas.Width, (int)ImageCanvas.Height).Contains((int)p.X, (int)p.Y))
+                return true;
+            else
+            {
+                ClearDrawingTempObjects();
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Draws markup objects.
+        /// </summary>
+        private void DrawMarkupObjects()
+        {
+            ClearDrawingArea();
+
+            if (CurrentMarkupObjects != null && CurrentImageViewerMode == ImageViewerMode.Markup)
+            {
+                DrawMarkupRectangle();
+            }
+        }
+
+        /// <summary>
+        /// Draws markup rectangle
+        /// </summary>
+        private void DrawMarkupRectangle()
+        {
+            System.Windows.Shapes.Rectangle rectangle = new System.Windows.Shapes.Rectangle
+            {
+                Style = FindResource("FixedRectangleAreaStyle") as Style,
+                Width = CurrentMarkupObjects.RectangleArea.Width,
+                Height = CurrentMarkupObjects.RectangleArea.Height
+            };
+            Canvas.SetLeft(rectangle, CurrentMarkupObjects.RectangleArea.Left);
+            Canvas.SetTop(rectangle, CurrentMarkupObjects.RectangleArea.Top);
+            ImageCanvas.Children.Add(rectangle);
+        }
+
+        #endregion
 
         #endregion
 
         #region Events handlers
 
-        private void ScrollViewer_OnScrollChanged(object sender, ScrollChangedEventArgs e)
-        {
-            if (!ImageElement.IsMouseCaptured)
-                Cursor = ScrollViewerElement.ScrollableHeight > 0 || ScrollViewerElement.ScrollableWidth > 0 ? CursorHandReleased : Cursors.Arrow;
-            
-            SetValue(FittedScalePropertyKey, GetFittedScale());
-            if (!(Math.Abs(e.ExtentHeightChange) <= 0) && Math.Abs(e.ExtentWidthChange) > 0)
-                ScrollToZoomPosition();
-            RaiseEvent(new RoutedEventArgs(ScrollChangedEvent, ScrollViewerElement));
-        }
+        #region Adorners events
 
         private void AdornerDecorator_OnMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            ImageElement.CaptureMouse();
-            _previousPosition = e.GetPosition(this);
+            if (CurrentImageViewerMode == ImageViewerMode.None)
+            {
+                Cursor = CursorHandPressed;
+                ImageCanvas.CaptureMouse();
+                _previousPosition = e.GetPosition(this);
+            }
         }
 
         private void AdornerDecorator_OnMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            Cursor = Cursor == CursorHandPressed ? CursorHandReleased : Cursors.Arrow;
-            ImageElement.ReleaseMouseCapture();
+            if (CurrentImageViewerMode == ImageViewerMode.None)
+            {
+                Cursor = Cursors.Arrow;
+                ImageCanvas.ReleaseMouseCapture();
+            }
         }
 
         private void AdornerDecorator_OnMouseMove(object sender, MouseEventArgs e)
         {
-            Point position = e.GetPosition(this);
-            if (e.LeftButton == MouseButtonState.Pressed)
+            if (CurrentImageViewerMode == ImageViewerMode.None)
             {
-                ScrollViewerElement.ScrollToVerticalOffset(ScrollViewerElement.ContentVerticalOffset - (position.Y - _previousPosition.Y) * 1);
-                ScrollViewerElement.ScrollToHorizontalOffset(ScrollViewerElement.ContentHorizontalOffset - (position.X - _previousPosition.X) * 1);
+                Point position = e.GetPosition(this);
+                if (e.LeftButton == MouseButtonState.Pressed)
+                {
+                    ScrollViewerElement.ScrollToVerticalOffset(ScrollViewerElement.ContentVerticalOffset - (position.Y - _previousPosition.Y) * 1);
+                    ScrollViewerElement.ScrollToHorizontalOffset(ScrollViewerElement.ContentHorizontalOffset - (position.X - _previousPosition.X) * 1);
+                }
+                _previousPosition = position;
             }
-            _previousPosition = position;
         }
 
+        public override void OnApplyTemplate()
+        {
+            base.OnApplyTemplate();
+            _adornerLayer = AdornerLayer.GetAdornerLayer(ImageCanvas);
+        }
+
+        #endregion
+
+        #region Scroll and zoom methods
+
+        private void ScrollViewer_OnScrollChanged(object sender, ScrollChangedEventArgs e)
+        {
+            if (CurrentImageViewerMode == ImageViewerMode.None)
+            {
+                SetValue(FittedScalePropertyKey, GetFittedScale());
+                if (!(Math.Abs(e.ExtentHeightChange) <= 0) && Math.Abs(e.ExtentWidthChange) > 0)
+                    ScrollToZoomPosition();
+                RaiseEvent(new RoutedEventArgs(ScrollChangedEvent, ScrollViewerElement));
+            }
+        }
+       
         private void ImageViewerControl_OnPreviewKeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyboardDevice.Modifiers == ModifierKeys.Control)
@@ -603,18 +954,12 @@ namespace Tira.App.UserControls
 
         private void ImageViewerControl_OnPreviewMouseWheel(object sender, MouseWheelEventArgs e)
         {
-            _lastMousePositionOnTarget = e.GetPosition(ImageElement);
+            _lastMousePositionOnTarget = e.GetPosition(ImageCanvas);
             if (HandleMouseWheel)
             {
                 if (Keyboard.Modifiers == ModifierKeys.Control)
                     ZoomInOrZoomOutImage(e.Delta);
             }
-        }
-
-        public override void OnApplyTemplate()
-        {
-            base.OnApplyTemplate();
-            _adornerLayer = AdornerLayer.GetAdornerLayer(ImageElement);
         }
 
         private static void ScalePropertyChangedCallBack(DependencyObject sender, DependencyPropertyChangedEventArgs e)
@@ -625,14 +970,178 @@ namespace Tira.App.UserControls
                 imageViewer.RedrawAdorners();
                 if (imageViewer.FitMode == FitOption.None ? false : imageViewer.Scale != imageViewer.FittedScale)
                     imageViewer.FitMode = FitOption.None;
-                
+
                 imageViewer.RedrawAdorners();
                 ScrollRuler scrollRuler = imageViewer.ScrollViewerElement;
                 Point point = new Point(scrollRuler.ViewportWidth / 2, scrollRuler.ViewportHeight / 2);
-                Point lastCenterPositionOnTarget = scrollRuler.TranslatePoint(point, imageViewer.ImageElement);
+                Point lastCenterPositionOnTarget = scrollRuler.TranslatePoint(point, imageViewer.ImageCanvas);
                 imageViewer._lastCenterPositionOnTarget = lastCenterPositionOnTarget;
             }
         }
+
+        #endregion        
+
+        #region Markups events
+
+        private void ImageCanvas_OnMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            ClearDrawingTempObjects();
+            _drawingStartPoint = e.GetPosition(ImageCanvas);
+            if (!CheckPointIsInImageArea(_drawingStartPoint))
+                return;
+
+            switch (CurrentImageViewerMode)
+            {
+                #region ImageViewerMode.None
+
+                case ImageViewerMode.None:
+                    return;
+
+                #endregion
+
+                #region ImageViewerMode.Markup
+
+                case ImageViewerMode.Markup:
+                    switch (CurrentMarkupObjectType)
+                    {
+                        case MarkupObjectType.Rectangle:
+                            CurrentMarkupObjects.Clear();
+                            ClearDrawingArea();
+                            _isDrawingInProgress = true;
+                            break;
+
+                        case MarkupObjectType.VerticalLine:
+                            if (IsPointInVerticalLineArea(_drawingStartPoint, out _selectedVerticalLineIndex))
+                            {
+                                _isDrawingInProgress = true;
+                            }
+                            else if (CurrentMarkupObjects.VerticalLinesCoordinates.Count < CurrentMarkupObjects.MaxNumberOfVerticalLines)
+                            {
+                                _isDrawingInProgress = true;
+                            }
+                            break;
+
+                        case MarkupObjectType.HorizontalLine:
+                            if (IsPointInHorizontalLineArea(_drawingStartPoint, out _selectedHorizontalLineIndex))
+                            {
+                                _isDrawingInProgress = true;
+                            }
+                            else
+                            {
+                                _isDrawingInProgress = true;
+                            }
+                            break;
+                    }
+                    break;
+
+                #endregion
+
+                #region ImageViewerMode.Crop
+
+                case ImageViewerMode.Crop:
+                    break;
+
+                #endregion
+            }                        
+        }
+
+        private void ImageCanvas_OnMouseMove(object sender, MouseEventArgs e)
+        {
+            if (BitmapSource == null || !_isDrawingInProgress || e.LeftButton != MouseButtonState.Pressed)
+                return;
+
+            _drawingEndPoint = e.GetPosition(ImageCanvas);
+
+            switch (CurrentImageViewerMode)
+            {
+                #region ImageViewerMode.Markup
+
+                case ImageViewerMode.Markup:
+                    switch (CurrentMarkupObjectType)
+                    {
+                        case MarkupObjectType.Rectangle:
+                            Rectangle rectangleArea = CreateRectangleByTwoPoints(_drawingStartPoint, _drawingEndPoint);
+                            if (_tempRectangle != null)
+                                ImageCanvas.Children.Remove(_tempRectangle);
+
+                            _tempRectangle = new System.Windows.Shapes.Rectangle
+                            {
+                                Style = FindResource("DrawingRectangleAreaStyle") as Style,
+                                Width = rectangleArea.Width,
+                                Height = rectangleArea.Height,
+                            };
+                            Canvas.SetLeft(_tempRectangle, rectangleArea.Left);
+                            Canvas.SetTop(_tempRectangle, rectangleArea.Top);
+                            ImageCanvas.Children.Add(_tempRectangle);
+                            break;
+
+                        case MarkupObjectType.VerticalLine:
+                            break;
+
+                        case MarkupObjectType.HorizontalLine:
+                            break;
+                    }
+                    break;
+
+                #endregion
+
+                #region ImageViewerMode.Crop
+
+                case ImageViewerMode.Crop:
+                    break;
+
+                #endregion
+            }
+        }
+
+        private void ImageCanvas_OnMouseUp(object sender, MouseButtonEventArgs e)
+        {
+            if (BitmapSource == null || !_isDrawingInProgress || e.LeftButton != MouseButtonState.Released)
+                return;
+
+            if (!CheckPointIsInImageArea(_drawingEndPoint))
+                return;
+
+            switch (CurrentImageViewerMode)
+            {
+                #region ImageViewerMode.Markup
+
+                case ImageViewerMode.Markup:
+                    switch (CurrentMarkupObjectType)
+                    {
+                        case MarkupObjectType.Rectangle:
+                            ImageCanvas.Children.Remove(_tempRectangle);
+                            CurrentMarkupObjects.RectangleArea = CreateRectangleByTwoPoints(_drawingStartPoint, _drawingEndPoint);
+                            DrawMarkupRectangle();
+                            MarkupObjectsChanged?.Invoke(this, new MarkupObjectsEventArgs(CurrentMarkupObjects));
+                            break;
+
+                        case MarkupObjectType.VerticalLine:
+                            MarkupObjectsChanged?.Invoke(this, new MarkupObjectsEventArgs(CurrentMarkupObjects));
+                            break;
+
+                        case MarkupObjectType.HorizontalLine:
+                            MarkupObjectsChanged?.Invoke(this, new MarkupObjectsEventArgs(CurrentMarkupObjects));
+                            break;
+                    }
+
+                    CurrentMarkupObjects.RemoveWrongLines();
+                    break;
+
+                #endregion
+
+                #region ImageViewerMode.Crop
+
+                case ImageViewerMode.Crop:
+                    break;
+
+                    #endregion
+            }
+
+            ClearDrawingTempObjects();
+        }
+
+        #endregion
 
         #endregion
     }

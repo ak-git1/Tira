@@ -451,4 +451,10 @@ Do you want to remove it from the list?</value>
   <data name="DataColumnWindow_Label_RemovePunctuation" xml:space="preserve">
     <value>Remove punctuation:</value>
   </data>
+  <data name="NoRectangleInMarkupWarning_Text" xml:space="preserve">
+    <value>You must first set a rectangle area for recognition.</value>
+  </data>
+  <data name="NoRectangleInMarkupWarning_Caption" xml:space="preserve">
+    <value>Lines markup</value>
+  </data>
 </root>

@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
-using System.Drawing;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -8,11 +6,13 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media.Effects;
 using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
 using Tira.App.Logic.Enums;
 using Tira.App.Logic.Events;
 using Tira.Logic.Models.Markup;
 using Brush = System.Windows.Media.Brush;
 using Point = System.Windows.Point;
+using Rectangle = System.Drawing.Rectangle;
 
 namespace Tira.App.UserControls
 {
@@ -23,10 +23,29 @@ namespace Tira.App.UserControls
     {
         #region Variables and constants
 
+        #region Styles
+
         /// <summary>
-        /// Stopwatch for mouse operations
+        /// The fixed rectangle area style
         /// </summary>
-        public static Stopwatch Stopwatch = new Stopwatch();
+        private const string FixedRectangleAreaStyle = "FixedRectangleAreaStyle";
+
+        /// <summary>
+        /// The drawing rectangle area style
+        /// </summary>
+        private const string DrawingRectangleAreaStyle = "DrawingRectangleAreaStyle";
+
+        /// <summary>
+        /// The fixed line style
+        /// </summary>
+        private const string FixedLineStyle = "FixedLineStyle";
+
+        /// <summary>
+        /// The drawing line style
+        /// </summary>
+        private const string DrawingLineStyle = "DrawingLineStyle";
+
+        #endregion
 
         /// <summary>
         /// Adorner layer
@@ -82,6 +101,11 @@ namespace Tira.App.UserControls
         /// Temporary rectangle
         /// </summary>
         private System.Windows.Shapes.Rectangle _tempRectangle;
+
+        /// <summary>
+        /// Temporary line
+        /// </summary>
+        private Line _tempLine;
 
         #endregion
 
@@ -492,44 +516,6 @@ namespace Tira.App.UserControls
         public ImageViewer()
         {
             InitializeComponent();
-            Stopwatch.Start();
-        }
-
-        #endregion
-
-        #region Public methods
-
-        /// <summary>
-        /// Gets mouse position on image
-        /// </summary>
-        /// <returns></returns>
-        public Point GetMousePositionOnImage()
-        {
-            return Mouse.GetPosition(ImageCanvas);
-        }
-
-        /// <summary>
-        /// Clears drwaing area
-        /// </summary>
-        public void ClearDrawingArea()
-        {            
-            ImageCanvas.Children.Clear();
-        }
-
-        /// <summary>
-        /// Clears the drawn vertical lines
-        /// </summary>
-        public void ClearVerticalLines()
-        {
-            CurrentMarkupObjects.VerticalLinesCoordinates.Clear();
-        }
-
-        /// <summary>
-        /// Clears the drawn horizontal lines
-        /// </summary>
-        public void ClearHorizontalLines()
-        {
-            CurrentMarkupObjects.HorizontalLinesCoordinates.Clear();
         }
 
         #endregion
@@ -723,6 +709,14 @@ namespace Tira.App.UserControls
         #region Markup methods
 
         /// <summary>
+        /// Clears drawing area
+        /// </summary>
+        public void ClearDrawingArea()
+        {
+            ImageCanvas.Children.Clear();
+        }
+
+        /// <summary>
         /// Determines whether value in delta area.
         /// </summary>
         /// <param name="value">Value</param>
@@ -807,6 +801,7 @@ namespace Tira.App.UserControls
             _selectedVerticalLineIndex = null;
             _selectedHorizontalLineIndex = null;
             _tempRectangle = null;
+            _tempLine = null;
         }
 
         /// <summary>
@@ -849,24 +844,75 @@ namespace Tira.App.UserControls
 
             if (CurrentMarkupObjects != null && CurrentImageViewerMode == ImageViewerMode.Markup)
             {
-                DrawMarkupRectangle();
+                DrawMarkupRectangle(CurrentMarkupObjects.RectangleArea, FixedRectangleAreaStyle);
+                foreach (int x in CurrentMarkupObjects.VerticalLinesCoordinates)
+                    DrawMarkupVerticalLine(x, FixedLineStyle);
+                foreach (int y in CurrentMarkupObjects.HorizontalLinesCoordinates)
+                    DrawMarkupHorizontalLine(y, FixedLineStyle);
             }
         }
-
+        
         /// <summary>
         /// Draws markup rectangle
         /// </summary>
-        private void DrawMarkupRectangle()
+        /// <param name="r">Rectangle area</param>
+        /// <param name="style">Style</param>
+        /// <returns></returns>
+        private System.Windows.Shapes.Rectangle DrawMarkupRectangle(Rectangle r, string style)
         {
             System.Windows.Shapes.Rectangle rectangle = new System.Windows.Shapes.Rectangle
             {
-                Style = FindResource("FixedRectangleAreaStyle") as Style,
-                Width = CurrentMarkupObjects.RectangleArea.Width,
-                Height = CurrentMarkupObjects.RectangleArea.Height
+                Style = FindResource(style) as Style,
+                Width = r.Width,
+                Height = r.Height
             };
-            Canvas.SetLeft(rectangle, CurrentMarkupObjects.RectangleArea.Left);
-            Canvas.SetTop(rectangle, CurrentMarkupObjects.RectangleArea.Top);
+            Canvas.SetLeft(rectangle, r.Left);
+            Canvas.SetTop(rectangle, r.Top);
             ImageCanvas.Children.Add(rectangle);
+
+            return rectangle;
+        }
+
+        /// <summary>
+        /// Draws the markup vertical line.
+        /// </summary>
+        /// <param name="x">X</param>
+        /// <param name="style">Style</param>
+        /// <returns></returns>
+        private Line DrawMarkupVerticalLine(int x, string style)
+        {
+            Line line = new Line
+            {
+                Style = FindResource(style) as Style,
+                X1 = x,
+                X2 = x,
+                Y1 = CurrentMarkupObjects.RectangleArea.Top,
+                Y2 = CurrentMarkupObjects.RectangleArea.Bottom
+            };
+            ImageCanvas.Children.Add(line);
+
+            return line;
+        }
+
+        /// <summary>
+        /// Draws the markup horizontal line.
+        /// </summary>
+        /// <param name="y">Y</param>
+        /// <param name="style">Style</param>
+        /// <returns></returns>
+        private Line DrawMarkupHorizontalLine(int y, string style)
+        {
+            Line line = new Line
+            {
+                Style = FindResource(style) as Style,
+                X1 = CurrentMarkupObjects.RectangleArea.Left,
+                X2 = CurrentMarkupObjects.RectangleArea.Right,
+                Y1 = y,
+                Y2 = y
+            };
+            ImageCanvas.Children.Add(line);
+
+            return line;
         }
 
         #endregion
@@ -933,21 +979,24 @@ namespace Tira.App.UserControls
        
         private void ImageViewerControl_OnPreviewKeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyboardDevice.Modifiers == ModifierKeys.Control)
+            if (CurrentImageViewerMode == ImageViewerMode.None)
             {
-                switch (e.Key)
+                if (e.KeyboardDevice.Modifiers == ModifierKeys.Control)
                 {
-                    case Key.Add:
-                        ZoomInOrZoomOutImage(1);
-                        break;
+                    switch (e.Key)
+                    {
+                        case Key.Add:
+                            ZoomInOrZoomOutImage(1);
+                            break;
 
-                    case Key.Subtract:
-                        ZoomInOrZoomOutImage(-1);
-                        break;
+                        case Key.Subtract:
+                            ZoomInOrZoomOutImage(-1);
+                            break;
 
-                    case Key.H:
-                        FitMode = FitOption.FitSize;
-                        break;
+                        case Key.H:
+                            FitMode = FitOption.FitSize;
+                            break;
+                    }
                 }
             }
         }
@@ -983,10 +1032,10 @@ namespace Tira.App.UserControls
 
         #region Markups events
 
-        private void ImageCanvas_OnMouseDown(object sender, MouseButtonEventArgs e)
+        private void ImageCanvas_OnMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             ClearDrawingTempObjects();
-            _drawingStartPoint = e.GetPosition(ImageCanvas);
+            _drawingStartPoint = _drawingEndPoint = e.GetPosition(ImageCanvas);
             if (!CheckPointIsInImageArea(_drawingStartPoint))
                 return;
 
@@ -1064,21 +1113,27 @@ namespace Tira.App.UserControls
                             if (_tempRectangle != null)
                                 ImageCanvas.Children.Remove(_tempRectangle);
 
-                            _tempRectangle = new System.Windows.Shapes.Rectangle
-                            {
-                                Style = FindResource("DrawingRectangleAreaStyle") as Style,
-                                Width = rectangleArea.Width,
-                                Height = rectangleArea.Height,
-                            };
-                            Canvas.SetLeft(_tempRectangle, rectangleArea.Left);
-                            Canvas.SetTop(_tempRectangle, rectangleArea.Top);
-                            ImageCanvas.Children.Add(_tempRectangle);
+                            _tempRectangle = DrawMarkupRectangle(rectangleArea, DrawingRectangleAreaStyle);
                             break;
 
                         case MarkupObjectType.VerticalLine:
+                            if (_tempLine == null)
+                                _tempLine = DrawMarkupVerticalLine((int) _drawingEndPoint.X, DrawingLineStyle);
+                            else
+                            {
+                                _tempLine.X1 = _drawingEndPoint.X;
+                                _tempLine.X2 = _drawingEndPoint.X;
+                            }
                             break;
 
                         case MarkupObjectType.HorizontalLine:
+                            if (_tempLine == null)
+                                _tempLine = DrawMarkupHorizontalLine((int)_drawingEndPoint.Y, DrawingLineStyle);
+                            else
+                            {
+                                _tempLine.Y1 = _drawingEndPoint.Y;
+                                _tempLine.Y2 = _drawingEndPoint.Y;
+                            }
                             break;
                     }
                     break;
@@ -1094,7 +1149,7 @@ namespace Tira.App.UserControls
             }
         }
 
-        private void ImageCanvas_OnMouseUp(object sender, MouseButtonEventArgs e)
+        private void ImageCanvas_OnMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             if (BitmapSource == null || !_isDrawingInProgress || e.LeftButton != MouseButtonState.Released)
                 return;
@@ -1112,16 +1167,40 @@ namespace Tira.App.UserControls
                         case MarkupObjectType.Rectangle:
                             ImageCanvas.Children.Remove(_tempRectangle);
                             CurrentMarkupObjects.RectangleArea = CreateRectangleByTwoPoints(_drawingStartPoint, _drawingEndPoint);
-                            DrawMarkupRectangle();
+                            DrawMarkupRectangle(CurrentMarkupObjects.RectangleArea, FixedRectangleAreaStyle);
                             MarkupObjectsChanged?.Invoke(this, new MarkupObjectsEventArgs(CurrentMarkupObjects));
                             break;
 
                         case MarkupObjectType.VerticalLine:
-                            MarkupObjectsChanged?.Invoke(this, new MarkupObjectsEventArgs(CurrentMarkupObjects));
+                            ImageCanvas.Children.Remove(_tempLine);
+
+                            if (CurrentMarkupObjects.RectangleArea.Contains((int)_drawingEndPoint.X, CurrentMarkupObjects.RectangleArea.Top))
+                            { 
+                                if (_selectedVerticalLineIndex.HasValue)
+                                    CurrentMarkupObjects.VerticalLinesCoordinates[_selectedVerticalLineIndex.Value] = (int)_drawingEndPoint.X;
+                                else if (CurrentMarkupObjects.VerticalLinesCoordinates.Count < CurrentMarkupObjects.MaxNumberOfVerticalLines)
+                                    CurrentMarkupObjects.VerticalLinesCoordinates.Add((int)_drawingEndPoint.X);
+                                _selectedVerticalLineIndex = null;
+
+                                DrawMarkupObjects();                           
+                                MarkupObjectsChanged?.Invoke(this, new MarkupObjectsEventArgs(CurrentMarkupObjects));
+                            }
                             break;
 
                         case MarkupObjectType.HorizontalLine:
-                            MarkupObjectsChanged?.Invoke(this, new MarkupObjectsEventArgs(CurrentMarkupObjects));
+                            ImageCanvas.Children.Remove(_tempLine);
+
+                            if (CurrentMarkupObjects.RectangleArea.Contains(CurrentMarkupObjects.RectangleArea.Left, (int)_drawingEndPoint.Y))
+                            {
+                                if (_selectedHorizontalLineIndex.HasValue)
+                                    CurrentMarkupObjects.HorizontalLinesCoordinates[_selectedHorizontalLineIndex.Value] = (int)_drawingEndPoint.Y;
+                                else
+                                    CurrentMarkupObjects.HorizontalLinesCoordinates.Add((int)_drawingEndPoint.Y);
+                                _selectedHorizontalLineIndex = null;
+
+                                DrawMarkupObjects();
+                                MarkupObjectsChanged?.Invoke(this, new MarkupObjectsEventArgs(CurrentMarkupObjects));
+                            }
                             break;
                     }
 
@@ -1135,7 +1214,7 @@ namespace Tira.App.UserControls
                 case ImageViewerMode.Crop:
                     break;
 
-                    #endregion
+                #endregion
             }
 
             ClearDrawingTempObjects();

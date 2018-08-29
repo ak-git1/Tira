@@ -454,4 +454,10 @@
   <data name="DataColumnWindow_Label_RemovePunctuation" xml:space="preserve">
     <value>Удалять пунктуацию:</value>
   </data>
+  <data name="NoRectangleInMarkupWarning_Caption" xml:space="preserve">
+    <value>Расстановка линий</value>
+  </data>
+  <data name="NoRectangleInMarkupWarning_Text" xml:space="preserve">
+    <value>Сначала нужно разметить прямоугольную область для распознавания.</value>
+  </data>
 </root>

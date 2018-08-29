@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -537,8 +538,14 @@ namespace Tira.App.Logic.ViewModels
                 bool? result = ShowDialogAgent.Instance.ShowDialog<ProjectSettingsWindow>(vm);
                 if (result.HasValue && result.Value)
                 {
-                    Project.DataColumns = new List<DataColumn>(vm.DataColumns);
+                    Project.UpdateDataColumns(new List<DataColumn>(vm.DataColumns));
                     FillDataGridColumns();
+
+                    if (CurrentMarkupObjects != null)
+                    {
+                        CurrentMarkupObjects.MaxNumberOfVerticalLines = vm.DataColumns.Count - 1;
+                        OnPropertyChanged(() => CurrentMarkupObjects);
+                    }
                 }
             }
             catch (Exception ex)
@@ -709,16 +716,37 @@ namespace Tira.App.Logic.ViewModels
             CurrentMarkupObjectType = MarkupObjectType.None;
             SelectedGalleryImage.MarkupObjects = new MarkupObjects();
             OnPropertyChanged(() => SelectedGalleryImage);
+            OnPropertyChanged(() => CurrentMarkupObjects);
         }
 
         /// <summary>
-        /// Sets current object for image viewer
+        /// Sets current markup object type
         /// </summary>
         /// <param name="markupObjectType">Markup object type</param>
         private void SetCurrentMarkupObjectType(MarkupObjectType markupObjectType)
         {
+            if (CurrentMarkupObjects == null)
+                return;
+
+            switch (markupObjectType)
+            {
+                case MarkupObjectType.None:
+                case MarkupObjectType.Rectangle:
+                    break;
+
+                case MarkupObjectType.VerticalLine:
+                case MarkupObjectType.HorizontalLine:
+                    if (CurrentMarkupObjects.RectangleArea == Rectangle.Empty)
+                    {
+                        FormsHelper.ShowWarning(Resources.NoRectangleInMarkupWarning_Text, Resources.NoRectangleInMarkupWarning_Caption);
+                        return;
+                    }
+                    break;
+            }
+
             CurrentMarkupObjectType = markupObjectType;
         }
+
 
         /// <summary>
         /// Updates markup objects

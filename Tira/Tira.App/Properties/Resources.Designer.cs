@@ -278,6 +278,24 @@ namespace Tira.App.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Lines markup.
+        /// </summary>
+        public static string NoRectangleInMarkupWarning_Caption {
+            get {
+                return ResourceManager.GetString("NoRectangleInMarkupWarning_Caption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You must first set a rectangle area for recognition..
+        /// </summary>
+        public static string NoRectangleInMarkupWarning_Text {
+            get {
+                return ResourceManager.GetString("NoRectangleInMarkupWarning_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cancel.
         /// </summary>
         public static string ProjectCreationWindow_Button_Cancel {

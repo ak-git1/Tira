@@ -19,6 +19,7 @@
         <Style x:Key="FixedRectangleAreaStyle" TargetType="{x:Type Rectangle}">
             <Setter Property="StrokeThickness" Value="3"/>
             <Setter Property="Stroke" Value="{StaticResource FixedRectangleAreaBorderBrush}"/>
+            <Setter Property="Fill" Value="{StaticResource FixedRectangleAreaBrush}"/>
         </Style>
         <Style x:Key="DrawingLineStyle" TargetType="{x:Type Line}">
             <Setter Property="StrokeThickness" Value="3"/>
@@ -28,7 +29,7 @@
             <Setter Property="StrokeThickness" Value="3"/>
             <Setter Property="Stroke" Value="{StaticResource FixedLineBrush}"/>
         </Style>
-        <Style x:Key="HighlightedRow" TargetType="{x:Type Line}">
+        <Style x:Key="HighlightedRow" TargetType="{x:Type Rectangle}">
             <Setter Property="StrokeThickness" Value="3"/>
             <Setter Property="Stroke" Value="{StaticResource HighlightedRowBrush}"/>
         </Style>
@@ -64,9 +65,9 @@
                         Effect="{Binding EffectImageOnly, ElementName=Root}" 
                         Width="{Binding ImageWidth, ElementName=Root}" 
                         Height="{Binding ImageHeight, ElementName=Root}"
-                        MouseDown="ImageCanvas_OnMouseDown"
+                        MouseLeftButtonDown="ImageCanvas_OnMouseLeftButtonDown"
                         MouseMove="ImageCanvas_OnMouseMove"
-                        MouseUp="ImageCanvas_OnMouseUp">
+                        MouseLeftButtonUp="ImageCanvas_OnMouseLeftButtonUp">
                     <Canvas.CacheMode>
                         <BitmapCache EnableClearType="False" 
                                      RenderAtScale="1" 

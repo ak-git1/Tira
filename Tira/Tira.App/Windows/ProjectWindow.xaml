@@ -204,7 +204,7 @@
                                     SizeDefinition="Middle, Small"
                                     IsEnabled="{Binding ElementName=EnableMarkupButton, Path=IsChecked, Mode=OneWay}"
                                     Command="{Binding SetCurrentMarkupObjectTypeCommand}"
-                                    CommandParameter="{x:Static appEnums:MarkupObjectType.VerticalLine}"/>
+                                    CommandParameter="{x:Static appEnums:MarkupObjectType.HorizontalLine}"/>
                 </fluent:RibbonGroupBox>
                 <fluent:RibbonGroupBox Header="{x:Static properties:Resources.Ribbon_GroupBox_MarkupCopy}">
                     <fluent:Button  Header="{x:Static properties:Resources.Ribbon_Button_MarkupCopy}"

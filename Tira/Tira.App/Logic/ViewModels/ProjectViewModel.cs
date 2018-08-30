@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Data;
 using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
@@ -28,6 +29,7 @@ using Tira.Logic.Helpers;
 using Tira.Logic.Models;
 using Tira.Logic.Models.Markup;
 using Application = System.Windows.Application;
+using DataColumn = Tira.Logic.Models.DataColumn;
 
 namespace Tira.App.Logic.ViewModels
 {
@@ -73,6 +75,11 @@ namespace Tira.App.Logic.ViewModels
         /// Current markup object type
         /// </summary>
         private MarkupObjectType _currentMarkupObjectType = MarkupObjectType.None;
+
+        /// <summary>
+        /// The copy of markup objects
+        /// </summary>
+        private MarkupObjects _copyOfMarkupObjects;
 
         #endregion
 
@@ -123,6 +130,7 @@ namespace Tira.App.Logic.ViewModels
             set
             {
                 _selectedGalleryImage = value;
+                FillDataGrid();
                 OnPropertyChanged(() => SelectedGalleryImage);
                 OnPropertyChanged(() => CurrentMarkupObjects);
             }
@@ -200,6 +208,19 @@ namespace Tira.App.Logic.ViewModels
             {
                 SelectedGalleryImage.MarkupObjects = value;
                 OnPropertyChanged(() => CurrentMarkupObjects);
+            }
+        }
+
+        /// <summary>
+        /// Recognized data
+        /// </summary>
+        public DataTable RecognizedData
+        {
+            get => SelectedGalleryImage?.RecognizedData;                
+            set
+            {
+                SelectedGalleryImage.RecognizedData = value;
+                OnPropertyChanged(() => RecognizedData);
             }
         }
 
@@ -328,6 +349,16 @@ namespace Tira.App.Logic.ViewModels
         /// </summary>
         public INotifyCommand HandleMarkupObjectsChangedCommand { get; }
 
+        /// <summary>
+        /// Command for copying image markup
+        /// </summary>
+        public INotifyCommand ImageMarkupCopyCommand { get; }
+
+        /// <summary>
+        /// Command for pasting image markup
+        /// </summary>
+        public INotifyCommand ImageMarkupPasteCommand { get; }
+
         #endregion
 
         #endregion
@@ -342,7 +373,7 @@ namespace Tira.App.Logic.ViewModels
         {
             Project = project;
             FillGallery();
-            FillDataGridColumns();
+            FillDataGrid();
 
             CreateProjectCommand = new NotifyCommand(_ => CreateProject());
             OpenProjectCommand = new NotifyCommand(_ => OpenProject());
@@ -369,6 +400,8 @@ namespace Tira.App.Logic.ViewModels
             ImageClearMarkupCommand = new NotifyCommand(o => ImageClearMarkup(), _ => CanPerformOperationsWithImage());
             SetCurrentMarkupObjectTypeCommand = new NotifyCommand(o => SetCurrentMarkupObjectType((MarkupObjectType)o));
             HandleMarkupObjectsChangedCommand = new NotifyCommand(e => UpdateMarkupObjects((MarkupObjectsEventArgs)e));
+            ImageMarkupCopyCommand = new NotifyCommand(_ => ImageMarkupCopy(), _ => CanPerformOperationsWithImage());
+            ImageMarkupPasteCommand = new NotifyCommand(_ => ImageMarkupPaste(), _ => CanPerformOperationsWithImage());
 
             Images.ListChanged += ImagesOnListChanged;
         }
@@ -487,7 +520,7 @@ namespace Tira.App.Logic.ViewModels
                 if (result.Result == ActionResultType.Ok)
                 {
                     FormsHelper.ShowMessage(Resources.ProjectWindow_OcrCompletedMessage_Text, Resources.ProjectCreationWindow_ProjectValidationMessage_Caption);
-                    // TODO - fill recognized data - see example
+                    FillDataGrid();
                 }
                 else
                     FormsHelper.ShowUnexpectedError();
@@ -539,7 +572,7 @@ namespace Tira.App.Logic.ViewModels
                 if (result.HasValue && result.Value)
                 {
                     Project.UpdateDataColumns(new List<DataColumn>(vm.DataColumns));
-                    FillDataGridColumns();
+                    FillDataGrid();
 
                     if (CurrentMarkupObjects != null)
                     {
@@ -562,6 +595,8 @@ namespace Tira.App.Logic.ViewModels
         /// </summary>
         public void FillGallery()
         {
+            _copyOfMarkupObjects = null;
+
             _images = new BindingList<GalleryImage>();
             if (Project.Gallery.Images.Count > 0)
                 foreach (GalleryImage galleryImage in Project.Gallery.Images)
@@ -720,6 +755,33 @@ namespace Tira.App.Logic.ViewModels
         }
 
         /// <summary>
+        /// Copy image markup
+        /// </summary>
+        private void ImageMarkupCopy()
+        {
+            if (SelectedGalleryImage != null)
+                _copyOfMarkupObjects = SelectedGalleryImage.MarkupObjects.Clone();
+        }
+
+        /// <summary>
+        /// Paste image merkup
+        /// </summary>
+        private void ImageMarkupPaste()
+        {
+            if (SelectedGalleryImage != null && _copyOfMarkupObjects != null)
+            {
+                GalleryImage image = Project.Gallery.Images.WhereEx(x => x.Uid == SelectedGalleryImage.Uid).FirstOrDefault();
+                if (image != null)
+                {
+                    image.MarkupObjects = _copyOfMarkupObjects.Clone();
+                    SelectedGalleryImage.MarkupObjects = _copyOfMarkupObjects.Clone();
+                    OnPropertyChanged(() => SelectedGalleryImage);
+                    OnPropertyChanged(() => CurrentMarkupObjects);
+                }
+            }
+        }
+
+        /// <summary>
         /// Sets current markup object type
         /// </summary>
         /// <param name="markupObjectType">Markup object type</param>
@@ -778,6 +840,20 @@ namespace Tira.App.Logic.ViewModels
                     Width = 150
                 });
             OnPropertyChanged(() => DataGridColumns);
+        }
+
+        /// <summary>
+        /// Fills the data grid
+        /// </summary>
+        private void FillDataGrid()
+        {        
+            if (SelectedGalleryImage != null && SelectedGalleryImage.RecognitionCompleted && SelectedGalleryImage.MarkupObjects.MaxNumberOfVerticalLines == SelectedGalleryImage.RecognizedData.Columns.Count - 1)
+            {
+                DataGridColumns = null;
+                RecognizedData = Project.Gallery.Images.WhereEx(x => x.Uid == SelectedGalleryImage.Uid).FirstOrDefault().RecognizedData;
+            }
+            else
+                FillDataGridColumns();            
         }
 
         #endregion

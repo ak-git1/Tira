@@ -211,12 +211,14 @@
                                     ToolTip="{x:Static properties:Resources.Ribbon_Button_MarkupCopy}"
                                     LargeIcon="/Tira.App;component/Content/Images/Ribbon/copy_64x64.png"
                                     Icon="/Tira.App;component/Content/Images/Ribbon/copy_24x24.png"
-                                    SizeDefinition="Large"/>
+                                    SizeDefinition="Large"
+                                    Command="{Binding ImageMarkupCopyCommand}"/>
                     <fluent:Button  Header="{x:Static properties:Resources.Ribbon_Button_MarkupPaste}"
                                     ToolTip="{x:Static properties:Resources.Ribbon_Button_MarkupPaste}"
                                     LargeIcon="/Tira.App;component/Content/Images/Ribbon/paste_64x64.png"
                                     Icon="/Tira.App;component/Content/Images/Ribbon/paste_24x24.png"
-                                    SizeDefinition="Large"/>
+                                    SizeDefinition="Large"
+                                    Command="{Binding ImageMarkupPasteCommand}"/>
                 </fluent:RibbonGroupBox>
             </fluent:RibbonTabItem>
             <fluent:RibbonTabItem Header="{x:Static properties:Resources.Ribbon_TabItem_Transformation}"
@@ -339,17 +341,17 @@
                                           MarkupObjectsChanged="{binding:EventBinding Command=HandleMarkupObjectsChangedCommand, CommandParameter=$e}"/>
                 <GridSplitter Grid.Row="1" ShowsPreview="False" Height="3" HorizontalAlignment="Stretch" VerticalAlignment="Center" Style="{StaticResource HorizontalGridSplitter}" />
                 <DataGrid x:Name="DataColumnsGrid"
-                          Grid.Row="2"
+                          Grid.Row="2"                          
                           binding:DataGridColumnsBehavior.BindableColumns="{Binding DataGridColumns}"
-                          AutoGenerateColumns="False"
+                          ItemsSource="{Binding RecognizedData, Mode=TwoWay}"
+                          AutoGenerateColumns="{Binding RecognizedData, Mode=OneWay, Converter={converters:NotNullToBoolConverter}}"
                           CanUserAddRows="False"
                           CanUserDeleteRows="False"
                           CanUserReorderColumns="False"
                           CanUserSortColumns="False"
                           SelectionMode="Single"
-                          SelectionUnit="Cell"
-                          IsReadOnly="False">
-                </DataGrid>
+                          SelectionUnit="Cell"                          
+                          IsReadOnly="False" />
             </Grid>
         </Grid>
 

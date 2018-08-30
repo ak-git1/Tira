@@ -67,7 +67,8 @@
                         Height="{Binding ImageHeight, ElementName=Root}"
                         MouseLeftButtonDown="ImageCanvas_OnMouseLeftButtonDown"
                         MouseMove="ImageCanvas_OnMouseMove"
-                        MouseLeftButtonUp="ImageCanvas_OnMouseLeftButtonUp">
+                        MouseLeftButtonUp="ImageCanvas_OnMouseLeftButtonUp"
+                        KeyDown="ImageCanvas_OnKeyDown">
                     <Canvas.CacheMode>
                         <BitmapCache EnableClearType="False" 
                                      RenderAtScale="1" 

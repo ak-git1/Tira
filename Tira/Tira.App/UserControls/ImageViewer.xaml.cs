@@ -1129,7 +1129,7 @@ namespace Tira.App.UserControls
                         case MarkupObjectType.HorizontalLine:
                             if (_tempLine == null)
                                 _tempLine = DrawMarkupHorizontalLine((int)_drawingEndPoint.Y, DrawingLineStyle);
-                            else
+                            else    
                             {
                                 _tempLine.Y1 = _drawingEndPoint.Y;
                                 _tempLine.Y2 = _drawingEndPoint.Y;
@@ -1215,9 +1215,32 @@ namespace Tira.App.UserControls
                     break;
 
                 #endregion
+            }            
+        }
+
+        private void ImageCanvas_OnKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Delete && _isDrawingInProgress)
+            {
+                if (_selectedVerticalLineIndex.HasValue)
+                {
+                    CurrentMarkupObjects.VerticalLinesCoordinates.RemoveAt(_selectedVerticalLineIndex.Value);
+                    _selectedVerticalLineIndex = null;
+                    ClearDrawingTempObjects();
+                }
+
+                if (_selectedHorizontalLineIndex.HasValue)
+                {
+                    CurrentMarkupObjects.HorizontalLinesCoordinates.RemoveAt(_selectedHorizontalLineIndex.Value);
+                    _selectedHorizontalLineIndex = null;
+                    ClearDrawingTempObjects();
+                }
             }
 
-            ClearDrawingTempObjects();
+            if (e.Key == Key.Escape && _isDrawingInProgress)
+            {
+                ClearDrawingTempObjects();
+            }
         }
 
         #endregion

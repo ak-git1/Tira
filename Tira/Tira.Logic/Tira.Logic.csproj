@@ -32,8 +32,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Ak.Framework.Core, Version=1.0.3.0, Culture=neutral, PublicKeyToken=42ef31747320a29d, processorArchitecture=MSIL">
-      <HintPath>..\packages\Ak.Framework.Core.1.0.3\lib\Ak.Framework.Core.dll</HintPath>
+    <Reference Include="Ak.Framework.Core, Version=1.0.4.1, Culture=neutral, PublicKeyToken=42ef31747320a29d, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ak.Framework.Core.1.0.4.1\lib\Ak.Framework.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="CsvHelper, Version=7.0.0.0, Culture=neutral, PublicKeyToken=8c4959082be5c823, processorArchitecture=MSIL">
+      <HintPath>..\packages\CsvHelper.7.1.1\lib\net45\CsvHelper.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
@@ -41,12 +44,16 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="EPPlus, Version=4.5.2.1, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPPlus.4.5.2.1\lib\net40\EPPlus.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
       <HintPath>..\packages\NLog.4.5.9\lib\net45\NLog.dll</HintPath>
     </Reference>
+    <Reference Include="PresentationCore" />
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
@@ -63,6 +70,7 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.IO.Compression" />
     <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Transactions" />
     <Reference Include="System.Xml.Linq" />
@@ -73,13 +81,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Engines\CsvExportFilesEngine.cs" />
+    <Compile Include="Engines\ExcelExportFilesEngine.cs" />
+    <Compile Include="Engines\ExportFilesEnginesFactory.cs" />
+    <Compile Include="Engines\IExportFilesEngine.cs" />
+    <Compile Include="Engines\JsonExportFilesEngine.cs" />
     <Compile Include="Enums\ActionResultType.cs" />
     <Compile Include="Enums\DataColumnType.cs" />
     <Compile Include="Enums\MarkupObjectsValidationResult.cs" />
     <Compile Include="Enums\ExportFormat.cs" />
     <Compile Include="Enums\InterfaceLanguage.cs" />
     <Compile Include="Enums\Languages.cs" />
-    <Compile Include="Helpers\ExportFormatHelper.cs" />
+    <Compile Include="Helpers\ExportFormatsHelper.cs" />
     <Compile Include="Helpers\LogHelper.cs" />
     <Compile Include="Helpers\SerializationHelper.cs" />
     <Compile Include="Models\ActionResult.cs" />

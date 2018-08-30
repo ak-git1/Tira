@@ -89,12 +89,6 @@
                                          SizeDefinition="Middle"
                                          Command="{Binding ExportProjectDataCommand}"
                                          CommandParameter="{x:Static enums:ExportFormat.Json}"/>
-                        <fluent:MenuItem Header="{x:Static properties:Resources.Ribbon_Button_Export_Xls}"
-                                         ToolTip="{x:Static properties:Resources.Ribbon_Button_Export_Xls}"
-                                         Icon="/Tira.App;component/Content/Images/Ribbon/xls_24x24.png"
-                                         SizeDefinition="Middle"
-                                         Command="{Binding ExportProjectDataCommand}"
-                                         CommandParameter="{x:Static enums:ExportFormat.Xls}"/>
                         <fluent:MenuItem Header="{x:Static properties:Resources.Ribbon_Button_Export_Xlsx}"
                                          ToolTip="{x:Static properties:Resources.Ribbon_Button_Export_Xlsx}"
                                          Icon="/Tira.App;component/Content/Images/Ribbon/xlsx_24x24.png"

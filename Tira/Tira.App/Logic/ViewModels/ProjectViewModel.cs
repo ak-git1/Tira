@@ -544,8 +544,8 @@ namespace Tira.App.Logic.ViewModels
                 {
                     SaveFileDialog exportDataFileDialog = new SaveFileDialog
                     {
-                        FileName = $"{Project.Name}.{ExportFormatHelper.GetFileExtension(exportFormat)}",
-                        Filter = ExportFormatHelper.GetFileFilterForSaveDialog(exportFormat)
+                        FileName = $"{Project.Name}.{ExportFormatsHelper.GetFileExtension(exportFormat)}",
+                        Filter = ExportFormatsHelper.GetFileFilterForSaveDialog(exportFormat)
                     };
                     if (exportDataFileDialog.ShowDialog() == DialogResult.OK)
                     {

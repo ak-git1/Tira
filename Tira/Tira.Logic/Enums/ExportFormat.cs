@@ -11,18 +11,13 @@
         Json = 0,
 
         /// <summary>
-        /// Xls
-        /// </summary>
-        Xls = 1,
-
-        /// <summary>
         /// Xlsx
         /// </summary>
-        Xlsx = 2,
+        Xlsx = 1,
 
         /// <summary>
         /// CSV
         /// </summary>
-        Csv = 3
+        Csv = 2
     }
 }

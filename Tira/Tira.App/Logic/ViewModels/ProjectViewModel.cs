@@ -14,6 +14,7 @@ using System.Windows.Forms;
 using System.Windows.Media.Imaging;
 using Ak.Framework.Core.Extensions;
 using Ak.Framework.Core.Helpers;
+using Ak.Framework.Imaging.Helpers;
 using Ak.Framework.Wpf.Commands;
 using Ak.Framework.Wpf.Commands.Interfaces;
 using Ak.Framework.Wpf.Culture;
@@ -728,6 +729,21 @@ namespace Tira.App.Logic.ViewModels
             }
         }
 
+        /// <summary>
+        /// Replaces thumbnail in gallery
+        /// </summary>
+        /// <param name="galleryImage">Gallery image</param>
+        private void ReplaceGalleryThumbnail(GalleryImage galleryImage)
+        {
+            GalleryImage image = _images.WhereEx(x => x.Uid == galleryImage.Uid).FirstOrDefault();
+            if (image != null)
+            {
+                image.TempFilePath = galleryImage.TempFilePath;
+                image.TempThumbnailFilePath = galleryImage.TempThumbnailFilePath;
+                OnPropertyChanged(() => Images);
+            }
+        }
+
         #endregion
 
         #region Image operations
@@ -740,8 +756,8 @@ namespace Tira.App.Logic.ViewModels
         {
             ImageViewerZoomManager = new ZoomManager();
             SelectedGalleryImage = args.Image;
-            CurrentMarkupObjects = SelectedGalleryImage?.MarkupObjects;
-            SelectedImage = new BitmapImage(new Uri(SelectedGalleryImage.ActualImageFilePath));
+            CurrentMarkupObjects = SelectedGalleryImage.MarkupObjects;
+            SelectedImage = BitmapImageHelper.GetBitmapImageFromPath(SelectedGalleryImage.ActualImageFilePath);
             OnPropertyChanged(() => ImageViewerZoomManager);
             OnPropertyChanged(() => CurrentMarkupObjects);
 
@@ -1033,6 +1049,29 @@ namespace Tira.App.Logic.ViewModels
             }
         }
 
+        /// <summary>
+        /// Applies filter.
+        /// </summary>
+        /// <param name="filter">Filter</param>
+        private void ApplyFilter(Filter filter)
+        {
+            GalleryImage galleryImage = Images.WhereEx(x => x.Uid == SelectedGalleryImage.Uid).FirstOrDefault();
+            if (galleryImage != null)
+            {
+                galleryImage.ApplyFilter(filter);
+                SelectedGalleryImage = galleryImage;
+                ReplaceGalleryThumbnail(SelectedGalleryImage);
+
+                if (Filter.RemoveDrawingObjects(filter.FilterType))
+                {
+                    galleryImage.MarkupObjects = new MarkupObjects();
+                    ImageClearMarkup();
+                }
+
+                SelectedImage = BitmapImageHelper.GetBitmapImageFromPath(SelectedGalleryImage.ActualImageFilePath);
+            }
+        }
+
         #endregion
 
         #region DataGrid operations
@@ -1064,41 +1103,7 @@ namespace Tira.App.Logic.ViewModels
             }
             else
                 FillDataGridColumns();            
-        }
-
-        /// <summary>
-        /// Replaces thumbnail in gallery
-        /// </summary>
-        /// <param name="galleryImage">Gallery image</param>
-        private void ReplaceGalleryThumbnail(GalleryImage galleryImage)
-        {
-            GalleryImage image = _images.WhereEx(x => x.Uid == galleryImage.Uid).FirstOrDefault();
-            if (image != null)
-            {
-                image.TempFilePath = galleryImage.TempFilePath;
-                image.TempThumbnailFilePath = galleryImage.TempThumbnailFilePath;
-                OnPropertyChanged(() => Images);
-            }
-        }
-
-        private void ApplyFilter(Filter filter)
-        {
-            GalleryImage galleryImage = Images.WhereEx(x => x.Uid == SelectedGalleryImage.Uid).FirstOrDefault();
-            if (galleryImage != null)
-            {
-                galleryImage.ApplyFilter(filter);
-                SelectedGalleryImage = galleryImage;
-                ReplaceGalleryThumbnail(SelectedGalleryImage);                
-
-                if (Filter.RemoveDrawingObjects(filter.FilterType))
-                {
-                    galleryImage.MarkupObjects = new MarkupObjects();
-                    ImageClearMarkup();
-                }
-
-                SelectedImage = new BitmapImage(new Uri(SelectedGalleryImage.ActualImageFilePath));
-            }
-        }
+        }        
 
         #endregion
 

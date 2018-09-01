@@ -746,11 +746,11 @@ namespace Tira.App.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Clip holes.
+        ///   Looks up a localized string similar to Blobs.
         /// </summary>
-        public static string Ribbon_Button_RemoveClipHoles {
+        public static string Ribbon_Button_RemoveBlobs {
             get {
-                return ResourceManager.GetString("Ribbon_Button_RemoveClipHoles", resourceCulture);
+                return ResourceManager.GetString("Ribbon_Button_RemoveBlobs", resourceCulture);
             }
         }
         
@@ -796,6 +796,15 @@ namespace Tira.App.Properties {
         public static string Ribbon_Button_RemoveObjects {
             get {
                 return ResourceManager.GetString("Ribbon_Button_RemoveObjects", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Clip holes.
+        /// </summary>
+        public static string Ribbon_Button_RemoveStapleMarks {
+            get {
+                return ResourceManager.GetString("Ribbon_Button_RemoveStapleMarks", resourceCulture);
             }
         }
         

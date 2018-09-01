@@ -370,7 +370,7 @@ Do you want to remove it from the list?</value>
   <data name="Ribbon_Button_RemoveHoles" xml:space="preserve">
     <value>Holes</value>
   </data>
-  <data name="Ribbon_Button_RemoveClipHoles" xml:space="preserve">
+  <data name="Ribbon_Button_RemoveStapleMarks" xml:space="preserve">
     <value>Clip holes</value>
   </data>
   <data name="Ribbon_Button_Export_Json" xml:space="preserve">
@@ -456,5 +456,8 @@ Do you want to remove it from the list?</value>
   </data>
   <data name="NoRectangleInMarkupWarning_Caption" xml:space="preserve">
     <value>Lines markup</value>
+  </data>
+  <data name="Ribbon_Button_RemoveBlobs" xml:space="preserve">
+    <value>Blobs</value>
   </data>
 </root>

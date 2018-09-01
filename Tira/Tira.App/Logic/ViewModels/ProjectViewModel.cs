@@ -359,6 +359,81 @@ namespace Tira.App.Logic.ViewModels
         /// </summary>
         public INotifyCommand ImageMarkupPasteCommand { get; }
 
+        /// <summary>
+        /// Command for image binarization
+        /// </summary>
+        public INotifyCommand ImageBinarizeCommand { get; }
+
+        /// <summary>
+        /// Command for image set brightness
+        /// </summary>
+        public INotifyCommand ImageSetBrightnessCommand { get; }
+
+        /// <summary>
+        /// Command for image set contrast
+        /// </summary>
+        public INotifyCommand ImageSetContrastCommand { get; }
+
+        /// <summary>
+        /// Command for image set gamma correction
+        /// </summary>
+        public INotifyCommand ImageSetGammaCorrectionCommand { get; }
+
+        /// <summary>
+        /// Command for image auto rotation
+        /// </summary>
+        public INotifyCommand ImageAutoRotateCommand { get; }
+
+        /// <summary>
+        /// Command for image rotation
+        /// </summary>
+        public INotifyCommand ImageRotateCommand { get; }
+
+        /// <summary>
+        /// Command for image auto resizing
+        /// </summary>
+        public INotifyCommand ImageAutoResizeCommand { get; }
+
+        /// <summary>
+        /// Command for image crop
+        /// </summary>
+        public INotifyCommand ImageCropCommand { get; }
+
+        /// <summary>
+        /// Command for image dilation
+        /// </summary>
+        public INotifyCommand ImageDilateCommand { get; }
+
+        /// <summary>
+        /// Command for image erosion
+        /// </summary>
+        public INotifyCommand ImageErodeCommand { get; }
+
+        /// <summary>
+        /// Command for removing lines from image
+        /// </summary>
+        public INotifyCommand ImageRemoveLinesCommand { get; }
+
+        /// <summary>
+        /// Command for removing noise from image
+        /// </summary>
+        public INotifyCommand ImageRemoveNoiseCommand { get; }
+
+        /// <summary>
+        /// Command for removing holes from image
+        /// </summary>
+        public INotifyCommand ImageRemoveHolesCommand { get; }
+
+        /// <summary>
+        /// Command for removing clip holes from image
+        /// </summary>
+        public INotifyCommand ImageRemoveStapleMarksCommand { get; }
+
+        /// <summary>
+        /// Command for removing blobs from image
+        /// </summary>
+        public INotifyCommand ImageRemoveBlobsCommand { get; }
+
         #endregion
 
         #endregion
@@ -402,6 +477,22 @@ namespace Tira.App.Logic.ViewModels
             HandleMarkupObjectsChangedCommand = new NotifyCommand(e => UpdateMarkupObjects((MarkupObjectsEventArgs)e));
             ImageMarkupCopyCommand = new NotifyCommand(_ => ImageMarkupCopy(), _ => CanPerformOperationsWithImage());
             ImageMarkupPasteCommand = new NotifyCommand(_ => ImageMarkupPaste(), _ => CanPerformOperationsWithImage());
+
+            ImageBinarizeCommand = new NotifyCommand(_ => ImageBinarize(), _ => CanPerformOperationsWithImage());
+            ImageSetBrightnessCommand = new NotifyCommand(_ => ImageSetBrightness(), _ => CanPerformOperationsWithImage());
+            ImageSetContrastCommand = new NotifyCommand(_ => ImageSetContrast(), _ => CanPerformOperationsWithImage());
+            ImageSetGammaCorrectionCommand = new NotifyCommand(_ => ImageSetGammaCorrection(), _ => CanPerformOperationsWithImage());
+            ImageAutoRotateCommand = new NotifyCommand(_ => ImageAutoRotate(), _ => CanPerformOperationsWithImage());
+            ImageRotateCommand = new NotifyCommand(_ => ImageRotate(), _ => CanPerformOperationsWithImage());
+            ImageAutoResizeCommand = new NotifyCommand(_ => ImageAutoResize(), _ => CanPerformOperationsWithImage());
+            ImageCropCommand = new NotifyCommand(_ => ImageCrop(), _ => CanPerformOperationsWithImage());
+            ImageDilateCommand = new NotifyCommand(_ => ImageDilate(), _ => CanPerformOperationsWithImage());
+            ImageErodeCommand = new NotifyCommand(_ => ImageErode(), _ => CanPerformOperationsWithImage());
+            ImageRemoveLinesCommand = new NotifyCommand(_ => ImageRemoveLines(), _ => CanPerformOperationsWithImage());
+            ImageRemoveNoiseCommand = new NotifyCommand(_ => ImageRemoveNoise(), _ => CanPerformOperationsWithImage());
+            ImageRemoveHolesCommand = new NotifyCommand(_ => ImageRemoveHoles(), _ => CanPerformOperationsWithImage());
+            ImageRemoveStapleMarksCommand = new NotifyCommand(_ => ImageRemoveStapleMarks(), _ => CanPerformOperationsWithImage());
+            ImageRemoveBlobsCommand = new NotifyCommand(_ => ImageRemoveBlobs(), _ => CanPerformOperationsWithImage());
 
             Images.ListChanged += ImagesOnListChanged;
         }
@@ -649,13 +740,13 @@ namespace Tira.App.Logic.ViewModels
         {
             ImageViewerZoomManager = new ZoomManager();
             SelectedGalleryImage = args.Image;
-            CurrentMarkupObjects = SelectedGalleryImage.MarkupObjects;
-            SelectedImage = new BitmapImage(new Uri(SelectedGalleryImage.ImageFilePath));
+            CurrentMarkupObjects = SelectedGalleryImage?.MarkupObjects;
+            SelectedImage = new BitmapImage(new Uri(SelectedGalleryImage.ActualImageFilePath));
             OnPropertyChanged(() => ImageViewerZoomManager);
             OnPropertyChanged(() => CurrentMarkupObjects);
 
             ImageLoadedToViewer = true;
-        }
+        }  
 
         /// <summary>
         /// Clears image viewer
@@ -764,7 +855,7 @@ namespace Tira.App.Logic.ViewModels
         }
 
         /// <summary>
-        /// Paste image merkup
+        /// Paste image markup
         /// </summary>
         private void ImageMarkupPaste()
         {
@@ -779,6 +870,126 @@ namespace Tira.App.Logic.ViewModels
                     OnPropertyChanged(() => CurrentMarkupObjects);
                 }
             }
+        }
+
+        /// <summary>
+        /// Binarize image
+        /// </summary>
+        private void ImageBinarize()
+        {
+            // TODO
+        }
+
+        /// <summary>
+        /// Set brightness for image
+        /// </summary>
+        private void ImageSetBrightness()
+        {
+            // TODO
+        }
+
+        /// <summary>
+        /// Set contrast for image
+        /// </summary>
+        private void ImageSetContrast()
+        {
+            // TODO
+        }
+
+        /// <summary>
+        /// Set gamma correction for image
+        /// </summary>
+        private void ImageSetGammaCorrection()
+        {
+            // TODO
+        }
+
+        /// <summary>
+        /// Auto rotate image
+        /// </summary>
+        private void ImageAutoRotate()
+        {
+            ApplyFilter(new Filter(FilterType.AutoDeskew, null));
+        }
+
+        /// <summary>
+        /// Rotate image
+        /// </summary>
+        private void ImageRotate()
+        {
+            // TODO
+        }
+
+        /// <summary>
+        /// Auto resize image
+        /// </summary>
+        private void ImageAutoResize()
+        {
+            // TODO
+        }
+
+        /// <summary>
+        /// Crop image
+        /// </summary>
+        private void ImageCrop()
+        {
+            // TODO
+        }
+
+        /// <summary>
+        /// Dilate image
+        /// </summary>
+        private void ImageDilate()
+        {
+            ApplyFilter(new Filter(FilterType.Dilation, null));
+        }
+
+        /// <summary>
+        /// Erode image
+        /// </summary>
+        private void ImageErode()
+        {
+            ApplyFilter(new Filter(FilterType.Erosion, null));
+        }
+
+        /// <summary>
+        /// Remove lines from image
+        /// </summary>
+        private void ImageRemoveLines()
+        {
+            // TODO
+        }
+
+        /// <summary>
+        /// Remove noise from image
+        /// </summary>
+        private void ImageRemoveNoise()
+        {
+            ApplyFilter(new Filter(FilterType.NoiseRemoval, null));
+        }
+
+        /// <summary>
+        /// Remove holes from image
+        /// </summary>
+        private void ImageRemoveHoles()
+        {
+            // TODO
+        }
+
+        /// <summary>
+        /// Remove clip holes from image
+        /// </summary>
+        private void ImageRemoveStapleMarks()
+        {
+            ApplyFilter(new Filter(FilterType.StapleMarksRemoval, null));
+        }
+
+        /// <summary>
+        /// Remove blobs from image
+        /// </summary>
+        private void ImageRemoveBlobs()
+        {
+            // TODO
         }
 
         /// <summary>
@@ -808,7 +1019,6 @@ namespace Tira.App.Logic.ViewModels
 
             CurrentMarkupObjectType = markupObjectType;
         }
-
 
         /// <summary>
         /// Updates markup objects
@@ -854,6 +1064,40 @@ namespace Tira.App.Logic.ViewModels
             }
             else
                 FillDataGridColumns();            
+        }
+
+        /// <summary>
+        /// Replaces thumbnail in gallery
+        /// </summary>
+        /// <param name="galleryImage">Gallery image</param>
+        private void ReplaceGalleryThumbnail(GalleryImage galleryImage)
+        {
+            GalleryImage image = _images.WhereEx(x => x.Uid == galleryImage.Uid).FirstOrDefault();
+            if (image != null)
+            {
+                image.TempFilePath = galleryImage.TempFilePath;
+                image.TempThumbnailFilePath = galleryImage.TempThumbnailFilePath;
+                OnPropertyChanged(() => Images);
+            }
+        }
+
+        private void ApplyFilter(Filter filter)
+        {
+            GalleryImage galleryImage = Images.WhereEx(x => x.Uid == SelectedGalleryImage.Uid).FirstOrDefault();
+            if (galleryImage != null)
+            {
+                galleryImage.ApplyFilter(filter);
+                SelectedGalleryImage = galleryImage;
+                ReplaceGalleryThumbnail(SelectedGalleryImage);                
+
+                if (Filter.RemoveDrawingObjects(filter.FilterType))
+                {
+                    galleryImage.MarkupObjects = new MarkupObjects();
+                    ImageClearMarkup();
+                }
+
+                SelectedImage = new BitmapImage(new Uri(SelectedGalleryImage.ActualImageFilePath));
+            }
         }
 
         #endregion

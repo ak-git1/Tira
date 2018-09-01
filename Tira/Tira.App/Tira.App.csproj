@@ -258,6 +258,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Resource Include="Content\Images\Ribbon\remove_blobs_24x24.png" />
+    <Resource Include="Content\Images\Ribbon\remove_blobs_64x64.png" />
     <Resource Include="Content\Cursors\HandMouseReleased.cur" />
     <Resource Include="Content\Cursors\HandMousePressed.cur" />
     <Resource Include="Content\Images\Ribbon\csv_24x24.png" />
@@ -268,8 +270,8 @@
     <Resource Include="Content\Images\Ribbon\xlsx_64x64.png" />
     <Resource Include="Content\Images\Ribbon\xls_24x24.png" />
     <Resource Include="Content\Images\Ribbon\xls_64x64.png" />
-    <Resource Include="Content\Images\Ribbon\remove_clipholes_24x24.png" />
-    <Resource Include="Content\Images\Ribbon\remove_clipholes_64x64.png" />
+    <Resource Include="Content\Images\Ribbon\remove_staplemarks_24x24.png" />
+    <Resource Include="Content\Images\Ribbon\remove_staplemarks_64x64.png" />
     <Resource Include="Content\Images\Ribbon\remove_holes_24x24.png" />
     <Resource Include="Content\Images\Ribbon\remove_holes_64x64.png" />
     <Resource Include="Content\Images\Ribbon\remove_lines_24x24.png" />

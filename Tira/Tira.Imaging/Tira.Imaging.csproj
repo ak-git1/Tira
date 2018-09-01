@@ -47,6 +47,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Analysers\SkewAngleAnalyser.cs" />
+    <Compile Include="Classes\AutoDeskewParameters.cs" />
+    <Compile Include="Classes\BlobsDimensions.cs" />
+    <Compile Include="Classes\HolesPosition.cs" />
     <Compile Include="Converters\ImagesConverter.cs" />
     <Compile Include="Engines\FileTypesEngineFactory.cs" />
     <Compile Include="Engines\PdfEngine.cs" />
@@ -54,6 +58,7 @@
     <Compile Include="Engines\TiffEngine.cs" />
     <Compile Include="Enums\FileFormat.cs" />
     <Compile Include="Enums\FileType.cs" />
+    <Compile Include="Enums\LineRemoveOrientation.cs" />
     <Compile Include="Extensions\BitmapExtensions.cs" />
     <Compile Include="Helpers\BitmapHelper.cs" />
     <Compile Include="Helpers\FilesHelper.cs" />

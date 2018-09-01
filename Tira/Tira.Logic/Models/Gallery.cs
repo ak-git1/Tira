@@ -37,12 +37,6 @@ namespace Tira.Logic.Models
         public string GalleryFolderPath { get; set; }
 
         /// <summary>
-        /// Gallery folder path
-        /// </summary>
-        //[XmlIgnore]
-        //public string GalleryAbsoluteFolderPath => 
-
-        /// <summary>
         /// Gallery
         /// </summary>
         [XmlElement]
@@ -103,6 +97,48 @@ namespace Tira.Logic.Models
                 list.Add(Images.First(x => x.Uid == uid));
 
             Images = list;
+        }
+
+        /// <summary>
+        /// Saves gallery
+        /// </summary>
+        public void Save()
+        {
+            foreach (GalleryImage galleryImage in Images)
+                galleryImage.Save();
+
+            DeleteTempFiles();
+        }
+
+        /// <summary>
+        /// Deletes temporary files
+        /// </summary>
+        public void DeleteTempFiles()
+        {
+            string[] files = Directory.GetFiles(GalleryFolderPath);
+            List<string> galleryFiles = new List<string>();
+            foreach (GalleryImage image in Images)
+            {
+                galleryFiles.Add(image.ImageFilePath);
+                galleryFiles.Add(image.ThumbnailFilePath);
+                galleryFiles.Add(image.OriginalFilePath);
+
+                image.TempFilePath = string.Empty;
+                image.TempThumbnailFilePath = string.Empty;
+            }
+
+            foreach (string file in files)
+                if (!galleryFiles.Contains(file))
+                {
+                    try
+                    {
+                        File.Delete(file);
+                    }
+                    catch (Exception e)
+                    {
+                        LogHelper.Logger.Error(e, $"Unable to delete temporary file: {file}");
+                    }
+                }                        
         }
 
         #endregion

@@ -86,6 +86,9 @@ namespace Tira.Logic.Models
             // Adding project to recent projects list
             new RecentProject(project.Name, project.ProjectPath).AddOrUpdate();
 
+            // Deleting temporary files
+            project.Gallery.DeleteTempFiles();
+
             return project;
         }
 
@@ -102,6 +105,9 @@ namespace Tira.Logic.Models
             // Adding project to recent projects list
             new RecentProject(project.Name, project.ProjectPath).AddOrUpdate();
 
+            // Deleting temporary files
+            project.Gallery.DeleteTempFiles();
+
             return project;
         }
 
@@ -111,6 +117,7 @@ namespace Tira.Logic.Models
         public void Save()
         {
             Directory.CreateDirectory(ProjectDataFolderPath);
+            Gallery.Save();
             File.WriteAllText(ProjectPath, SerializationHelper.SerializeToXml(this));
         }
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using Ak.Framework.Core.Utils;
 using GdPicture14;
 
 namespace Tira.Imaging.Converters
@@ -56,10 +57,14 @@ namespace Tira.Imaging.Converters
         {
             GdPictureImaging image = new GdPictureImaging();
             int imageId = image.CreateGdPictureImageFromFile(ImagePath);
-            int thumbnailId = image.CreateThumbnailHQ(imageId, width, height, Color.Black);
-            image.SaveAsJPEG(thumbnailId, outputPath);
-            image.ReleaseGdPictureImage(imageId);
-            GC.Collect();
+            if (imageId > 0)
+            {
+                int thumbnailId = image.CreateThumbnailHQ(imageId, width, height, Color.Black);
+                image.SaveAsJPEG(thumbnailId, outputPath);
+                image.ReleaseGdPictureImage(imageId);
+            }
+
+            GarbageCollector.Collect();
         }
 
         #endregion

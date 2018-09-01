@@ -373,7 +373,7 @@
   <data name="Ribbon_Button_RemoveHoles" xml:space="preserve">
     <value>Дырки от дырокола</value>
   </data>
-  <data name="Ribbon_Button_RemoveClipHoles" xml:space="preserve">
+  <data name="Ribbon_Button_RemoveStapleMarks" xml:space="preserve">
     <value>Дырки от скрепок</value>
   </data>
   <data name="Ribbon_Button_Export_Json" xml:space="preserve">
@@ -459,5 +459,8 @@
   </data>
   <data name="NoRectangleInMarkupWarning_Text" xml:space="preserve">
     <value>Сначала нужно разметить прямоугольную область для распознавания.</value>
+  </data>
+  <data name="Ribbon_Button_RemoveBlobs" xml:space="preserve">
+    <value>Кляксы</value>
   </data>
 </root>

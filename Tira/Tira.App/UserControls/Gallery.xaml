@@ -20,7 +20,7 @@
         <ListBox.ItemTemplate>
             <DataTemplate DataType="{x:Type logic:GalleryImage}">
                 <StackPanel Margin="5" Orientation="Vertical" HorizontalAlignment="Stretch">
-                    <Image Source="{Binding ThumbnailFilePath}" Width="100" Stretch="Fill" Margin="5" />
+                    <Image Source="{Binding ActualThumbnailFilePath}" Width="100" Stretch="Fill" Margin="5" />
                     <Label Content="{Binding DisplayedName}" HorizontalAlignment="Center" />
                 </StackPanel>
             </DataTemplate>

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Drawing;
+using Ak.Framework.Imaging.Extensions;
 using GdPicture14;
 using Tira.Imaging.Analysers;
 using Tira.Imaging.Classes;
-using Tira.Imaging.Extensions;
 
 namespace Tira.Imaging.Helpers
 {
@@ -447,6 +447,6 @@ namespace Tira.Imaging.Helpers
                 : bitmap;
         }
 
-        #endregion
+        #endregion  
     }
 }

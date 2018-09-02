@@ -8,29 +8,37 @@ using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Media.Imaging;
 using Ak.Framework.Core.Extensions;
 using Ak.Framework.Core.Helpers;
+using Ak.Framework.Core.Utils;
+using Ak.Framework.Imaging.Extensions;
 using Ak.Framework.Imaging.Helpers;
 using Ak.Framework.Wpf.Commands;
 using Ak.Framework.Wpf.Commands.Interfaces;
 using Ak.Framework.Wpf.Culture;
 using Ak.Framework.Wpf.Dialogs;
+using Ak.Framework.Wpf.Messaging;
 using Ak.Framework.Wpf.ViewModels;
 using Tira.App.Logic.Enums;
 using Tira.App.Logic.Events;
 using Tira.App.Logic.Helpers;
+using Tira.App.Logic.ViewModels.Filters;
 using Tira.App.Properties;
 using Tira.App.Windows;
+using Tira.App.Windows.Filters;
 using Tira.Logic.Enums;
 using Tira.Logic.Helpers;
 using Tira.Logic.Models;
 using Tira.Logic.Models.Markup;
 using Application = System.Windows.Application;
 using DataColumn = Tira.Logic.Models.DataColumn;
+using Message = Ak.Framework.Wpf.Messaging.Message;
 
 namespace Tira.App.Logic.ViewModels
 {
@@ -51,6 +59,11 @@ namespace Tira.App.Logic.ViewModels
         /// Current image
         /// </summary>
         private BitmapSource _selectedImage;
+
+        /// <summary>
+        /// Current image copy for work with filter
+        /// </summary>
+        private BitmapSource _selectedImageFilterCopy = null;
 
         /// <summary>
         /// Current gallery image
@@ -81,6 +94,16 @@ namespace Tira.App.Logic.ViewModels
         /// The copy of markup objects
         /// </summary>
         private MarkupObjects _copyOfMarkupObjects;
+
+        /// <summary>
+        /// Cancellation token source
+        /// </summary>
+        private CancellationTokenSource _cancellationTokenSource;
+
+        /// <summary>
+        /// Locker object
+        /// </summary>
+        private readonly object _lockerObject = new object();
 
         #endregion
 
@@ -496,6 +519,9 @@ namespace Tira.App.Logic.ViewModels
             ImageRemoveBlobsCommand = new NotifyCommand(_ => ImageRemoveBlobs(), _ => CanPerformOperationsWithImage());
 
             Images.ListChanged += ImagesOnListChanged;
+
+            // Messages from other viewmodels
+            Messenger.Instance.Register(MessageType.SetFilterToSelectedImage, SetChangesToSelectedImage);
         }
 
         #endregion
@@ -901,7 +927,12 @@ namespace Tira.App.Logic.ViewModels
         /// </summary>
         private void ImageSetBrightness()
         {
-            // TODO
+            IntValueFilterViewModel vm = new IntValueFilterViewModel(FilterType.Brightness, 0);
+            bool? result = ShowDialogAgent.Instance.ShowDialog<BrightnessFilterWindow>(vm);
+            if (result.HasValue && result.Value)
+                ApplyFilter(new Filter(FilterType.Brightness, vm.IntValue));
+            else
+                SelectedImage = BitmapImageHelper.GetBitmapImageFromPath(SelectedGalleryImage.ActualImageFilePath);
         }
 
         /// <summary>
@@ -909,7 +940,12 @@ namespace Tira.App.Logic.ViewModels
         /// </summary>
         private void ImageSetContrast()
         {
-            // TODO
+            IntValueFilterViewModel vm = new IntValueFilterViewModel(FilterType.Contrast, 0);
+            bool? result = ShowDialogAgent.Instance.ShowDialog<ContrastFilterWindow>(vm);
+            if (result.HasValue && result.Value)
+                ApplyFilter(new Filter(FilterType.Contrast, vm.IntValue));
+            else
+                SelectedImage = BitmapImageHelper.GetBitmapImageFromPath(SelectedGalleryImage.ActualImageFilePath);
         }
 
         /// <summary>
@@ -917,7 +953,12 @@ namespace Tira.App.Logic.ViewModels
         /// </summary>
         private void ImageSetGammaCorrection()
         {
-            // TODO
+            IntValueFilterViewModel vm = new IntValueFilterViewModel(FilterType.GammaCorrection, 0);
+            bool? result = ShowDialogAgent.Instance.ShowDialog<GammaCorrectonFilterWindow>(vm);
+            if (result.HasValue && result.Value)
+                ApplyFilter(new Filter(FilterType.GammaCorrection, vm.IntValue));
+            else
+                SelectedImage = BitmapImageHelper.GetBitmapImageFromPath(SelectedGalleryImage.ActualImageFilePath);
         }
 
         /// <summary>
@@ -1055,6 +1096,8 @@ namespace Tira.App.Logic.ViewModels
         /// <param name="filter">Filter</param>
         private void ApplyFilter(Filter filter)
         {
+            _selectedImageFilterCopy = null;
+
             GalleryImage galleryImage = Images.WhereEx(x => x.Uid == SelectedGalleryImage.Uid).FirstOrDefault();
             if (galleryImage != null)
             {
@@ -1071,6 +1114,51 @@ namespace Tira.App.Logic.ViewModels
                 SelectedImage = BitmapImageHelper.GetBitmapImageFromPath(SelectedGalleryImage.ActualImageFilePath);
             }
         }
+
+        #region Selected image changes
+
+        /// <summary>
+        /// Sets changes to selected image
+        /// </summary>
+        /// <param name="message">Message</param>
+        /// <param name="args">Arguments</param>
+        private void SetChangesToSelectedImage(Message message, params object[] args)
+        {
+            //_cancellationTokenSource?.Cancel();
+            //_cancellationTokenSource?.Dispose();
+            //_cancellationTokenSource = new CancellationTokenSource();
+
+            //Task.Run(() =>
+            //{
+            //    _cancellationTokenSource.Token.ThrowIfCancellationRequested();
+
+                lock (_lockerObject)
+                {
+                    GarbageCollector.Collect();
+
+                    if (_selectedImageFilterCopy == null)
+                        _selectedImageFilterCopy = SelectedImage;
+
+                    switch ((FilterType)args[0])
+                    {
+                        case FilterType.Brightness:
+                            SelectedImage = Imaging.Helpers.BitmapHelper.SetBrightness(_selectedImageFilterCopy.ToBitmap(), args[1].ToInt32()).ToBitmapSource();
+                            break;
+
+                        case FilterType.Contrast:
+                            SelectedImage = Imaging.Helpers.BitmapHelper.SetContrast(_selectedImageFilterCopy.ToBitmap(), args[1].ToInt32()).ToBitmapSource();
+                            break;
+
+                        case FilterType.GammaCorrection:
+                            SelectedImage = Imaging.Helpers.BitmapHelper.SetGammaCorrection(_selectedImageFilterCopy.ToBitmap(), args[1].ToInt32())
+                                .ToBitmapSource();
+                            break;
+                   }
+                }
+            //}, _cancellationTokenSource.Token);
+        }
+
+        #endregion
 
         #endregion
 

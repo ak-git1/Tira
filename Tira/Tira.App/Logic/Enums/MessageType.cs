@@ -5,6 +5,8 @@
     /// </summary>
     internal enum MessageType
     {
-        RecentProjectDeleted = 0
+        RecentProjectDeleted = 0,
+
+        SetFilterToSelectedImage = 1
     }
 }

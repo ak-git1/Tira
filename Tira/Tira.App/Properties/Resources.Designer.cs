@@ -115,6 +115,51 @@ namespace Tira.App.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Binarization.
+        /// </summary>
+        public static string BinarizationFilterWindow_Title {
+            get {
+                return ResourceManager.GetString("BinarizationFilterWindow_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Brightness:.
+        /// </summary>
+        public static string BrightnessFilterWindow_Label_Brightness {
+            get {
+                return ResourceManager.GetString("BrightnessFilterWindow_Label_Brightness", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Brightness.
+        /// </summary>
+        public static string BrightnessFilterWindow_Title {
+            get {
+                return ResourceManager.GetString("BrightnessFilterWindow_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Contrast:.
+        /// </summary>
+        public static string ContrastFilterWindow_Label_Contrast {
+            get {
+                return ResourceManager.GetString("ContrastFilterWindow_Label_Contrast", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Contrast.
+        /// </summary>
+        public static string ContrastFilterWindow_Title {
+            get {
+                return ResourceManager.GetString("ContrastFilterWindow_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cancel.
         /// </summary>
         public static string DataColumnWindow_Button_Cancel {
@@ -201,6 +246,42 @@ namespace Tira.App.Properties {
         public static string ErrorMessage {
             get {
                 return ResourceManager.GetString("ErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        public static string FilterWindow_Button_Cancel {
+            get {
+                return ResourceManager.GetString("FilterWindow_Button_Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save.
+        /// </summary>
+        public static string FilterWindow_Button_Save {
+            get {
+                return ResourceManager.GetString("FilterWindow_Button_Save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gamma:.
+        /// </summary>
+        public static string GammaCorrectionFilterWindow_Label_GammaCorrection {
+            get {
+                return ResourceManager.GetString("GammaCorrectionFilterWindow_Label_GammaCorrection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gamma correction.
+        /// </summary>
+        public static string GammaCorrectionFilterWindow_Title {
+            get {
+                return ResourceManager.GetString("GammaCorrectionFilterWindow_Title", resourceCulture);
             }
         }
         

@@ -460,4 +460,31 @@ Do you want to remove it from the list?</value>
   <data name="Ribbon_Button_RemoveBlobs" xml:space="preserve">
     <value>Blobs</value>
   </data>
+  <data name="BrightnessFilterWindow_Title" xml:space="preserve">
+    <value>Brightness</value>
+  </data>
+  <data name="ContrastFilterWindow_Title" xml:space="preserve">
+    <value>Contrast</value>
+  </data>
+  <data name="GammaCorrectionFilterWindow_Title" xml:space="preserve">
+    <value>Gamma correction</value>
+  </data>
+  <data name="BinarizationFilterWindow_Title" xml:space="preserve">
+    <value>Binarization</value>
+  </data>
+  <data name="BrightnessFilterWindow_Label_Brightness" xml:space="preserve">
+    <value>Brightness:</value>
+  </data>
+  <data name="FilterWindow_Button_Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="FilterWindow_Button_Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="ContrastFilterWindow_Label_Contrast" xml:space="preserve">
+    <value>Contrast:</value>
+  </data>
+  <data name="GammaCorrectionFilterWindow_Label_GammaCorrection" xml:space="preserve">
+    <value>Gamma:</value>
+  </data>
 </root>

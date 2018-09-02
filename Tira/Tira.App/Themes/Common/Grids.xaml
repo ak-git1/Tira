@@ -3,4 +3,7 @@
     <Style x:Key="ExternalGrid" TargetType="{x:Type Grid}">
         <Setter Property="Margin" Value="5,0,5,0"/>
     </Style>
+    <Style x:Key="ExternalGridInTransparentWindow" TargetType="{x:Type Grid}">
+        <Setter Property="Margin" Value="5,10,5,10"/>
+    </Style>
 </ResourceDictionary>

@@ -47,8 +47,8 @@
     <Reference Include="Ak.Framework.Core, Version=1.0.4.1, Culture=neutral, PublicKeyToken=42ef31747320a29d, processorArchitecture=MSIL">
       <HintPath>..\packages\Ak.Framework.Core.1.0.4.1\lib\Ak.Framework.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Ak.Framework.Imaging, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Ak.Framework.Imaging.1.0.1\lib\Ak.Framework.Imaging.dll</HintPath>
+    <Reference Include="Ak.Framework.Imaging, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ak.Framework.Imaging.1.1.0\lib\Ak.Framework.Imaging.dll</HintPath>
     </Reference>
     <Reference Include="Ak.Framework.Wpf, Version=1.7.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Ak.Framework.Wpf.1.7.1\lib\Ak.Framework.Wpf.dll</HintPath>
@@ -123,6 +123,7 @@
     <Compile Include="Logic\Helpers\ZoomManager.cs" />
     <Compile Include="Logic\ViewModels\AboutViewModel.cs" />
     <Compile Include="Logic\ViewModels\DataColumnViewModel.cs" />
+    <Compile Include="Logic\ViewModels\Filters\IntValueFilterViewModel.cs" />
     <Compile Include="Logic\ViewModels\ProjectCreationViewModel.cs" />
     <Compile Include="Logic\ViewModels\ProjectSettingsViewModel.cs" />
     <Compile Include="Logic\ViewModels\ProjectViewModel.cs" />
@@ -147,6 +148,15 @@
     </Compile>
     <Compile Include="Windows\ExceptionWindow.xaml.cs">
       <DependentUpon>ExceptionWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\Filters\GammaCorrectonFilterWindow.xaml.cs">
+      <DependentUpon>GammaCorrectonFilterWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\Filters\ContrastFilterWindow.xaml.cs">
+      <DependentUpon>ContrastFilterWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\Filters\BrightnessFilterWindow.xaml.cs">
+      <DependentUpon>BrightnessFilterWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\IntroductionWindow.xaml.cs">
       <DependentUpon>IntroductionWindow.xaml</DependentUpon>
@@ -224,6 +234,18 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windows\ExceptionWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\Filters\GammaCorrectonFilterWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\Filters\ContrastFilterWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\Filters\BrightnessFilterWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -354,6 +376,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Tira.Imaging\Tira.Imaging.csproj">
+      <Project>{f1515f6e-337a-47af-b442-1b48dddbe9d7}</Project>
+      <Name>Tira.Imaging</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Tira.Logic\Tira.Logic.csproj">
       <Project>{38c608b0-0f72-466c-ba8d-fc9879e41fa3}</Project>
       <Name>Tira.Logic</Name>

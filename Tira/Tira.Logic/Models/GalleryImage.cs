@@ -332,7 +332,7 @@ namespace Tira.Logic.Models
                 if (OriginalFilePath.NotEmpty() && File.Exists(OriginalFilePath))
                 {
                     File.Copy(OriginalFilePath, ImageFilePath, true);
-                    ClearServiceImages();
+                    ClearServiceImages(true);
                     AppliedFilters = new List<Filter>();
                 }
             }
@@ -352,7 +352,7 @@ namespace Tira.Logic.Models
                 if (AppliedFilters.Count > 1)
                 {
                     AppliedFilters.RemoveAt(AppliedFilters.Count - 1);
-                    ClearServiceImages();
+                    ClearServiceImages(false);
                     ApplyFilters(AppliedFilters);
                 }
                 else if (AppliedFilters.Count == 1)
@@ -503,10 +503,13 @@ namespace Tira.Logic.Models
         /// <summary>
         /// Clears service images
         /// </summary>
-        private void ClearServiceImages()
+        private void ClearServiceImages(bool removeOriginalImage)
         {
-            File.Delete(OriginalFilePath);
-            OriginalFileName = string.Empty;
+            if (removeOriginalImage)
+            {
+                File.Delete(OriginalFilePath);
+                OriginalFileName = string.Empty;
+            }
             File.Delete(TempFilePath);
             TempFilePath = string.Empty;
             File.Delete(TempThumbnailFilePath);

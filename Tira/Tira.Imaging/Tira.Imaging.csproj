@@ -33,8 +33,8 @@
     <Reference Include="Ak.Framework.Core, Version=1.0.5.2, Culture=neutral, PublicKeyToken=42ef31747320a29d, processorArchitecture=MSIL">
       <HintPath>..\packages\Ak.Framework.Core.1.0.5.2\lib\Ak.Framework.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Ak.Framework.Imaging, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Ak.Framework.Imaging.1.1.0\lib\Ak.Framework.Imaging.dll</HintPath>
+    <Reference Include="Ak.Framework.Imaging, Version=1.1.0.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ak.Framework.Imaging.1.1.0.1\lib\Ak.Framework.Imaging.dll</HintPath>
     </Reference>
     <Reference Include="GdPicture.NET.14">
       <HintPath>..\ExternalLibraries\GdPicture.Net\GdPicture.NET.14.dll</HintPath>

@@ -115,6 +115,15 @@ namespace Tira.App.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Threshold:.
+        /// </summary>
+        public static string BinarizationFilterWindow_Label_Threshold {
+            get {
+                return ResourceManager.GetString("BinarizationFilterWindow_Label_Threshold", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Binarization.
         /// </summary>
         public static string BinarizationFilterWindow_Title {
@@ -890,6 +899,24 @@ namespace Tira.App.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Rollback all.
+        /// </summary>
+        public static string Ribbon_Button_RollbackAll {
+            get {
+                return ResourceManager.GetString("Ribbon_Button_RollbackAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rollback one step.
+        /// </summary>
+        public static string Ribbon_Button_RollbackOneStep {
+            get {
+                return ResourceManager.GetString("Ribbon_Button_RollbackOneStep", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Vertical line.
         /// </summary>
         public static string Ribbon_Button_VerticalLineMarkup {
@@ -967,6 +994,15 @@ namespace Tira.App.Properties {
         public static string Ribbon_GroupBox_Project {
             get {
                 return ResourceManager.GetString("Ribbon_GroupBox_Project", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rollback.
+        /// </summary>
+        public static string Ribbon_GroupBox_Rollback {
+            get {
+                return ResourceManager.GetString("Ribbon_GroupBox_Rollback", resourceCulture);
             }
         }
         
@@ -1093,6 +1129,24 @@ namespace Tira.App.Properties {
         public static string Ribbon_TabItem_Transformation {
             get {
                 return ResourceManager.GetString("Ribbon_TabItem_Transformation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rotation angle:.
+        /// </summary>
+        public static string RotationFilterWindow_Label_Angle {
+            get {
+                return ResourceManager.GetString("RotationFilterWindow_Label_Angle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rotation.
+        /// </summary>
+        public static string RotationFilterWindow_Title {
+            get {
+                return ResourceManager.GetString("RotationFilterWindow_Title", resourceCulture);
             }
         }
         

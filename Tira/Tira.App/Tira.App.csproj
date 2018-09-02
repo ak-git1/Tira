@@ -44,8 +44,8 @@
     </StartupObject>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Ak.Framework.Core, Version=1.0.4.1, Culture=neutral, PublicKeyToken=42ef31747320a29d, processorArchitecture=MSIL">
-      <HintPath>..\packages\Ak.Framework.Core.1.0.4.1\lib\Ak.Framework.Core.dll</HintPath>
+    <Reference Include="Ak.Framework.Core, Version=1.0.5.2, Culture=neutral, PublicKeyToken=42ef31747320a29d, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ak.Framework.Core.1.0.5.2\lib\Ak.Framework.Core.dll</HintPath>
     </Reference>
     <Reference Include="Ak.Framework.Imaging, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Ak.Framework.Imaging.1.1.0\lib\Ak.Framework.Imaging.dll</HintPath>
@@ -149,6 +149,9 @@
     <Compile Include="Windows\ExceptionWindow.xaml.cs">
       <DependentUpon>ExceptionWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Windows\Filters\BinarizationFilterWindow.xaml.cs">
+      <DependentUpon>BinarizationFilterWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\Filters\GammaCorrectonFilterWindow.xaml.cs">
       <DependentUpon>GammaCorrectonFilterWindow.xaml</DependentUpon>
     </Compile>
@@ -157,6 +160,9 @@
     </Compile>
     <Compile Include="Windows\Filters\BrightnessFilterWindow.xaml.cs">
       <DependentUpon>BrightnessFilterWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\Filters\RotationFilterWindow.xaml.cs">
+      <DependentUpon>RotationFilterWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\IntroductionWindow.xaml.cs">
       <DependentUpon>IntroductionWindow.xaml</DependentUpon>
@@ -237,6 +243,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Windows\Filters\BinarizationFilterWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Windows\Filters\GammaCorrectonFilterWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -246,6 +256,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Windows\Filters\BrightnessFilterWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\Filters\RotationFilterWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -283,6 +297,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Resource Include="Content\Images\Ribbon\rollback_all_24x24.png" />
+    <Resource Include="Content\Images\Ribbon\rollback_all_64x64.png" />
+    <Resource Include="Content\Images\Ribbon\rollback_one_step_24x24.png" />
+    <Resource Include="Content\Images\Ribbon\rollback_one_step_64x64.png" />
     <Resource Include="Content\Images\Ribbon\remove_blobs_24x24.png" />
     <Resource Include="Content\Images\Ribbon\remove_blobs_64x64.png" />
     <Resource Include="Content\Cursors\HandMouseReleased.cur" />

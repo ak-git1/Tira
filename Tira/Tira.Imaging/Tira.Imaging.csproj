@@ -30,8 +30,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Ak.Framework.Core, Version=1.0.4.1, Culture=neutral, PublicKeyToken=42ef31747320a29d, processorArchitecture=MSIL">
-      <HintPath>..\packages\Ak.Framework.Core.1.0.4.1\lib\Ak.Framework.Core.dll</HintPath>
+    <Reference Include="Ak.Framework.Core, Version=1.0.5.2, Culture=neutral, PublicKeyToken=42ef31747320a29d, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ak.Framework.Core.1.0.5.2\lib\Ak.Framework.Core.dll</HintPath>
     </Reference>
     <Reference Include="Ak.Framework.Imaging, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Ak.Framework.Imaging.1.1.0\lib\Ak.Framework.Imaging.dll</HintPath>
@@ -68,6 +68,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

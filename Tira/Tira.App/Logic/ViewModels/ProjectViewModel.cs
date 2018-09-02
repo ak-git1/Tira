@@ -32,6 +32,7 @@ using Tira.App.Logic.ViewModels.Filters;
 using Tira.App.Properties;
 using Tira.App.Windows;
 using Tira.App.Windows.Filters;
+using Tira.Imaging.Classes;
 using Tira.Logic.Enums;
 using Tira.Logic.Helpers;
 using Tira.Logic.Models;
@@ -94,11 +95,6 @@ namespace Tira.App.Logic.ViewModels
         /// The copy of markup objects
         /// </summary>
         private MarkupObjects _copyOfMarkupObjects;
-
-        /// <summary>
-        /// Cancellation token source
-        /// </summary>
-        private CancellationTokenSource _cancellationTokenSource;
 
         /// <summary>
         /// Locker object
@@ -329,6 +325,16 @@ namespace Tira.App.Logic.ViewModels
         #region Image commands
 
         /// <summary>
+        /// Command for image rollback one step
+        /// </summary>
+        public INotifyCommand ImageRollbackOneStepCommand { get; }
+
+        /// <summary>
+        /// Command for image zoom in
+        /// </summary>
+        public INotifyCommand ImageRollbackAllCommand { get; }
+
+        /// <summary>
         /// Command for image zoom in
         /// </summary>
         public INotifyCommand ImageZoomInCommand { get; }
@@ -490,6 +496,8 @@ namespace Tira.App.Logic.ViewModels
             HandleGalleryImageSelectedCommand = new NotifyCommand(e => FillGalleryImage((GalleryImageEventArgs)e));
             HandleGalleryImagesIdsSelectedCommand = new NotifyCommand(e => GetGalleryImagesUids((GalleryImagesUidsSelectionEventArgs)e));
 
+            ImageRollbackOneStepCommand = new NotifyCommand(_ => ImageRollbackOneStep(), _ => CanPerformOperationsWithImage()); ;
+            ImageRollbackAllCommand = new NotifyCommand(_ => ImageRollbackAll(), _ => CanPerformOperationsWithImage()); ;
             ImageZoomInCommand = new NotifyCommand(_ => ImageZoomIn(), _ => CanPerformOperationsWithImage());
             ImageZoomOutCommand = new NotifyCommand(_ => ImageZoomOut(), _ => CanPerformOperationsWithImage());
             ImageFitSizeCommand = new NotifyCommand(_ => ImageFitSize(), _ => CanPerformOperationsWithImage());
@@ -780,6 +788,7 @@ namespace Tira.App.Logic.ViewModels
         /// <param name="args">The <see cref="GalleryImageEventArgs"/> instance containing the event data.</param>
         private void FillGalleryImage(GalleryImageEventArgs args)
         {
+            _selectedImageFilterCopy = null;
             ImageViewerZoomManager = new ZoomManager();
             SelectedGalleryImage = args.Image;
             CurrentMarkupObjects = SelectedGalleryImage.MarkupObjects;
@@ -915,11 +924,66 @@ namespace Tira.App.Logic.ViewModels
         }
 
         /// <summary>
+        /// Roll image one step back
+        /// </summary>
+        private void ImageRollbackOneStep()
+        {
+            _selectedImageFilterCopy = null;
+
+            GalleryImage galleryImage = Images.WhereEx(x => x.Uid == SelectedGalleryImage.Uid).FirstOrDefault();
+            if (galleryImage != null && galleryImage.AppliedFilters.Count > 0)
+            {
+                bool needRemoveMarkupObjects = Filter.RemoveMarkupObjects(galleryImage.AppliedFilters.Last().FilterType);
+                galleryImage.RollBackFiltersOneStepBack();
+                SelectedGalleryImage = galleryImage;
+                ReplaceGalleryThumbnail(SelectedGalleryImage);
+
+                if (needRemoveMarkupObjects)
+                {
+                    galleryImage.MarkupObjects = new MarkupObjects();
+                    ImageClearMarkup();
+                }
+
+                SelectedImage = BitmapImageHelper.GetBitmapImageFromPath(SelectedGalleryImage.ActualImageFilePath);
+            }
+        }
+
+        /// <summary>
+        /// Restore original image
+        /// </summary>
+        private void ImageRollbackAll()
+        {
+            _selectedImageFilterCopy = null;
+
+            GalleryImage galleryImage = Images.WhereEx(x => x.Uid == SelectedGalleryImage.Uid).FirstOrDefault();
+            if (galleryImage != null && galleryImage.AppliedFilters.Count > 0)
+            {
+                bool needRemoveMarkupObjects = Filter.CheckExistanceOfFilterWithMarkupObjectsRemoval(galleryImage.AppliedFilters);
+                galleryImage.RollBackToOriginal();
+                SelectedGalleryImage = galleryImage;
+                ReplaceGalleryThumbnail(SelectedGalleryImage);
+
+                if (needRemoveMarkupObjects)
+                {
+                    galleryImage.MarkupObjects = new MarkupObjects();
+                    ImageClearMarkup();
+                }
+
+                SelectedImage = BitmapImageHelper.GetBitmapImageFromPath(SelectedGalleryImage.ActualImageFilePath);
+            }
+        }
+
+        /// <summary>
         /// Binarize image
         /// </summary>
         private void ImageBinarize()
         {
-            // TODO
+            IntValueFilterViewModel vm = new IntValueFilterViewModel(FilterType.Binarization, 128);
+            bool? result = ShowDialogAgent.Instance.ShowDialog<BinarizationFilterWindow>(vm);
+            if (result.HasValue && result.Value)
+                ApplyFilter(new Filter(FilterType.Binarization, vm.IntValue));
+            else
+                SelectedImage = BitmapImageHelper.GetBitmapImageFromPath(SelectedGalleryImage.ActualImageFilePath);
         }
 
         /// <summary>
@@ -966,7 +1030,7 @@ namespace Tira.App.Logic.ViewModels
         /// </summary>
         private void ImageAutoRotate()
         {
-            ApplyFilter(new Filter(FilterType.AutoDeskew, null));
+            ApplyFilter(new Filter(FilterType.AutoDeskew, new AutoDeskewParameters()));
         }
 
         /// <summary>
@@ -974,7 +1038,12 @@ namespace Tira.App.Logic.ViewModels
         /// </summary>
         private void ImageRotate()
         {
-            // TODO
+            IntValueFilterViewModel vm = new IntValueFilterViewModel(FilterType.Rotation, 0);
+            bool? result = ShowDialogAgent.Instance.ShowDialog<RotationFilterWindow>(vm);
+            if (result.HasValue && result.Value)
+                ApplyFilter(new Filter(FilterType.Rotation, vm.IntValue));
+            else
+                SelectedImage = BitmapImageHelper.GetBitmapImageFromPath(SelectedGalleryImage.ActualImageFilePath);
         }
 
         /// <summary>
@@ -982,7 +1051,7 @@ namespace Tira.App.Logic.ViewModels
         /// </summary>
         private void ImageAutoResize()
         {
-            // TODO
+            ApplyFilter(new Filter(FilterType.AutoCrop, null));
         }
 
         /// <summary>
@@ -1105,7 +1174,7 @@ namespace Tira.App.Logic.ViewModels
                 SelectedGalleryImage = galleryImage;
                 ReplaceGalleryThumbnail(SelectedGalleryImage);
 
-                if (Filter.RemoveDrawingObjects(filter.FilterType))
+                if (Filter.RemoveMarkupObjects(filter.FilterType))
                 {
                     galleryImage.MarkupObjects = new MarkupObjects();
                     ImageClearMarkup();
@@ -1124,38 +1193,38 @@ namespace Tira.App.Logic.ViewModels
         /// <param name="args">Arguments</param>
         private void SetChangesToSelectedImage(Message message, params object[] args)
         {
-            //_cancellationTokenSource?.Cancel();
-            //_cancellationTokenSource?.Dispose();
-            //_cancellationTokenSource = new CancellationTokenSource();
+            lock (_lockerObject)
+            {
+                GarbageCollector.Collect();
 
-            //Task.Run(() =>
-            //{
-            //    _cancellationTokenSource.Token.ThrowIfCancellationRequested();
+                if (_selectedImageFilterCopy == null)
+                    _selectedImageFilterCopy = SelectedImage;
 
-                lock (_lockerObject)
+                switch ((FilterType)args[0])
                 {
-                    GarbageCollector.Collect();
+                    case FilterType.Binarization:
+                        SelectedImage = Imaging.Helpers.BitmapHelper.Binarize(_selectedImageFilterCopy.ToBitmap(), (byte)args[1].ToInt32()).ToBitmapSource();
+                        break;
 
-                    if (_selectedImageFilterCopy == null)
-                        _selectedImageFilterCopy = SelectedImage;
+                    case FilterType.Brightness:
+                        SelectedImage = Imaging.Helpers.BitmapHelper.SetBrightness(_selectedImageFilterCopy.ToBitmap(), args[1].ToInt32()).ToBitmapSource();
+                        break;
 
-                    switch ((FilterType)args[0])
-                    {
-                        case FilterType.Brightness:
-                            SelectedImage = Imaging.Helpers.BitmapHelper.SetBrightness(_selectedImageFilterCopy.ToBitmap(), args[1].ToInt32()).ToBitmapSource();
-                            break;
+                    case FilterType.Contrast:
+                        SelectedImage = Imaging.Helpers.BitmapHelper.SetContrast(_selectedImageFilterCopy.ToBitmap(), args[1].ToInt32()).ToBitmapSource();
+                        break;
 
-                        case FilterType.Contrast:
-                            SelectedImage = Imaging.Helpers.BitmapHelper.SetContrast(_selectedImageFilterCopy.ToBitmap(), args[1].ToInt32()).ToBitmapSource();
-                            break;
+                    case FilterType.GammaCorrection:
+                        SelectedImage = Imaging.Helpers.BitmapHelper.SetGammaCorrection(_selectedImageFilterCopy.ToBitmap(), args[1].ToInt32()).ToBitmapSource();
+                        break;
 
-                        case FilterType.GammaCorrection:
-                            SelectedImage = Imaging.Helpers.BitmapHelper.SetGammaCorrection(_selectedImageFilterCopy.ToBitmap(), args[1].ToInt32())
-                                .ToBitmapSource();
-                            break;
-                   }
+                    case FilterType.Rotation:
+                        SelectedImage = Imaging.Helpers.BitmapHelper.Rotate(_selectedImageFilterCopy.ToBitmap(), (float)args[1].ToInt32(), Color.Black).ToBitmapSource();
+                        break;
                 }
-            //}, _cancellationTokenSource.Token);
+            }
+
+            OnPropertyChanged(() => ImageViewerZoomManager);
         }
 
         #endregion

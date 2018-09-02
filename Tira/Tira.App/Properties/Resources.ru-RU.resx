@@ -490,4 +490,22 @@
   <data name="GammaCorrectionFilterWindow_Label_GammaCorrection" xml:space="preserve">
     <value>Гамма:</value>
   </data>
+  <data name="BinarizationFilterWindow_Label_Threshold" xml:space="preserve">
+    <value>Порог:</value>
+  </data>
+  <data name="RotationFilterWindow_Title" xml:space="preserve">
+    <value>Поворот</value>
+  </data>
+  <data name="RotationFilterWindow_Label_Angle" xml:space="preserve">
+    <value>Угол поворота:</value>
+  </data>
+  <data name="Ribbon_GroupBox_Rollback" xml:space="preserve">
+    <value>Возврат</value>
+  </data>
+  <data name="Ribbon_Button_RollbackOneStep" xml:space="preserve">
+    <value>Отменить изменение</value>
+  </data>
+  <data name="Ribbon_Button_RollbackAll" xml:space="preserve">
+    <value>Отменить всё</value>
+  </data>
 </root>

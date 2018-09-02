@@ -144,6 +144,7 @@ namespace Tira.Imaging.Helpers
             if (imageId > 0)
             {
                 image.FxBlackNWhite(imageId, BitonalReduction.Stucki);
+                image.ConvertTo1BppFast(imageId);
                 resultImage = image.GetBitmapFromGdPictureImage(imageId).CloneSmart(image.GetPixelFormat(imageId));
                 image.ReleaseGdPictureImage(imageId);
             }
@@ -399,7 +400,7 @@ namespace Tira.Imaging.Helpers
         public static Bitmap Rotate(Bitmap bitmap, float angle, Color fillColor)
         {
             Bitmap resultImage = bitmap;
-            if (angle == 0)
+            if (angle != 0)
             {
                 GdPictureImaging image = new GdPictureImaging();
 

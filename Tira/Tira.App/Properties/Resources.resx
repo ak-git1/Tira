@@ -487,4 +487,22 @@ Do you want to remove it from the list?</value>
   <data name="GammaCorrectionFilterWindow_Label_GammaCorrection" xml:space="preserve">
     <value>Gamma:</value>
   </data>
+  <data name="BinarizationFilterWindow_Label_Threshold" xml:space="preserve">
+    <value>Threshold:</value>
+  </data>
+  <data name="RotationFilterWindow_Title" xml:space="preserve">
+    <value>Rotation</value>
+  </data>
+  <data name="RotationFilterWindow_Label_Angle" xml:space="preserve">
+    <value>Rotation angle:</value>
+  </data>
+  <data name="Ribbon_GroupBox_Rollback" xml:space="preserve">
+    <value>Rollback</value>
+  </data>
+  <data name="Ribbon_Button_RollbackOneStep" xml:space="preserve">
+    <value>Rollback one step</value>
+  </data>
+  <data name="Ribbon_Button_RollbackAll" xml:space="preserve">
+    <value>Rollback all</value>
+  </data>
 </root>

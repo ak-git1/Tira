@@ -217,6 +217,20 @@
             </fluent:RibbonTabItem>
             <fluent:RibbonTabItem Header="{x:Static properties:Resources.Ribbon_TabItem_Transformation}"
                                   Group="{Binding ElementName=ImageRibbonGroup}">
+                <fluent:RibbonGroupBox Header="{x:Static properties:Resources.Ribbon_GroupBox_Rollback}">
+                    <fluent:Button  Header="{x:Static properties:Resources.Ribbon_Button_RollbackOneStep}"
+                                    ToolTip="{x:Static properties:Resources.Ribbon_Button_RollbackOneStep}"
+                                    LargeIcon="/Tira.App;component/Content/Images/Ribbon/rollback_one_step_64x64.png"
+                                    Icon="/Tira.App;component/Content/Images/Ribbon/rollback_one_step_24x24.png"
+                                    SizeDefinition="Large"
+                                    Command="{Binding ImageRollbackOneStepCommand}"/>
+                    <fluent:Button  Header="{x:Static properties:Resources.Ribbon_Button_RollbackAll}"
+                                    ToolTip="{x:Static properties:Resources.Ribbon_Button_RollbackAll}"
+                                    LargeIcon="/Tira.App;component/Content/Images/Ribbon/rollback_all_64x64.png"
+                                    Icon="/Tira.App;component/Content/Images/Ribbon/rollback_all_24x24.png"
+                                    SizeDefinition="Large"
+                                    Command="{Binding ImageRollbackAllCommand}"/>
+                </fluent:RibbonGroupBox>
                 <fluent:RibbonGroupBox Header="{x:Static properties:Resources.Ribbon_GroupBox_Color}">
                     <fluent:Button  Header="{x:Static properties:Resources.Ribbon_Button_Binarize}"
                                     ToolTip="{x:Static properties:Resources.Ribbon_Button_Binarize}"

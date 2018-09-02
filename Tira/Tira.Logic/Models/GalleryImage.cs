@@ -172,14 +172,52 @@ namespace Tira.Logic.Models
                 Rectangle[,] areas = GetRecognitionAreas();
                 for (int j = 0; j < areas.GetLength(1); j++)
                 {
+                    DataColumn dataColumn = dataColumns[j];
+
                     DataRow row = RecognizedData.NewRow();
                     for (int i = 0; i < areas.GetLength(0); i++)
                     {
                         Rectangle area = areas[i, j];
                         using (Bitmap croppedBitmap = BitmapHelper.Crop(bitmap, area))
                         {
-                            DataColumn dataColumn = dataColumns[i]; // TODO добавить проверки dataColumn
-                            row[i] = tesserartEngine.Process(croppedBitmap);
+                            string tempStr;
+
+                            switch (dataColumn.ColumnType)
+                            {
+                                case DataColumnType.AnySymbols:
+                                    tempStr = tesserartEngine.Process(croppedBitmap);
+                                    break;
+
+                                case DataColumnType.LettersOnly:
+                                    tempStr = tesserartEngine.Process(croppedBitmap);
+                                    tempStr = tempStr.RemoveAllSymbolsExceptLetters();
+                                    break;
+
+                                case DataColumnType.NumbersOnly:
+                                    tempStr = tesserartEngine.Process(croppedBitmap);
+                                    break;
+
+                                case DataColumnType.EmptyColumn:
+                                    tempStr = string.Empty;
+                                    break;
+
+                                default:
+                                    throw new ArgumentOutOfRangeException();
+                            }
+
+                            if (tempStr.NotEmpty())
+                            {
+                                if (dataColumn.RemovePunctuation)
+                                    tempStr = tempStr.RemovePunctuation();
+
+                                if (dataColumn.RemoveLineBreaks)
+                                    tempStr = tempStr.RemoveLineBreaks();
+
+                                if (dataColumn.RemoveExtraSpaces)
+                                    tempStr = tempStr.RemoveExtraSpaces();
+                            }
+
+                            row[i] = tempStr;
                         }                        
                     }
                     RecognizedData.Rows.Add(row);
@@ -311,11 +349,15 @@ namespace Tira.Logic.Models
         {
             try
             {
-                if (AppliedFilters.Any())
+                if (AppliedFilters.Count > 1)
                 {
                     AppliedFilters.RemoveAt(AppliedFilters.Count - 1);
                     ClearServiceImages();
                     ApplyFilters(AppliedFilters);
+                }
+                else if (AppliedFilters.Count == 1)
+                {
+                    RollBackToOriginal();
                 }
             }
             catch (Exception e)
@@ -379,16 +421,16 @@ namespace Tira.Logic.Models
             switch (filter.FilterType)
             {
                 case FilterType.Binarization:
-                    return BitmapHelper.Binarize(bitmap, (byte) filter.Parameters);
+                    return BitmapHelper.Binarize(bitmap, (byte)filter.Parameters.ToInt32());
 
                 case FilterType.Brightness:
-                    return BitmapHelper.SetBrightness(bitmap, (int)filter.Parameters);
+                    return BitmapHelper.SetBrightness(bitmap, filter.Parameters.ToInt32());
 
                 case FilterType.Contrast:
-                    return BitmapHelper.SetContrast(bitmap, (int)filter.Parameters);
+                    return BitmapHelper.SetContrast(bitmap, filter.Parameters.ToInt32());
 
                 case FilterType.GammaCorrection:
-                    return BitmapHelper.SetGammaCorrection(bitmap, (int)filter.Parameters);
+                    return BitmapHelper.SetGammaCorrection(bitmap, filter.Parameters.ToInt32());
 
                 case FilterType.AutoCrop:
                     return BitmapHelper.AutoCropBorders(bitmap);
@@ -421,7 +463,7 @@ namespace Tira.Logic.Models
                     return BitmapHelper.AutoDeskew(bitmap);
 
                 case FilterType.Rotation:
-                    return BitmapHelper.Rotate(bitmap, (float)filter.Parameters, Color.Black);
+                    return BitmapHelper.Rotate(bitmap, (float)filter.Parameters.ToInt32(), Color.Black);
 
                 default:
                     throw new ArgumentOutOfRangeException();

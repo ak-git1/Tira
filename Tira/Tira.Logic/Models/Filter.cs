@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Xml.Serialization;
 using Tira.Logic.Enums;
 
@@ -51,12 +53,22 @@ namespace Tira.Logic.Models
         #region Public methods
 
         /// <summary>
+        /// Checks existance of filter with markup objects removal
+        /// </summary>
+        /// <param name="filters">Filters</param>
+        /// <returns></returns>
+        public static bool CheckExistanceOfFilterWithMarkupObjectsRemoval(List<Filter> filters)
+        {
+            return filters.Any(filter => RemoveMarkupObjects(filter.FilterType));
+        }
+
+        /// <summary>
         /// Checks for drawing objects removal
         /// </summary>
         /// <param name="filterType">Filter type</param>
         /// <returns></returns>
         /// <exception cref="ArgumentOutOfRangeException">filterType - null</exception>
-        public static bool RemoveDrawingObjects(FilterType filterType)
+        public static bool RemoveMarkupObjects(FilterType filterType)
         {
             switch (filterType)
             {

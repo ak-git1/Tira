@@ -133,6 +133,60 @@ namespace Tira.App.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Dimensions of the blobs to be removed:.
+        /// </summary>
+        public static string BlobsRemovalFilterWindow_Label_Header {
+            get {
+                return ResourceManager.GetString("BlobsRemovalFilterWindow_Label_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Max height:.
+        /// </summary>
+        public static string BlobsRemovalFilterWindow_Label_MaxBlobHeight {
+            get {
+                return ResourceManager.GetString("BlobsRemovalFilterWindow_Label_MaxBlobHeight", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Max width:.
+        /// </summary>
+        public static string BlobsRemovalFilterWindow_Label_MaxBlobWidth {
+            get {
+                return ResourceManager.GetString("BlobsRemovalFilterWindow_Label_MaxBlobWidth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Min height:.
+        /// </summary>
+        public static string BlobsRemovalFilterWindow_Label_MinBlobHeight {
+            get {
+                return ResourceManager.GetString("BlobsRemovalFilterWindow_Label_MinBlobHeight", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Min width:.
+        /// </summary>
+        public static string BlobsRemovalFilterWindow_Label_MinBlobWidth {
+            get {
+                return ResourceManager.GetString("BlobsRemovalFilterWindow_Label_MinBlobWidth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Blobs removal.
+        /// </summary>
+        public static string BlobsRemovalFilterWindow_Title {
+            get {
+                return ResourceManager.GetString("BlobsRemovalFilterWindow_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Brightness:.
         /// </summary>
         public static string BrightnessFilterWindow_Label_Brightness {
@@ -346,6 +400,51 @@ namespace Tira.App.Properties {
         public static string IntroductionWindow_ProjectDoesNotExistMessage_Text {
             get {
                 return ResourceManager.GetString("IntroductionWindow_ProjectDoesNotExistMessage_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Horizontal.
+        /// </summary>
+        public static string LineRemoveOrientation_Horizontal {
+            get {
+                return ResourceManager.GetString("LineRemoveOrientation_Horizontal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to None.
+        /// </summary>
+        public static string LineRemoveOrientation_None {
+            get {
+                return ResourceManager.GetString("LineRemoveOrientation_None", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vertical.
+        /// </summary>
+        public static string LineRemoveOrientation_Vertical {
+            get {
+                return ResourceManager.GetString("LineRemoveOrientation_Vertical", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Line type:.
+        /// </summary>
+        public static string LinesRemovalFilterWindow_Label_LineOrientation {
+            get {
+                return ResourceManager.GetString("LinesRemovalFilterWindow_Label_LineOrientation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lines removal.
+        /// </summary>
+        public static string LinesRemovalFilterWindow_Title {
+            get {
+                return ResourceManager.GetString("LinesRemovalFilterWindow_Title", resourceCulture);
             }
         }
         
@@ -589,6 +688,60 @@ namespace Tira.App.Properties {
         public static string ProjectWindow_OcrCompletedMessage_Text {
             get {
                 return ResourceManager.GetString("ProjectWindow_OcrCompletedMessage_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bottom side:.
+        /// </summary>
+        public static string PunchHolesRemovalFilterWindow_Label_BottomSide {
+            get {
+                return ResourceManager.GetString("PunchHolesRemovalFilterWindow_Label_BottomSide", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Punch holes locations:.
+        /// </summary>
+        public static string PunchHolesRemovalFilterWindow_Label_Header {
+            get {
+                return ResourceManager.GetString("PunchHolesRemovalFilterWindow_Label_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Left side:.
+        /// </summary>
+        public static string PunchHolesRemovalFilterWindow_Label_LeftSide {
+            get {
+                return ResourceManager.GetString("PunchHolesRemovalFilterWindow_Label_LeftSide", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Right side:.
+        /// </summary>
+        public static string PunchHolesRemovalFilterWindow_Label_RightSide {
+            get {
+                return ResourceManager.GetString("PunchHolesRemovalFilterWindow_Label_RightSide", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Top side:.
+        /// </summary>
+        public static string PunchHolesRemovalFilterWindow_Label_TopSide {
+            get {
+                return ResourceManager.GetString("PunchHolesRemovalFilterWindow_Label_TopSide", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Punch holes removal.
+        /// </summary>
+        public static string PunchHolesRemovalFilterWindow_Title {
+            get {
+                return ResourceManager.GetString("PunchHolesRemovalFilterWindow_Title", resourceCulture);
             }
         }
         
@@ -845,15 +998,6 @@ namespace Tira.App.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Holes.
-        /// </summary>
-        public static string Ribbon_Button_RemoveHoles {
-            get {
-                return ResourceManager.GetString("Ribbon_Button_RemoveHoles", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Remove images.
         /// </summary>
         public static string Ribbon_Button_RemoveImages {
@@ -886,6 +1030,15 @@ namespace Tira.App.Properties {
         public static string Ribbon_Button_RemoveObjects {
             get {
                 return ResourceManager.GetString("Ribbon_Button_RemoveObjects", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Punch holes.
+        /// </summary>
+        public static string Ribbon_Button_RemovePunchHoles {
+            get {
+                return ResourceManager.GetString("Ribbon_Button_RemovePunchHoles", resourceCulture);
             }
         }
         

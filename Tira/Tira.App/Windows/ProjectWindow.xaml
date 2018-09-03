@@ -311,11 +311,11 @@
                                          Icon="/Tira.App;component/Content/Images/Ribbon/remove_noise_24x24.png"
                                          SizeDefinition="Middle"
                                          Command="{Binding ImageRemoveNoiseCommand}"/>
-                        <fluent:MenuItem Header="{x:Static properties:Resources.Ribbon_Button_RemoveHoles}"
-                                         ToolTip="{x:Static properties:Resources.Ribbon_Button_RemoveHoles}"
-                                         Icon="/Tira.App;component/Content/Images/Ribbon/remove_holes_24x24.png"
+                        <fluent:MenuItem Header="{x:Static properties:Resources.Ribbon_Button_RemovePunchHoles}"
+                                         ToolTip="{x:Static properties:Resources.Ribbon_Button_RemovePunchHoles}"
+                                         Icon="/Tira.App;component/Content/Images/Ribbon/remove_puchholes_24x24.png"
                                          SizeDefinition="Middle"
-                                         Command="{Binding ImageRemoveHolesCommand}"/>
+                                         Command="{Binding ImageRemovePunchHolesCommand}"/>
                         <fluent:MenuItem Header="{x:Static properties:Resources.Ribbon_Button_RemoveStapleMarks}"
                                          ToolTip="{x:Static properties:Resources.Ribbon_Button_RemoveStapleMarks}"
                                          Icon="/Tira.App;component/Content/Images/Ribbon/remove_staplemarks_24x24.png"

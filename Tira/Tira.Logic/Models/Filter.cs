@@ -78,7 +78,7 @@ namespace Tira.Logic.Models
                 case FilterType.GammaCorrection:
                 case FilterType.Dilation:
                 case FilterType.Erosion:
-                case FilterType.HolesRemoval:
+                case FilterType.PunchHolesRemoval:
                 case FilterType.BlobsRemoval:
                 case FilterType.LinesRemoval:
                 case FilterType.StapleMarksRemoval:

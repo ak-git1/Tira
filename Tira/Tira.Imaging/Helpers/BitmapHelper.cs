@@ -220,9 +220,9 @@ namespace Tira.Imaging.Helpers
         /// Removes the holes from holemaker
         /// </summary>
         /// <param name="bitmap">Bitmap</param>
-        /// <param name="holesPosition">Holes position</param>
+        /// <param name="punchHolesPosition">Holes position</param>
         /// <returns></returns>
-        public static Bitmap RemoveHoles(Bitmap bitmap, HolesPosition holesPosition)
+        public static Bitmap RemovePunchHoles(Bitmap bitmap, PunchHolesPositions punchHolesPosition)
         {
             Bitmap resultImage = bitmap;
             GdPictureImaging image = new GdPictureImaging();
@@ -233,13 +233,13 @@ namespace Tira.Imaging.Helpers
             {
                 if (imageId > 0)
                 {
-                    if (holesPosition.LeftSide)
+                    if (punchHolesPosition.LeftSide)
                         image.RemoveHolePunch(imageId, HolePunchMargins.MarginLeft);
-                    if (holesPosition.TopSide)
+                    if (punchHolesPosition.TopSide)
                         image.RemoveHolePunch(imageId, HolePunchMargins.MarginTop);
-                    if (holesPosition.RightSide)
+                    if (punchHolesPosition.RightSide)
                         image.RemoveHolePunch(imageId, HolePunchMargins.MarginRight);
-                    if (holesPosition.BottomSide)
+                    if (punchHolesPosition.BottomSide)
                         image.RemoveHolePunch(imageId, HolePunchMargins.MarginBottom);
 
                     resultImage = image.GetBitmapFromGdPictureImage(imageId).CloneSmart(image.GetPixelFormat(imageId));

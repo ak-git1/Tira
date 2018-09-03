@@ -367,8 +367,8 @@ Do you want to remove it from the list?</value>
   <data name="Ribbon_Button_RemoveNoise" xml:space="preserve">
     <value>Noise</value>
   </data>
-  <data name="Ribbon_Button_RemoveHoles" xml:space="preserve">
-    <value>Holes</value>
+  <data name="Ribbon_Button_RemovePunchHoles" xml:space="preserve">
+    <value>Punch holes</value>
   </data>
   <data name="Ribbon_Button_RemoveStapleMarks" xml:space="preserve">
     <value>Clip holes</value>
@@ -504,5 +504,56 @@ Do you want to remove it from the list?</value>
   </data>
   <data name="Ribbon_Button_RollbackAll" xml:space="preserve">
     <value>Rollback all</value>
+  </data>
+  <data name="BlobsRemovalFilterWindow_Title" xml:space="preserve">
+    <value>Blobs removal</value>
+  </data>
+  <data name="BlobsRemovalFilterWindow_Label_MinBlobWidth" xml:space="preserve">
+    <value>Min width:</value>
+  </data>
+  <data name="BlobsRemovalFilterWindow_Label_MaxBlobWidth" xml:space="preserve">
+    <value>Max width:</value>
+  </data>
+  <data name="BlobsRemovalFilterWindow_Label_MinBlobHeight" xml:space="preserve">
+    <value>Min height:</value>
+  </data>
+  <data name="BlobsRemovalFilterWindow_Label_MaxBlobHeight" xml:space="preserve">
+    <value>Max height:</value>
+  </data>
+  <data name="PunchHolesRemovalFilterWindow_Title" xml:space="preserve">
+    <value>Punch holes removal</value>
+  </data>
+  <data name="PunchHolesRemovalFilterWindow_Label_LeftSide" xml:space="preserve">
+    <value>Left side:</value>
+  </data>
+  <data name="PunchHolesRemovalFilterWindow_Label_TopSide" xml:space="preserve">
+    <value>Top side:</value>
+  </data>
+  <data name="PunchHolesRemovalFilterWindow_Label_RightSide" xml:space="preserve">
+    <value>Right side:</value>
+  </data>
+  <data name="PunchHolesRemovalFilterWindow_Label_BottomSide" xml:space="preserve">
+    <value>Bottom side:</value>
+  </data>
+  <data name="PunchHolesRemovalFilterWindow_Label_Header" xml:space="preserve">
+    <value>Punch holes locations:</value>
+  </data>
+  <data name="BlobsRemovalFilterWindow_Label_Header" xml:space="preserve">
+    <value>Dimensions of the blobs to be removed:</value>
+  </data>
+  <data name="LinesRemovalFilterWindow_Title" xml:space="preserve">
+    <value>Lines removal</value>
+  </data>
+  <data name="LinesRemovalFilterWindow_Label_LineOrientation" xml:space="preserve">
+    <value>Line type:</value>
+  </data>
+  <data name="LineRemoveOrientation_None" xml:space="preserve">
+    <value>None</value>
+  </data>
+  <data name="LineRemoveOrientation_Vertical" xml:space="preserve">
+    <value>Vertical</value>
+  </data>
+  <data name="LineRemoveOrientation_Horizontal" xml:space="preserve">
+    <value>Horizontal</value>
   </data>
 </root>

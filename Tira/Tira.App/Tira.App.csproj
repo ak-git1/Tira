@@ -124,6 +124,9 @@
     <Compile Include="Logic\ViewModels\AboutViewModel.cs" />
     <Compile Include="Logic\ViewModels\DataColumnViewModel.cs" />
     <Compile Include="Logic\ViewModels\Filters\IntValueFilterViewModel.cs" />
+    <Compile Include="Logic\ViewModels\Filters\BlobsRemovalFilterViewModel.cs" />
+    <Compile Include="Logic\ViewModels\Filters\LinesRemovalFilterViewModel.cs" />
+    <Compile Include="Logic\ViewModels\Filters\PunchHolesRemovalFilterViewModel.cs" />
     <Compile Include="Logic\ViewModels\ProjectCreationViewModel.cs" />
     <Compile Include="Logic\ViewModels\ProjectSettingsViewModel.cs" />
     <Compile Include="Logic\ViewModels\ProjectViewModel.cs" />
@@ -160,6 +163,15 @@
     </Compile>
     <Compile Include="Windows\Filters\BrightnessFilterWindow.xaml.cs">
       <DependentUpon>BrightnessFilterWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\Filters\LinesRemovalFilterWindow.xaml.cs">
+      <DependentUpon>LinesRemovalFilterWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\Filters\PunchHolesRemovalFilterWindow.xaml.cs">
+      <DependentUpon>PunchHolesRemovalFilterWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\Filters\BlobsRemovalFilterWindow.xaml.cs">
+      <DependentUpon>BlobsRemovalFilterWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\Filters\RotationFilterWindow.xaml.cs">
       <DependentUpon>RotationFilterWindow.xaml</DependentUpon>
@@ -259,6 +271,18 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Windows\Filters\LinesRemovalFilterWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\Filters\PunchHolesRemovalFilterWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\Filters\BlobsRemovalFilterWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Windows\Filters\RotationFilterWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -315,8 +339,8 @@
     <Resource Include="Content\Images\Ribbon\xls_64x64.png" />
     <Resource Include="Content\Images\Ribbon\remove_staplemarks_24x24.png" />
     <Resource Include="Content\Images\Ribbon\remove_staplemarks_64x64.png" />
-    <Resource Include="Content\Images\Ribbon\remove_holes_24x24.png" />
-    <Resource Include="Content\Images\Ribbon\remove_holes_64x64.png" />
+    <Resource Include="Content\Images\Ribbon\remove_puchholes_24x24.png" />
+    <Resource Include="Content\Images\Ribbon\remove_puchholes_64x64.png" />
     <Resource Include="Content\Images\Ribbon\remove_lines_24x24.png" />
     <Resource Include="Content\Images\Ribbon\remove_lines_64x64.png" />
     <Resource Include="Content\Images\Ribbon\remove_noise_24x24.png" />

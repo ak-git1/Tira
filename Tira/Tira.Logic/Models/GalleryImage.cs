@@ -444,14 +444,14 @@ namespace Tira.Logic.Models
                 case FilterType.Erosion:
                     return BitmapHelper.Erode(bitmap);
 
-                case FilterType.HolesRemoval:
-                    return BitmapHelper.RemoveHoles(bitmap, (HolesPosition)filter.Parameters);
+                case FilterType.PunchHolesRemoval:
+                    return BitmapHelper.RemovePunchHoles(bitmap, (PunchHolesPositions)filter.Parameters);
 
                 case FilterType.BlobsRemoval:
                     return BitmapHelper.RemoveBlobs(bitmap, (BlobsDimensions)filter.Parameters);
 
                 case FilterType.LinesRemoval:
-                    return BitmapHelper.RemoveLines(bitmap, (LineRemoveOrientation)filter.Parameters);
+                    return BitmapHelper.RemoveLines(bitmap, filter.Parameters.ToEnum(LineRemoveOrientation.None));
 
                 case FilterType.StapleMarksRemoval:
                     return BitmapHelper.RemoveStapleMarks(bitmap);

@@ -370,7 +370,7 @@
   <data name="Ribbon_Button_RemoveNoise" xml:space="preserve">
     <value>Шум</value>
   </data>
-  <data name="Ribbon_Button_RemoveHoles" xml:space="preserve">
+  <data name="Ribbon_Button_RemovePunchHoles" xml:space="preserve">
     <value>Дырки от дырокола</value>
   </data>
   <data name="Ribbon_Button_RemoveStapleMarks" xml:space="preserve">
@@ -507,5 +507,56 @@
   </data>
   <data name="Ribbon_Button_RollbackAll" xml:space="preserve">
     <value>Отменить всё</value>
+  </data>
+  <data name="BlobsRemovalFilterWindow_Title" xml:space="preserve">
+    <value>Удаление клякс</value>
+  </data>
+  <data name="BlobsRemovalFilterWindow_Label_MinBlobWidth" xml:space="preserve">
+    <value>Мин. ширина:</value>
+  </data>
+  <data name="BlobsRemovalFilterWindow_Label_MaxBlobWidth" xml:space="preserve">
+    <value>Макс. ширина:</value>
+  </data>
+  <data name="BlobsRemovalFilterWindow_Label_MinBlobHeight" xml:space="preserve">
+    <value>Мин. высота:</value>
+  </data>
+  <data name="BlobsRemovalFilterWindow_Label_MaxBlobHeight" xml:space="preserve">
+    <value>Макс. высота:</value>
+  </data>
+  <data name="PunchHolesRemovalFilterWindow_Title" xml:space="preserve">
+    <value>Удаление дырок от дырокола</value>
+  </data>
+  <data name="PunchHolesRemovalFilterWindow_Label_LeftSide" xml:space="preserve">
+    <value>Левый край:</value>
+  </data>
+  <data name="PunchHolesRemovalFilterWindow_Label_TopSide" xml:space="preserve">
+    <value>Верхний край:</value>
+  </data>
+  <data name="PunchHolesRemovalFilterWindow_Label_RightSide" xml:space="preserve">
+    <value>Правый край:</value>
+  </data>
+  <data name="PunchHolesRemovalFilterWindow_Label_BottomSide" xml:space="preserve">
+    <value>Нижний край:</value>
+  </data>
+  <data name="PunchHolesRemovalFilterWindow_Label_Header" xml:space="preserve">
+    <value>Расположение дырок от дырокола:</value>
+  </data>
+  <data name="BlobsRemovalFilterWindow_Label_Header" xml:space="preserve">
+    <value>Размеры клякс для удаления:</value>
+  </data>
+  <data name="LinesRemovalFilterWindow_Title" xml:space="preserve">
+    <value>Удаление линий</value>
+  </data>
+  <data name="LinesRemovalFilterWindow_Label_LineOrientation" xml:space="preserve">
+    <value>Тип линии:</value>
+  </data>
+  <data name="LineRemoveOrientation_None" xml:space="preserve">
+    <value>Не указано</value>
+  </data>
+  <data name="LineRemoveOrientation_Vertical" xml:space="preserve">
+    <value>Вертикальный</value>
+  </data>
+  <data name="LineRemoveOrientation_Horizontal" xml:space="preserve">
+    <value>Горизонтальный</value>
   </data>
 </root>

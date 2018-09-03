@@ -1,6 +1,11 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit">
     <Style TargetType="{x:Type TextBox}">
+        <Setter Property="Height" Value="25" />
+        <Setter Property="Margin" Value="5,5,5,5" />
+    </Style>
+    <Style x:Key="SettingsValueIntegerUpDown" TargetType="{x:Type xctk:IntegerUpDown}">
         <Setter Property="Height" Value="25" />
         <Setter Property="Margin" Value="5,5,5,5" />
     </Style>

@@ -33,6 +33,7 @@ using Tira.App.Properties;
 using Tira.App.Windows;
 using Tira.App.Windows.Filters;
 using Tira.Imaging.Classes;
+using Tira.Imaging.Enums;
 using Tira.Logic.Enums;
 using Tira.Logic.Helpers;
 using Tira.Logic.Models;
@@ -450,9 +451,9 @@ namespace Tira.App.Logic.ViewModels
         public INotifyCommand ImageRemoveNoiseCommand { get; }
 
         /// <summary>
-        /// Command for removing holes from image
+        /// Command for removing punch holes from image
         /// </summary>
-        public INotifyCommand ImageRemoveHolesCommand { get; }
+        public INotifyCommand ImageRemovePunchHolesCommand { get; }
 
         /// <summary>
         /// Command for removing clip holes from image
@@ -522,7 +523,7 @@ namespace Tira.App.Logic.ViewModels
             ImageErodeCommand = new NotifyCommand(_ => ImageErode(), _ => CanPerformOperationsWithImage());
             ImageRemoveLinesCommand = new NotifyCommand(_ => ImageRemoveLines(), _ => CanPerformOperationsWithImage());
             ImageRemoveNoiseCommand = new NotifyCommand(_ => ImageRemoveNoise(), _ => CanPerformOperationsWithImage());
-            ImageRemoveHolesCommand = new NotifyCommand(_ => ImageRemoveHoles(), _ => CanPerformOperationsWithImage());
+            ImageRemovePunchHolesCommand = new NotifyCommand(_ => ImageRemovePunchHoles(), _ => CanPerformOperationsWithImage());
             ImageRemoveStapleMarksCommand = new NotifyCommand(_ => ImageRemoveStapleMarks(), _ => CanPerformOperationsWithImage());
             ImageRemoveBlobsCommand = new NotifyCommand(_ => ImageRemoveBlobs(), _ => CanPerformOperationsWithImage());
 
@@ -1083,7 +1084,12 @@ namespace Tira.App.Logic.ViewModels
         /// </summary>
         private void ImageRemoveLines()
         {
-            // TODO
+            LinesRemovalFilterViewModel vm = new LinesRemovalFilterViewModel();
+            bool? result = ShowDialogAgent.Instance.ShowDialog<LinesRemovalFilterWindow>(vm);
+            if (result.HasValue && result.Value)
+                ApplyFilter(new Filter(FilterType.LinesRemoval, vm.LineRemoveOrientation));
+            else
+                SelectedImage = BitmapImageHelper.GetBitmapImageFromPath(SelectedGalleryImage.ActualImageFilePath);
         }
 
         /// <summary>
@@ -1095,11 +1101,16 @@ namespace Tira.App.Logic.ViewModels
         }
 
         /// <summary>
-        /// Remove holes from image
+        /// Remove punch holes from image
         /// </summary>
-        private void ImageRemoveHoles()
+        private void ImageRemovePunchHoles()
         {
-            // TODO
+            PunchHolesRemovalFilterViewModel vm = new PunchHolesRemovalFilterViewModel();
+            bool? result = ShowDialogAgent.Instance.ShowDialog<PunchHolesRemovalFilterWindow>(vm);
+            if (result.HasValue && result.Value)
+                ApplyFilter(new Filter(FilterType.PunchHolesRemoval, vm.PunchHolesPositions));
+            else
+                SelectedImage = BitmapImageHelper.GetBitmapImageFromPath(SelectedGalleryImage.ActualImageFilePath);
         }
 
         /// <summary>
@@ -1115,7 +1126,12 @@ namespace Tira.App.Logic.ViewModels
         /// </summary>
         private void ImageRemoveBlobs()
         {
-            // TODO
+            BlobsRemovalFilterViewModel vm = new BlobsRemovalFilterViewModel();
+            bool? result = ShowDialogAgent.Instance.ShowDialog<BlobsRemovalFilterWindow>(vm);
+            if (result.HasValue && result.Value)
+                ApplyFilter(new Filter(FilterType.BlobsRemoval, vm.BlobsDimensions));
+            else
+                SelectedImage = BitmapImageHelper.GetBitmapImageFromPath(SelectedGalleryImage.ActualImageFilePath);
         }
 
         /// <summary>
@@ -1220,6 +1236,18 @@ namespace Tira.App.Logic.ViewModels
 
                     case FilterType.Rotation:
                         SelectedImage = Imaging.Helpers.BitmapHelper.Rotate(_selectedImageFilterCopy.ToBitmap(), (float)args[1].ToInt32(), Color.Black).ToBitmapSource();
+                        break;
+
+                    case FilterType.BlobsRemoval:
+                        SelectedImage = Imaging.Helpers.BitmapHelper.RemoveBlobs(_selectedImageFilterCopy.ToBitmap(), (BlobsDimensions)args[1]).ToBitmapSource();
+                        break;
+
+                    case FilterType.PunchHolesRemoval:
+                        SelectedImage = Imaging.Helpers.BitmapHelper.RemovePunchHoles(_selectedImageFilterCopy.ToBitmap(), (PunchHolesPositions)args[1]).ToBitmapSource();
+                        break;
+
+                    case FilterType.LinesRemoval:
+                        SelectedImage = Imaging.Helpers.BitmapHelper.RemoveLines(_selectedImageFilterCopy.ToBitmap(), args[1].ToEnum(LineRemoveOrientation.None)).ToBitmapSource();
                         break;
                 }
             }

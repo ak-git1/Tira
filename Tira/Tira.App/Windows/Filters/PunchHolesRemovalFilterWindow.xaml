@@ -1,0 +1,54 @@
+﻿<Window x:Class="Tira.App.Windows.Filters.PunchHolesRemovalFilterWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:properties="clr-namespace:Tira.App.Properties"
+        xmlns:filters="clr-namespace:Tira.App.Logic.ViewModels.Filters"
+        xmlns:dialogs="clr-namespace:Ak.Framework.Wpf.Dialogs;assembly=Ak.Framework.Wpf"
+        mc:Ignorable="d"
+        Title="{x:Static properties:Resources.PunchHolesRemovalFilterWindow_Title}"
+        WindowStartupLocation="CenterOwner"
+        Height="220"
+        Width="260"
+        ResizeMode="NoResize"
+        ShowInTaskbar="False"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Background="{StaticResource SemiTransparentWindowBackgroundBrush}"
+        BorderBrush="{StaticResource SemiTransparentWindowBorderBrush}"
+        BorderThickness="1"
+        MouseLeftButtonDown="Window_OnMouseLeftButtonDown"
+        d:DataContext="{d:DesignInstance Type=filters:PunchHolesRemovalFilterViewModel, IsDesignTimeCreatable=True}">
+    <Grid Style="{StaticResource ExternalGridInTransparentWindow}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="100"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Left" VerticalAlignment="Top" Content="{x:Static properties:Resources.PunchHolesRemovalFilterWindow_Label_Header}"/>
+        <Label Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Top" Content="{x:Static properties:Resources.PunchHolesRemovalFilterWindow_Label_LeftSide}"/>
+        <CheckBox Grid.Row="1" Grid.Column="1" IsChecked="{Binding LeftSide}" />
+        <Label Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Top" Content="{x:Static properties:Resources.PunchHolesRemovalFilterWindow_Label_TopSide}"/>
+        <CheckBox Grid.Row="2" Grid.Column="1" IsChecked="{Binding TopSide}" />
+        <Label Grid.Row="3" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Top" Content="{x:Static properties:Resources.PunchHolesRemovalFilterWindow_Label_RightSide}"/>
+        <CheckBox Grid.Row="3" Grid.Column="1" IsChecked="{Binding RightSide}" />
+        <Label Grid.Row="4" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Top" Content="{x:Static properties:Resources.PunchHolesRemovalFilterWindow_Label_BottomSide}"/>
+        <CheckBox Grid.Row="4" Grid.Column="1" IsChecked="{Binding BottomSide}" />
+
+        <StackPanel Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,0,0">
+            <Button Content="{x:Static properties:Resources.FilterWindow_Button_Save}" Style="{StaticResource DialogFormButton}"
+                    dialogs:ShowDialogButtonHelper.DialogResult="True"/>
+            <Button Content="{x:Static properties:Resources.FilterWindow_Button_Cancel}" Style="{StaticResource DialogFormButton}"
+                    IsCancel="True" />
+        </StackPanel>
+    </Grid>
+</Window>

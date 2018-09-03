@@ -46,32 +46,32 @@
         Erosion = 7,
 
         /// <summary>
-        /// HolesRemoval
+        /// Punch holes removal
         /// </summary>
-        HolesRemoval = 8,
+        PunchHolesRemoval = 8,
 
         /// <summary>
-        /// BlobsRemoval
+        /// Blobs removal
         /// </summary>
         BlobsRemoval = 9,
 
         /// <summary>
-        /// LinesRemoval
+        /// Lines removal
         /// </summary>
         LinesRemoval = 10,
 
         /// <summary>
-        /// StapleMarksRemoval
+        /// Staple marks removal
         /// </summary>
         StapleMarksRemoval = 11,
 
         /// <summary>
-        /// NoiseRemoval
+        /// Noise removal
         /// </summary>
         NoiseRemoval = 12,
 
         /// <summary>
-        /// AutoDeskew
+        /// Auto deskew (rotation)
         /// </summary>
         AutoDeskew = 13,
 

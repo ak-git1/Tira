@@ -1,9 +1,9 @@
 ﻿namespace Tira.Imaging.Classes
 {
     /// <summary>
-    /// Holes position 
+    /// Punch holes positions 
     /// </summary>
-    public class HolesPosition
+    public class PunchHolesPositions
     {
         #region Properties
 

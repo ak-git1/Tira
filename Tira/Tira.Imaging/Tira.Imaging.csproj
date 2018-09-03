@@ -53,7 +53,7 @@
     <Compile Include="Analysers\SkewAngleAnalyser.cs" />
     <Compile Include="Classes\AutoDeskewParameters.cs" />
     <Compile Include="Classes\BlobsDimensions.cs" />
-    <Compile Include="Classes\HolesPosition.cs" />
+    <Compile Include="Classes\PunchHolesPositions.cs" />
     <Compile Include="Converters\ImagesConverter.cs" />
     <Compile Include="Engines\FileTypesEngineFactory.cs" />
     <Compile Include="Engines\PdfEngine.cs" />

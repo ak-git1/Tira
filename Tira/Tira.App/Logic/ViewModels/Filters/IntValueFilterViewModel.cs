@@ -1,9 +1,4 @@
-﻿using System.Windows.Media.Imaging;
-using Ak.Framework.Imaging.Converters;
-using Ak.Framework.Imaging.Extensions;
-using Ak.Framework.Imaging.Helpers;
-using Ak.Framework.Wpf.Messaging;
-using Ak.Framework.Wpf.ViewModels;
+﻿using Ak.Framework.Wpf.Messaging;
 using Tira.App.Logic.Enums;
 using Tira.Logic.Enums;
 
@@ -12,8 +7,7 @@ namespace Tira.App.Logic.ViewModels.Filters
     /// <summary>
     /// ViewModel for filters with one int parameter
     /// </summary>
-    /// <seealso cref="Ak.Framework.Wpf.ViewModels.ViewModelBase" />
-    public class IntValueFilterViewModel : ViewModelBase
+    public class IntValueFilterViewModel
     {
         #region Variables
 

@@ -197,7 +197,7 @@
     <value>Copyright © AkSoftware 2018</value>
   </data>
   <data name="Application_About" xml:space="preserve">
-    <value>Программа предназначена для получения данных путем распознавания с изображений, содержащих таблицы.</value>
+    <value>Программа предназначена для получения данных путем распознавания изображений, содержащих таблицы.</value>
   </data>
   <data name="AboutWindow_Title" xml:space="preserve">
     <value>О программе</value>

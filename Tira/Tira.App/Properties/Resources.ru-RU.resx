@@ -559,4 +559,13 @@
   <data name="LineRemoveOrientation_Horizontal" xml:space="preserve">
     <value>Горизонтальный</value>
   </data>
+  <data name="FilterWindow_Button_Apply" xml:space="preserve">
+    <value>Применить</value>
+  </data>
+  <data name="CropFilterWindow_Title" xml:space="preserve">
+    <value>Обрезка</value>
+  </data>
+  <data name="CropFilterWindow_Label_Header" xml:space="preserve">
+    <value>Подтвердите область обрезки изображения.</value>
+  </data>
 </root>

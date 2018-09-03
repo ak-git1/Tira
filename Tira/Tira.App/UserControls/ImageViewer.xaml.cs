@@ -45,6 +45,11 @@ namespace Tira.App.UserControls
         /// </summary>
         private const string DrawingLineStyle = "DrawingLineStyle";
 
+        /// <summary>
+        /// The crop rectangle area style
+        /// </summary>
+        private const string CropRectangleAreaStyle = "CropRectangleAreaStyle";
+
         #endregion
 
         /// <summary>
@@ -482,11 +487,18 @@ namespace Tira.App.UserControls
         #region Delegates
 
         /// <summary>
-        /// Delegate for markup objects changed event event
+        /// Delegate for markup objects changed event
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The <see cref="MarkupObjectsEventArgs"/> instance containing the event data.</param>
         public delegate void MarkupObjectsChangedHandler(object sender, MarkupObjectsEventArgs e);
+
+        /// <summary>
+        /// Delegate for crop area selected
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="MarkupObjectsEventArgs"/> instance containing the event data.</param>
+        public delegate void CropAreaSelectedHandler(object sender, RectangleAreaEventArgs e);
 
         #endregion
 
@@ -505,6 +517,11 @@ namespace Tira.App.UserControls
         /// Markup drawing objects changed event
         /// </summary>
         public event MarkupObjectsChangedHandler MarkupObjectsChanged;
+
+        /// <summary>
+        /// Crop area selected event
+        /// </summary>
+        public event CropAreaSelectedHandler CropAreaSelected;
 
         #endregion
 
@@ -1088,6 +1105,9 @@ namespace Tira.App.UserControls
                 #region ImageViewerMode.Crop
 
                 case ImageViewerMode.Crop:
+                    CurrentMarkupObjects.Clear();
+                    ClearDrawingArea();
+                    _isDrawingInProgress = true;
                     break;
 
                 #endregion
@@ -1143,6 +1163,11 @@ namespace Tira.App.UserControls
                 #region ImageViewerMode.Crop
 
                 case ImageViewerMode.Crop:
+                    Rectangle cropArea = CreateRectangleByTwoPoints(_drawingStartPoint, _drawingEndPoint);
+                    if (_tempRectangle != null)
+                        ImageCanvas.Children.Remove(_tempRectangle);
+
+                    _tempRectangle = DrawMarkupRectangle(cropArea, CropRectangleAreaStyle);
                     break;
 
                 #endregion
@@ -1212,6 +1237,7 @@ namespace Tira.App.UserControls
                 #region ImageViewerMode.Crop
 
                 case ImageViewerMode.Crop:
+                    CropAreaSelected?.Invoke(this, new RectangleAreaEventArgs(CreateRectangleByTwoPoints(_drawingStartPoint, _drawingEndPoint)));
                     break;
 
                 #endregion

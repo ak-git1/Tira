@@ -8,4 +8,13 @@
     <SolidColorBrush x:Key="DrawingLineBrush" Color="#32169E4C"/>
     <SolidColorBrush x:Key="FixedLineBrush" Color="#169E4C"/>
     <SolidColorBrush x:Key="HighlightedRowBrush" Color="#46FF8E64"/>
+    <LinearGradientBrush x:Key="CropRectangleAreaBorderBrush" 
+                         MappingMode="Absolute"
+                         SpreadMethod="Repeat"
+                         StartPoint="0,0"
+                         EndPoint="30,30">
+        <GradientStop Offset="0" Color="#40009299" />
+        <GradientStop Offset="0.5" Color="#40169E4C" />
+        <GradientStop Offset="0.501" Color="Transparent" />
+    </LinearGradientBrush>
 </ResourceDictionary>

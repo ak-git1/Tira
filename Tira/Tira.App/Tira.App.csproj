@@ -116,6 +116,7 @@
     <Compile Include="Logic\Enums\MessageType.cs" />
     <Compile Include="Logic\Events\GalleryImageEventArgs.cs" />
     <Compile Include="Logic\Events\GalleryImagesUidsSelectionEventArgs.cs" />
+    <Compile Include="Logic\Events\RectangleAreaEventArgs.cs" />
     <Compile Include="Logic\Events\MarkupObjectsEventArgs.cs" />
     <Compile Include="Logic\Extensions\ExceptionExtensions.cs" />
     <Compile Include="Logic\Helpers\CultureResources.cs" />
@@ -154,6 +155,9 @@
     </Compile>
     <Compile Include="Windows\Filters\BinarizationFilterWindow.xaml.cs">
       <DependentUpon>BinarizationFilterWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\Filters\CropFilterWindow.xaml.cs">
+      <DependentUpon>CropFilterWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\Filters\GammaCorrectonFilterWindow.xaml.cs">
       <DependentUpon>GammaCorrectonFilterWindow.xaml</DependentUpon>
@@ -256,6 +260,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windows\Filters\BinarizationFilterWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\Filters\CropFilterWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

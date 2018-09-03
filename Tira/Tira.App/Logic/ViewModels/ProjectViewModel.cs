@@ -381,6 +381,11 @@ namespace Tira.App.Logic.ViewModels
         public INotifyCommand HandleMarkupObjectsChangedCommand { get; }
 
         /// <summary>
+        /// Command for handling crop area selected command
+        /// </summary>
+        public INotifyCommand HandleCropAreaSelectedCommand { get; }
+
+        /// <summary>
         /// Command for copying image markup
         /// </summary>
         public INotifyCommand ImageMarkupCopyCommand { get; }
@@ -526,6 +531,7 @@ namespace Tira.App.Logic.ViewModels
             ImageRemovePunchHolesCommand = new NotifyCommand(_ => ImageRemovePunchHoles(), _ => CanPerformOperationsWithImage());
             ImageRemoveStapleMarksCommand = new NotifyCommand(_ => ImageRemoveStapleMarks(), _ => CanPerformOperationsWithImage());
             ImageRemoveBlobsCommand = new NotifyCommand(_ => ImageRemoveBlobs(), _ => CanPerformOperationsWithImage());
+            HandleCropAreaSelectedCommand = new NotifyCommand(e => PerformImageCrop((RectangleAreaEventArgs)e), _ => CanPerformOperationsWithImage());
 
             Images.ListChanged += ImagesOnListChanged;
 
@@ -1060,7 +1066,21 @@ namespace Tira.App.Logic.ViewModels
         /// </summary>
         private void ImageCrop()
         {
-            // TODO
+            CurrentImageViewerMode = ImageViewerMode.Crop;
+            CurrentMarkupObjectType = MarkupObjectType.None;
+        }
+
+        /// <summary>
+        /// Performs image cropping
+        /// </summary>
+        /// <param name="e">The <see cref="Tira.App.Logic.Events.RectangleAreaEventArgs" /> instance containing the event data.</param>
+        private void PerformImageCrop(RectangleAreaEventArgs e)
+        {
+            bool? result = ShowDialogAgent.Instance.ShowDialog<CropFilterWindow>(null);
+            if (result.HasValue && result.Value)
+                ApplyFilter(new Filter(FilterType.Crop, e.Rectangle));
+
+            CurrentImageViewerMode = ImageViewerMode.None;
         }
 
         /// <summary>

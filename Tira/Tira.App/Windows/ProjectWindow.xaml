@@ -362,10 +362,11 @@
                                           Scale="{Binding ImageViewerZoomManager.Scale, Mode=TwoWay}"
                                           ResetToFitSizeWhenBitmapSourceChanged="True" 
                                           BitmapSource="{Binding SelectedImage}"
-                                          CurrentMarkupObjects="{Binding CurrentMarkupObjects, Mode=TwoWay}"                                                                                                                             
+                                          CurrentMarkupObjects="{Binding CurrentMarkupObjects, Mode=TwoWay}"
                                           CurrentImageViewerMode="{Binding CurrentImageViewerMode}"
                                           CurrentMarkupObjectType="{Binding CurrentMarkupObjectType}"
-                                          MarkupObjectsChanged="{binding:EventBinding Command=HandleMarkupObjectsChangedCommand, CommandParameter=$e}"/>
+                                          MarkupObjectsChanged="{binding:EventBinding Command=HandleMarkupObjectsChangedCommand, CommandParameter=$e}"
+                                          CropAreaSelected="{binding:EventBinding Command=HandleCropAreaSelectedCommand, CommandParameter=$e}"/>
                 <GridSplitter Grid.Row="1" ShowsPreview="False" Height="3" HorizontalAlignment="Stretch" VerticalAlignment="Center" Style="{StaticResource HorizontalGridSplitter}" />
                 <DataGrid x:Name="DataColumnsGrid"
                           Grid.Row="2"                          

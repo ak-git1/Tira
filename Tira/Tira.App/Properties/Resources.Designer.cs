@@ -223,6 +223,24 @@ namespace Tira.App.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Confirm image cropping area selection..
+        /// </summary>
+        public static string CropFilterWindow_Label_Header {
+            get {
+                return ResourceManager.GetString("CropFilterWindow_Label_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Crop.
+        /// </summary>
+        public static string CropFilterWindow_Title {
+            get {
+                return ResourceManager.GetString("CropFilterWindow_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cancel.
         /// </summary>
         public static string DataColumnWindow_Button_Cancel {
@@ -309,6 +327,15 @@ namespace Tira.App.Properties {
         public static string ErrorMessage {
             get {
                 return ResourceManager.GetString("ErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Apply.
+        /// </summary>
+        public static string FilterWindow_Button_Apply {
+            get {
+                return ResourceManager.GetString("FilterWindow_Button_Apply", resourceCulture);
             }
         }
         

@@ -133,4 +133,10 @@
   <data name="DataColumnType_NumbersOnly" xml:space="preserve">
     <value>Numbers only</value>
   </data>
+  <data name="PerformOcr_Description" xml:space="preserve">
+    <value>Recognition is in progress...</value>
+  </data>
+  <data name="PerformOcr_CurrentIterationMessageTemplate" xml:space="preserve">
+    <value>Recognized elements {0}/{1}</value>
+  </data>
 </root>

@@ -133,6 +133,24 @@ namespace Tira.Logic.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Recognized elements {0}/{1}.
+        /// </summary>
+        internal static string PerformOcr_CurrentIterationMessageTemplate {
+            get {
+                return ResourceManager.GetString("PerformOcr_CurrentIterationMessageTemplate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Recognition is in progress....
+        /// </summary>
+        internal static string PerformOcr_Description {
+            get {
+                return ResourceManager.GetString("PerformOcr_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Data columns need to be defined..
         /// </summary>
         internal static string ValidateOcr_Messages_NoDataColumns {

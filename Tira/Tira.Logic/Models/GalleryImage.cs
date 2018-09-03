@@ -152,6 +152,16 @@ namespace Tira.Logic.Models
 
         #endregion
 
+        #region Events
+
+        /// <summary>
+        /// Event fired when element recognition completed
+        /// </summary>
+        [field: NonSerialized]
+        public EventHandler RecognizableElementOcrCompleted;
+
+        #endregion
+
         #region Public methods
 
         /// <summary>
@@ -171,12 +181,12 @@ namespace Tira.Logic.Models
 
                 Rectangle[,] areas = GetRecognitionAreas();
                 for (int j = 0; j < areas.GetLength(1); j++)
-                {
-                    DataColumn dataColumn = dataColumns[j];
-
+                {                  
                     DataRow row = RecognizedData.NewRow();
                     for (int i = 0; i < areas.GetLength(0); i++)
                     {
+                        DataColumn dataColumn = dataColumns[i];
+
                         Rectangle area = areas[i, j];
                         using (Bitmap croppedBitmap = BitmapHelper.Crop(bitmap, area))
                         {
@@ -218,6 +228,7 @@ namespace Tira.Logic.Models
                             }
 
                             row[i] = tempStr;
+                            RecognizableElementOcrCompleted?.Invoke(this, null);
                         }                        
                     }
                     RecognizedData.Rows.Add(row);

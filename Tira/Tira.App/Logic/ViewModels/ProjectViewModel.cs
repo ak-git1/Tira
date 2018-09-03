@@ -9,11 +9,11 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Media.Imaging;
+using System.Windows.Threading;
 using Ak.Framework.Core.Extensions;
 using Ak.Framework.Core.Helpers;
 using Ak.Framework.Core.Utils;
@@ -35,6 +35,7 @@ using Tira.App.Windows.Filters;
 using Tira.Imaging.Classes;
 using Tira.Imaging.Enums;
 using Tira.Logic.Enums;
+using Tira.Logic.Events;
 using Tira.Logic.Helpers;
 using Tira.Logic.Models;
 using Tira.Logic.Models.Markup;
@@ -101,6 +102,16 @@ namespace Tira.App.Logic.ViewModels
         /// Locker object
         /// </summary>
         private readonly object _lockerObject = new object();
+
+        /// <summary>
+        /// Flag for progress indicator activation
+        /// </summary>
+        private bool _progressIndicatorActivated;
+
+        /// <summary>
+        /// Long running operations data container
+        /// </summary>
+        private LongOperationsData _longOperationsDataContainer;
 
         #endregion
 
@@ -242,6 +253,32 @@ namespace Tira.App.Logic.ViewModels
             {
                 SelectedGalleryImage.RecognizedData = value;
                 OnPropertyChanged(() => RecognizedData);
+            }
+        }
+
+        /// <summary>
+        /// Flag for progress indicator activation
+        /// </summary>
+        public bool ProgressIndicatorActivated
+        {
+            get => _progressIndicatorActivated;
+            set
+            {
+                _progressIndicatorActivated = value;
+                OnPropertyChanged(() => ProgressIndicatorActivated);
+            }
+        }
+
+        /// <summary>
+        /// Long running operations data container
+        /// </summary>
+        public LongOperationsData LongOperationsDataContainer
+        {
+            get => _longOperationsDataContainer;
+            set
+            {
+                _longOperationsDataContainer = value;
+                OnPropertyChanged(() => LongOperationsDataContainer);
             }
         }
 
@@ -534,6 +571,7 @@ namespace Tira.App.Logic.ViewModels
             HandleCropAreaSelectedCommand = new NotifyCommand(e => PerformImageCrop((RectangleAreaEventArgs)e), _ => CanPerformOperationsWithImage());
 
             Images.ListChanged += ImagesOnListChanged;
+            Project.ProjectElementOcrCompleted += ProjectOnProjectElementOcrCompleted;
 
             // Messages from other viewmodels
             Messenger.Instance.Register(MessageType.SetFilterToSelectedImage, SetChangesToSelectedImage);
@@ -649,14 +687,24 @@ namespace Tira.App.Logic.ViewModels
             }
             else
             {
-                result = Project.PerformOcr();
-                if (result.Result == ActionResultType.Ok)
+                BackgroundWorker worker = new BackgroundWorker();
+                worker.DoWork += (sender, args) =>
                 {
-                    FormsHelper.ShowMessage(Resources.ProjectWindow_OcrCompletedMessage_Text, Resources.ProjectCreationWindow_ProjectValidationMessage_Caption);
-                    FillDataGrid();
-                }
-                else
-                    FormsHelper.ShowUnexpectedError();
+                    Project.PerformOcr();
+                };
+                worker.RunWorkerCompleted += (sender, args) =>
+                {
+                    ProgressIndicatorActivated = false;
+                    if (result.Result == ActionResultType.Ok)
+                    {
+                        FormsHelper.ShowMessage(Resources.ProjectWindow_OcrCompletedMessage_Text, Resources.ProjectCreationWindow_ProjectValidationMessage_Caption);
+                        FillDataGrid();
+                    }
+                    else
+                        FormsHelper.ShowUnexpectedError();
+                };
+                ProgressIndicatorActivated = true;
+                worker.RunWorkerAsync();
             }
         }
 
@@ -758,7 +806,7 @@ namespace Tira.App.Logic.ViewModels
         {
             if (SelectedImagesUids != null && SelectedImagesUids.Any())
             {
-                Project.Gallery.Images.RemoveAll(r => SelectedImagesUids.Contains(r.Uid));
+                Project.Gallery.Remove(SelectedImagesUids);
                 if (SelectedImagesUids.Contains(SelectedGalleryImage.Uid))
                     ClearImageViewer();
 
@@ -1320,6 +1368,11 @@ namespace Tira.App.Logic.ViewModels
         {
             if (listChangedEventArgs.ListChangedType == ListChangedType.ItemAdded)
                 Project.Gallery.Sort(Images.Select(x => x.Uid));
+        }
+
+        private void ProjectOnProjectElementOcrCompleted(object sender, LongOperationsDataEventArgs longOperationsDataEventArgs)
+        {            
+            Application.Current.Dispatcher.Invoke(() => LongOperationsDataContainer = longOperationsDataEventArgs.LongOperationsData, DispatcherPriority.Background);
         }
 
         #endregion

@@ -7,6 +7,7 @@ using System.Text;
 using System.Xml.Serialization;
 using Tira.Logic.Engines;
 using Tira.Logic.Enums;
+using Tira.Logic.Events;
 using Tira.Logic.Helpers;
 
 namespace Tira.Logic.Models
@@ -28,6 +29,11 @@ namespace Tira.Logic.Models
         /// The project file extensions filter
         /// </summary>
         public const string ProjectFileExtensionsFilter = "*.rproj|*.rproj";
+
+        /// <summary>
+        /// Container for long operations data
+        /// </summary>
+        private LongOperationsData _longOperationsDataContainer;
 
         #endregion
 
@@ -62,6 +68,27 @@ namespace Tira.Logic.Models
         /// </summary>
         [XmlElement]
         public List<DataColumn> DataColumns { get; set; }
+
+        #endregion
+
+        #region Events
+
+        /// <summary>
+        /// Event fired when project element ocr completed
+        /// </summary>
+        [field: NonSerialized]
+        public event ProjectElementOcrCompletedEventHandler ProjectElementOcrCompleted;
+
+        #endregion
+
+        #region Delegates
+
+        /// <summary>
+        /// Delefate for event fired when project element ocr completed
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="Tira.Logic.Events.LongOperationsDataEventArgs" /> instance containing the event data.</param>
+        public delegate void ProjectElementOcrCompletedEventHandler(object sender, LongOperationsDataEventArgs e);
 
         #endregion
 
@@ -100,6 +127,7 @@ namespace Tira.Logic.Models
         public static Project Load(string projectPath)
         {
             Project project = SerializationHelper.DeserializeFromXml<Project>(File.ReadAllText(projectPath));
+            project.WireUpEvents();
             project.UpdateProjectPathes(projectPath);
 
             // Adding project to recent projects list
@@ -179,10 +207,14 @@ namespace Tira.Logic.Models
         /// <returns></returns>
         public ActionResult PerformOcr()
         {
+            Gallery.RecognizableElementOcrCompleted += Gallery_RecognizableElementOcrCompleted;
+            _longOperationsDataContainer = new LongOperationsData(0, Gallery.GetRecognizableElementsQuantity(), Properties.Resources.PerformOcr_CurrentIterationMessageTemplate, Properties.Resources.PerformOcr_Description);                        
+            ProjectElementOcrCompleted?.Invoke(this, new LongOperationsDataEventArgs(_longOperationsDataContainer));
+
             try
             {
                 foreach (GalleryImage image in Gallery.Images)
-                    image.PerformOcr(DataColumns);
+                    image.PerformOcr(DataColumns);                
 
                 return new ActionResult();
             }
@@ -190,6 +222,11 @@ namespace Tira.Logic.Models
             {
                 LogHelper.Logger.Error(e, $"Unable to perform OCR in the project '{Name}'");
                 return new ActionResult(ActionResultType.Error, e.Message);
+            }
+            finally
+            {
+                _longOperationsDataContainer = null;
+                Gallery.RecognizableElementOcrCompleted -= Gallery_RecognizableElementOcrCompleted;
             }
         }
 
@@ -220,6 +257,15 @@ namespace Tira.Logic.Models
         #region Private methods
 
         /// <summary>
+        /// Wires up events
+        /// </summary>
+        private void WireUpEvents()
+        {
+            Gallery.WireUpEvents();
+            Gallery.RecognizableElementOcrCompleted += Gallery_RecognizableElementOcrCompleted;            
+        }
+
+        /// <summary>
         /// Updates project pathes.
         /// </summary>
         /// <param name="projectPath">The project path.</param>
@@ -242,6 +288,19 @@ namespace Tira.Logic.Models
                     dataTable.Merge(Gallery.Images[i].RecognizedData.Copy());
 
             return dataTable;
+        }
+
+        #endregion
+
+        #region Events handlers
+
+        private void Gallery_RecognizableElementOcrCompleted(object sender, EventArgs eventArgs)
+        {
+            if (_longOperationsDataContainer != null)
+            {
+                _longOperationsDataContainer.Iterate();
+                ProjectElementOcrCompleted?.Invoke(this, new LongOperationsDataEventArgs(_longOperationsDataContainer));
+            }
         }
 
         #endregion

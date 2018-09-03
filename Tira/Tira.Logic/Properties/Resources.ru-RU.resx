@@ -153,4 +153,10 @@
   <data name="DataColumnType_NumbersOnly" xml:space="preserve">
     <value>Только цифры</value>
   </data>
+  <data name="PerformOcr_Description" xml:space="preserve">
+    <value>Идет распознавание...</value>
+  </data>
+  <data name="PerformOcr_CurrentIterationMessageTemplate" xml:space="preserve">
+    <value>Распознано элементов {0}/{1}</value>
+  </data>
 </root>

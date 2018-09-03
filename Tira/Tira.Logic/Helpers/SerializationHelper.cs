@@ -14,7 +14,7 @@ namespace Tira.Logic.Helpers
         #region Public methods
 
         /// <summary>
-        /// Deserializes from XML.
+        /// Deserializes from XML
         /// </summary>
         /// <typeparam name="T">Type</typeparam>
         /// <param name="xml">Xml</param>

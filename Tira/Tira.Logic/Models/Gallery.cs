@@ -44,6 +44,16 @@ namespace Tira.Logic.Models
 
         #endregion
 
+        #region Events
+
+        /// <summary>
+        /// Event fired when element recognigtion completed
+        /// </summary>
+        [field: NonSerialized]
+        public EventHandler RecognizableElementOcrCompleted;
+
+        #endregion
+
         #region Constructors
 
         /// <summary>
@@ -74,6 +84,15 @@ namespace Tira.Logic.Models
                 results.Add(AddFile(file, maxNumberOfVerticalLines));
 
             return results;
+        }
+
+        /// <summary>
+        /// Removes images for specified
+        /// </summary>
+        /// <param name="selectedImagesUids">The selected images uids.</param>
+        public void Remove(List<Guid> selectedImagesUids)
+        {
+            Images.RemoveAll(r => selectedImagesUids.Contains(r.Uid));
         }
 
         /// <summary>
@@ -141,6 +160,31 @@ namespace Tira.Logic.Models
                 }                        
         }
 
+        /// <summary>
+        /// Gets quantity of all recognizable elements on all images
+        /// </summary>
+        /// <returns></returns>
+        public int GetRecognizableElementsQuantity()
+        {
+            int counter = 0;
+            foreach (GalleryImage image in Images)
+            {
+                if (image.MarkupObjects?.VerticalLinesCoordinates != null && image.MarkupObjects?.HorizontalLinesCoordinates != null)
+                    counter += (image.MarkupObjects.VerticalLinesCoordinates.Count + 1) * (image.MarkupObjects.HorizontalLinesCoordinates.Count + 1);
+            }
+
+            return counter;
+        }
+
+        /// <summary>
+        /// Wires up events
+        /// </summary>
+        public void WireUpEvents()
+        {
+            foreach (GalleryImage galleryImage in Images)
+                galleryImage.RecognizableElementOcrCompleted += Image_RecognizableElementOcrCompleted;
+        }
+
         #endregion
 
         #region Private methods
@@ -185,8 +229,9 @@ namespace Tira.Logic.Models
                         MarkupObjects = new MarkupObjects
                         {
                             MaxNumberOfVerticalLines = maxNumberOfVerticalLines
-                        }
+                        }                        
                     };
+                    galleryImage.RecognizableElementOcrCompleted += Image_RecognizableElementOcrCompleted;
 
                     Images.Add(galleryImage);
                     orderNumber++;
@@ -199,6 +244,15 @@ namespace Tira.Logic.Models
                 LogHelper.Logger.Error(e, $"Unable to add {filePath} to gallery");
                 return new ActionResult(ActionResultType.Error, $"Error while trying to add {filePath} to gallery");
             }
+        }
+
+        #endregion
+
+        #region Events handlers
+
+        private void Image_RecognizableElementOcrCompleted(object sender, EventArgs eventArgs)
+        {
+            RecognizableElementOcrCompleted?.Invoke(this, null);
         }
 
         #endregion

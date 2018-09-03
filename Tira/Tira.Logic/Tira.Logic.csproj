@@ -93,12 +93,14 @@
     <Compile Include="Enums\ExportFormat.cs" />
     <Compile Include="Enums\InterfaceLanguage.cs" />
     <Compile Include="Enums\Languages.cs" />
+    <Compile Include="Events\LongOperationsDataEventArgs.cs" />
     <Compile Include="Helpers\ExportFormatsHelper.cs" />
     <Compile Include="Helpers\LogHelper.cs" />
     <Compile Include="Helpers\SerializationHelper.cs" />
     <Compile Include="Models\ActionResult.cs" />
     <Compile Include="Models\DataColumn.cs" />
     <Compile Include="Models\Filter.cs" />
+    <Compile Include="Models\LongOperationsData.cs" />
     <Compile Include="Models\Markup\MarkupObjects.cs" />
     <Compile Include="Models\Markup\Line.cs" />
     <Compile Include="Models\Gallery.cs" />

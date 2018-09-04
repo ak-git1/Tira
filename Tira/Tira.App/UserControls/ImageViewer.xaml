@@ -21,6 +21,11 @@
             <Setter Property="Stroke" Value="{StaticResource FixedRectangleAreaBorderBrush}"/>
             <Setter Property="Fill" Value="{StaticResource FixedRectangleAreaBrush}"/>
         </Style>
+        <Style x:Key="DragingRectangleAreaStyle" TargetType="{x:Type Rectangle}">
+            <Setter Property="StrokeThickness" Value="3"/>
+            <Setter Property="Stroke" Value="{StaticResource DragingRectangleAreaBorderBrush}"/>
+            <Setter Property="Fill" Value="{StaticResource DrawingRectangleAreaBrush}"/>
+        </Style>
         <Style x:Key="DrawingLineStyle" TargetType="{x:Type Line}">
             <Setter Property="StrokeThickness" Value="3"/>
             <Setter Property="Stroke" Value="{StaticResource DrawingLineBrush}"/>

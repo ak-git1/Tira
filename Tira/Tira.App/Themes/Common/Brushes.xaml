@@ -3,6 +3,15 @@
     <SolidColorBrush x:Key="SemiTransparentWindowBackgroundBrush" Color="#CCFFFFFF"/>
     <SolidColorBrush x:Key="SemiTransparentWindowBorderBrush" Color="#CCCCCC" />
     <SolidColorBrush x:Key="DrawingRectangleAreaBrush" Color="#464891DC" />
+    <LinearGradientBrush x:Key="DragingRectangleAreaBorderBrush" 
+                         MappingMode="Absolute"
+                         SpreadMethod="Repeat"
+                         StartPoint="0,0"
+                         EndPoint="30,30">
+        <GradientStop Offset="0" Color="#400D0099" />
+        <GradientStop Offset="0.5" Color="#404A169E" />
+        <GradientStop Offset="0.501" Color="Transparent" />
+    </LinearGradientBrush>
     <SolidColorBrush x:Key="FixedRectangleAreaBorderBrush" Color="#4891DC"/>
     <SolidColorBrush x:Key="FixedRectangleAreaBrush" Color="#0A0000FF"/>
     <SolidColorBrush x:Key="DrawingLineBrush" Color="#32169E4C"/>

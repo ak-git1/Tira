@@ -512,6 +512,34 @@ namespace Tira.App.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Lines markup.
+        /// </summary>
+        public static string NotEnoughDataGridColumnsInMarkupWarning_Caption {
+            get {
+                return ResourceManager.GetString("NotEnoughDataGridColumnsInMarkupWarning_Caption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You must first set data columns.
+        ///For vertical lines markup data columns quantity must be more than 1..
+        /// </summary>
+        public static string NotEnoughDataGridColumnsInMarkupWarning_Text {
+            get {
+                return ResourceManager.GetString("NotEnoughDataGridColumnsInMarkupWarning_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unable to open the project. May be it has deprecated format..
+        /// </summary>
+        public static string OpenProjectErrorMessage {
+            get {
+                return ResourceManager.GetString("OpenProjectErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cancel.
         /// </summary>
         public static string ProjectCreationWindow_Button_Cancel {

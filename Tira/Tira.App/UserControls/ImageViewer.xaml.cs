@@ -19,6 +19,8 @@ namespace Tira.App.UserControls
     /// <summary>
     /// Interaction logic for ImageViewer.xaml
     /// </summary>
+    /// <seealso cref="System.Windows.Controls.UserControl" />
+    /// <seealso cref="System.Windows.Markup.IComponentConnector" />
     public partial class ImageViewer : UserControl
     {
         #region Variables and constants
@@ -34,6 +36,11 @@ namespace Tira.App.UserControls
         /// The drawing rectangle area style
         /// </summary>
         private const string DrawingRectangleAreaStyle = "DrawingRectangleAreaStyle";
+
+        /// <summary>
+        /// The draging rectangle area style
+        /// </summary>
+        private const string DragingRectangleAreaStyle = "DragingRectangleAreaStyle";
 
         /// <summary>
         /// The fixed line style
@@ -78,6 +85,11 @@ namespace Tira.App.UserControls
         private bool _isDrawingInProgress;
 
         /// <summary>
+        /// The drag is in progress
+        /// </summary>
+        private bool _isDragInProgress;
+
+        /// <summary>
         /// The drawing start point
         /// </summary>
         private Point _drawingStartPoint;
@@ -111,6 +123,11 @@ namespace Tira.App.UserControls
         /// Temporary line
         /// </summary>
         private Line _tempLine;
+
+        /// <summary>
+        /// Temporary markup objects
+        /// </summary>
+        private MarkupObjects _tempMarkupObjects;
 
         #endregion
 
@@ -346,7 +363,7 @@ namespace Tira.App.UserControls
             ImageViewer imageViewer = source as ImageViewer;
             if (imageViewer == null)
                 return;
-            
+
             BitmapSource bitmapSource = args.NewValue as BitmapSource;
             if (bitmapSource == null)
                 return;
@@ -354,10 +371,9 @@ namespace Tira.App.UserControls
             imageViewer.SetValue(ImageHeightPropertyKey, (double)bitmapSource.PixelHeight);
             imageViewer.SetValue(ImageWidthPropertyKey, (double)bitmapSource.PixelWidth);
             imageViewer.SetValue(FittedScalePropertyKey, imageViewer.GetFittedScale());
-            if (!imageViewer.ResetToFitSizeWhenBitmapSourceChanged)
-                return;
 
-            imageViewer.FitMode = FitOption.FitSize;
+            if (imageViewer.ResetToFitSizeWhenBitmapSourceChanged)
+                imageViewer.FitMode = FitOption.FitSize;
         }));
 
         /// <summary>
@@ -673,7 +689,7 @@ namespace Tira.App.UserControls
         /// <returns></returns>
         private double GetFittedScale()
         {
-            double scale;
+            double scale = 0;
             if (!((int)ImageWidth != 0 && (int)ImageHeight != 0))
             {
                 scale = 1;
@@ -684,27 +700,27 @@ namespace Tira.App.UserControls
                 {
                     case FitOption.None:
                         scale = Scale;
-                        return scale;
+                        break;
 
                     case FitOption.FitSize:
                         scale = Math.Min(GetFittedWidthScale(), GetFittedHeightScale());
-                        return scale;
+                        break;
 
                     case FitOption.FitWidth:
                         scale = GetFittedWidthScale();
-                        return scale;
+                        break;
 
                     case FitOption.FitHeight:
                         scale = GetFittedHeightScale();
-                        return scale;
+                        break;
                 }
-                throw new NotSupportedException("Unsupported fit mode");
             }
             else
             {
                 scale = 1;
             }
-            return scale;
+
+            return scale == 0 ? 1 : scale;
         }
 
         /// <summary>
@@ -755,6 +771,16 @@ namespace Tira.App.UserControls
         private bool IsValueInDeltaArea(int value, int center, int delta)
         {
             return center - delta <= value && value <= center + delta;
+        }
+
+        /// <summary>
+        /// Determines whether point is in rectangle area
+        /// </summary>
+        /// <param name="p">Point</param>
+        /// <returns></returns>
+        private bool IsPointInRectangleArea(Point p)
+        {
+            return CurrentMarkupObjects.RectangleArea.Contains((int)p.X, (int)p.Y);
         }
 
         /// <summary>
@@ -813,12 +839,19 @@ namespace Tira.App.UserControls
         private void ClearDrawingTempObjects()
         {
             _isDrawingInProgress = false;
+            _isDragInProgress = false;
+
             _drawingStartPoint = new Point(0, 0);
             _drawingEndPoint = new Point(0, 0);
+
             _selectedVerticalLineIndex = null;
             _selectedHorizontalLineIndex = null;
+
             _tempRectangle = null;
             _tempLine = null;
+            _tempMarkupObjects = null;
+
+            Cursor = Cursors.Arrow;
         }
 
         /// <summary>
@@ -837,12 +870,12 @@ namespace Tira.App.UserControls
         }
 
         /// <summary>
-        /// Checks the point is in image area.
+        /// Checks the point is in image area
         /// </summary>
         /// <param name="p">Point</param>
         /// <returns></returns>
         private bool CheckPointIsInImageArea(Point p)
-        {            
+        {
             if (new Rectangle(0, 0, (int)ImageCanvas.Width, (int)ImageCanvas.Height).Contains((int)p.X, (int)p.Y))
                 return true;
             else
@@ -853,22 +886,64 @@ namespace Tira.App.UserControls
         }
 
         /// <summary>
+        /// Checks the rectangle is in image area
+        /// </summary>
+        /// <param name="r">Rectangle</param>
+        /// <returns></returns>
+        private bool CheckRectangleIsInImageArea(Rectangle r)
+        {
+            return CheckPointIsInImageArea(new Point(r.Left, r.Top))
+                && CheckPointIsInImageArea(new Point(r.Right, r.Top))
+                && CheckPointIsInImageArea(new Point(r.Left, r.Bottom))
+                && CheckPointIsInImageArea(new Point(r.Right, r.Bottom));
+        }
+
+        /// <summary>
         /// Draws markup objects.
         /// </summary>
-        private void DrawMarkupObjects()
+        /// <param name="markupObjects">Markup objects</param>
+        private void DrawMarkupObjects(MarkupObjects markupObjects = null)
         {
             ClearDrawingArea();
+            MarkupObjects mo = markupObjects ?? CurrentMarkupObjects;
 
-            if (CurrentMarkupObjects != null && CurrentImageViewerMode == ImageViewerMode.Markup)
+            if (mo != null && CurrentImageViewerMode == ImageViewerMode.Markup)
             {
-                DrawMarkupRectangle(CurrentMarkupObjects.RectangleArea, FixedRectangleAreaStyle);
-                foreach (int x in CurrentMarkupObjects.VerticalLinesCoordinates)
+                DrawMarkupRectangle(mo.RectangleArea, FixedRectangleAreaStyle);
+                foreach (int x in mo.VerticalLinesCoordinates)
                     DrawMarkupVerticalLine(x, FixedLineStyle);
-                foreach (int y in CurrentMarkupObjects.HorizontalLinesCoordinates)
+                foreach (int y in mo.HorizontalLinesCoordinates)
                     DrawMarkupHorizontalLine(y, FixedLineStyle);
             }
         }
-        
+
+        /// <summary>
+        /// Moves markup objects by vector.
+        /// </summary>
+        /// <param name="startPoint">Vector start point</param>
+        /// <param name="endPoint">Vector end point</param>
+        /// <returns></returns>
+        private MarkupObjects MoveMarkupObjectsByVector(Point startPoint, Point endPoint)
+        {
+            MarkupObjects markupObjects = CurrentMarkupObjects.Clone();
+
+            int deltaX = (int)(endPoint.X - startPoint.X);
+            int deltaY = (int)(endPoint.Y - startPoint.Y);
+
+            Rectangle rectangleArea = markupObjects.RectangleArea;
+            rectangleArea.X += deltaX;
+            rectangleArea.Y += deltaY;
+            markupObjects.RectangleArea = rectangleArea;
+
+            for (int i = 0; i < markupObjects.VerticalLinesCoordinates.Count; i++)
+                markupObjects.VerticalLinesCoordinates[i] += deltaX;
+
+            for (int i = 0; i < markupObjects.HorizontalLinesCoordinates.Count; i++)
+                markupObjects.VerticalLinesCoordinates[i] += deltaY;
+
+            return markupObjects;
+        }
+
         /// <summary>
         /// Draws markup rectangle
         /// </summary>
@@ -885,6 +960,7 @@ namespace Tira.App.UserControls
             };
             Canvas.SetLeft(rectangle, r.Left);
             Canvas.SetTop(rectangle, r.Top);
+            rectangle.MouseLeftButtonUp += ImageCanvas_OnMouseLeftButtonUp;
             ImageCanvas.Children.Add(rectangle);
 
             return rectangle;
@@ -993,7 +1069,7 @@ namespace Tira.App.UserControls
                 RaiseEvent(new RoutedEventArgs(ScrollChangedEvent, ScrollViewerElement));
             }
         }
-       
+
         private void ImageViewerControl_OnPreviewKeyDown(object sender, KeyEventArgs e)
         {
             if (CurrentImageViewerMode == ImageViewerMode.None)
@@ -1071,9 +1147,18 @@ namespace Tira.App.UserControls
                     switch (CurrentMarkupObjectType)
                     {
                         case MarkupObjectType.Rectangle:
-                            CurrentMarkupObjects.Clear();
-                            ClearDrawingArea();
-                            _isDrawingInProgress = true;
+                            if (IsPointInRectangleArea(_drawingStartPoint))
+                            {
+                                Cursor = CursorHandPressed;
+                                _tempMarkupObjects = CurrentMarkupObjects;
+                                _isDragInProgress = true;
+                            }
+                            else
+                            {
+                                CurrentMarkupObjects.Clear();
+                                ClearDrawingArea();
+                                _isDrawingInProgress = true;
+                            }
                             break;
 
                         case MarkupObjectType.VerticalLine:
@@ -1110,13 +1195,13 @@ namespace Tira.App.UserControls
                     _isDrawingInProgress = true;
                     break;
 
-                #endregion
-            }                        
+                    #endregion
+            }
         }
 
         private void ImageCanvas_OnMouseMove(object sender, MouseEventArgs e)
         {
-            if (BitmapSource == null || !_isDrawingInProgress || e.LeftButton != MouseButtonState.Pressed)
+            if (BitmapSource == null || !(_isDrawingInProgress || _isDragInProgress) || e.LeftButton != MouseButtonState.Pressed)
                 return;
 
             _drawingEndPoint = e.GetPosition(ImageCanvas);
@@ -1129,16 +1214,29 @@ namespace Tira.App.UserControls
                     switch (CurrentMarkupObjectType)
                     {
                         case MarkupObjectType.Rectangle:
-                            Rectangle rectangleArea = CreateRectangleByTwoPoints(_drawingStartPoint, _drawingEndPoint);
-                            if (_tempRectangle != null)
-                                ImageCanvas.Children.Remove(_tempRectangle);
+                            if (_isDragInProgress)
+                            {
+                                _tempMarkupObjects = MoveMarkupObjectsByVector(_drawingStartPoint, _drawingEndPoint);
+                                if (_tempRectangle != null)
+                                    ImageCanvas.Children.Remove(_tempRectangle);
 
-                            _tempRectangle = DrawMarkupRectangle(rectangleArea, DrawingRectangleAreaStyle);
+                                _tempRectangle = DrawMarkupRectangle(_tempMarkupObjects.RectangleArea, DragingRectangleAreaStyle);
+                                //_tempMarkupObjects = MoveMarkupObjectsByVector(_drawingStartPoint, _drawingEndPoint);
+                                //DrawMarkupObjects(_tempMarkupObjects);
+                            }
+                            else
+                            {
+                                Rectangle rectangleArea = CreateRectangleByTwoPoints(_drawingStartPoint, _drawingEndPoint);
+                                if (_tempRectangle != null)
+                                    ImageCanvas.Children.Remove(_tempRectangle);
+
+                                _tempRectangle = DrawMarkupRectangle(rectangleArea, DrawingRectangleAreaStyle);
+                            }
                             break;
 
                         case MarkupObjectType.VerticalLine:
                             if (_tempLine == null)
-                                _tempLine = DrawMarkupVerticalLine((int) _drawingEndPoint.X, DrawingLineStyle);
+                                _tempLine = DrawMarkupVerticalLine((int)_drawingEndPoint.X, DrawingLineStyle);
                             else
                             {
                                 _tempLine.X1 = _drawingEndPoint.X;
@@ -1149,7 +1247,7 @@ namespace Tira.App.UserControls
                         case MarkupObjectType.HorizontalLine:
                             if (_tempLine == null)
                                 _tempLine = DrawMarkupHorizontalLine((int)_drawingEndPoint.Y, DrawingLineStyle);
-                            else    
+                            else
                             {
                                 _tempLine.Y1 = _drawingEndPoint.Y;
                                 _tempLine.Y2 = _drawingEndPoint.Y;
@@ -1170,17 +1268,21 @@ namespace Tira.App.UserControls
                     _tempRectangle = DrawMarkupRectangle(cropArea, CropRectangleAreaStyle);
                     break;
 
-                #endregion
+                    #endregion
             }
         }
 
         private void ImageCanvas_OnMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            if (BitmapSource == null || !_isDrawingInProgress || e.LeftButton != MouseButtonState.Released)
+            if (BitmapSource == null || !(_isDrawingInProgress || _isDragInProgress) || e.LeftButton != MouseButtonState.Released)
                 return;
 
+            Cursor = Cursors.Arrow;
             if (!CheckPointIsInImageArea(_drawingEndPoint))
+            {
+                DrawMarkupObjects();
                 return;
+            }
 
             switch (CurrentImageViewerMode)
             {
@@ -1190,9 +1292,21 @@ namespace Tira.App.UserControls
                     switch (CurrentMarkupObjectType)
                     {
                         case MarkupObjectType.Rectangle:
-                            ImageCanvas.Children.Remove(_tempRectangle);
-                            CurrentMarkupObjects.RectangleArea = CreateRectangleByTwoPoints(_drawingStartPoint, _drawingEndPoint);
-                            DrawMarkupRectangle(CurrentMarkupObjects.RectangleArea, FixedRectangleAreaStyle);
+                            if (_isDragInProgress)
+                            {
+                                _isDragInProgress = false;
+                                _tempMarkupObjects = MoveMarkupObjectsByVector(_drawingStartPoint, _drawingEndPoint);
+                                if (CheckRectangleIsInImageArea(_tempMarkupObjects.RectangleArea))
+                                    CurrentMarkupObjects = _tempMarkupObjects;
+
+                                DrawMarkupObjects();
+                            }
+                            else
+                            {
+                                ImageCanvas.Children.Remove(_tempRectangle);
+                                CurrentMarkupObjects.RectangleArea = CreateRectangleByTwoPoints(_drawingStartPoint, _drawingEndPoint);
+                                DrawMarkupRectangle(CurrentMarkupObjects.RectangleArea, FixedRectangleAreaStyle);
+                            }
                             MarkupObjectsChanged?.Invoke(this, new MarkupObjectsEventArgs(CurrentMarkupObjects));
                             break;
 
@@ -1200,14 +1314,14 @@ namespace Tira.App.UserControls
                             ImageCanvas.Children.Remove(_tempLine);
 
                             if (CurrentMarkupObjects.RectangleArea.Contains((int)_drawingEndPoint.X, CurrentMarkupObjects.RectangleArea.Top))
-                            { 
+                            {
                                 if (_selectedVerticalLineIndex.HasValue)
                                     CurrentMarkupObjects.VerticalLinesCoordinates[_selectedVerticalLineIndex.Value] = (int)_drawingEndPoint.X;
                                 else if (CurrentMarkupObjects.VerticalLinesCoordinates.Count < CurrentMarkupObjects.MaxNumberOfVerticalLines)
                                     CurrentMarkupObjects.VerticalLinesCoordinates.Add((int)_drawingEndPoint.X);
                                 _selectedVerticalLineIndex = null;
 
-                                DrawMarkupObjects();                           
+                                DrawMarkupObjects();
                                 MarkupObjectsChanged?.Invoke(this, new MarkupObjectsEventArgs(CurrentMarkupObjects));
                             }
                             break;
@@ -1240,8 +1354,8 @@ namespace Tira.App.UserControls
                     CropAreaSelected?.Invoke(this, new RectangleAreaEventArgs(CreateRectangleByTwoPoints(_drawingStartPoint, _drawingEndPoint)));
                     break;
 
-                #endregion
-            }            
+                    #endregion
+            }
         }
 
         private void ImageCanvas_OnKeyDown(object sender, KeyEventArgs e)

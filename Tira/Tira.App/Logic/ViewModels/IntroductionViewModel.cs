@@ -78,8 +78,8 @@ namespace Tira.App.Logic.ViewModels
         {
             ReloadRecentProjectList();
 
-            CreateProjectCommand = new NotifyCommand(CreateProject);
-            OpenProjectCommand = new NotifyCommand(OpenProject);
+            CreateProjectCommand = new NotifyCommand(o => CreateProject((Window)o));
+            OpenProjectCommand = new NotifyCommand(o => OpenProject((Window)o));
 
             Messenger.Instance.Register(MessageType.RecentProjectDeleted, ReloadRecentProjectList);
         }
@@ -92,7 +92,7 @@ namespace Tira.App.Logic.ViewModels
         /// Creates the project
         /// </summary>
         /// <param name="window">The window.</param>
-        private void CreateProject(object window)
+        private void CreateProject(Window window)
         {
             try
             {
@@ -101,7 +101,7 @@ namespace Tira.App.Logic.ViewModels
                 if (result.HasValue && result.Value)
                 {
                     Project project = Project.Create(vm.ProjectPath, vm.Name);
-                    OpenProjectWindow(project, (Window)window);
+                    OpenProjectWindow(project, window);
                 }
             }
             catch (Exception ex)
@@ -115,21 +115,21 @@ namespace Tira.App.Logic.ViewModels
         /// Opens the project
         /// </summary>
         /// <param name="window">Window</param>
-        private void OpenProject(object window)
+        private void OpenProject(Window window)
         {
             try
             {
-                OpenFileDialog openFileDialog = new OpenFileDialog();
+                OpenFileDialog openFileDialog = new OpenFileDialog { Filter = Project.ProjectFileExtensionsFilter };
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
                     Project project = Project.Load(openFileDialog.FileName);
-                    OpenProjectWindow(project, (Window)window);
+                    OpenProjectWindow(project, window);
                 }
             }
             catch (Exception ex)
             {
-                LogHelper.Logger.Error(ex, "Unable to create project");
-                FormsHelper.ShowUnexpectedError();
+                LogHelper.Logger.Error(ex, "Unable to open project");
+                FormsHelper.ShowError(Resources.OpenProjectErrorMessage);
             }
         }
 

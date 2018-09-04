@@ -523,8 +523,8 @@ namespace Tira.App.Logic.ViewModels
             FillGallery();
             FillDataGrid();
 
-            CreateProjectCommand = new NotifyCommand(_ => CreateProject());
-            OpenProjectCommand = new NotifyCommand(_ => OpenProject());
+            CreateProjectCommand = new NotifyCommand(o => CreateProject((Window)o));
+            OpenProjectCommand = new NotifyCommand(o => OpenProject((Window)o));
             SaveProjectCommand = new NotifyCommand(_ => SaveProject());
             ExportProjectDataCommand = new NotifyCommand(o => ExportProjectData((ExportFormat)o));
             ShowSettingsWindowCommand = new NotifyCommand(_ => ShowSettingsWindow());
@@ -584,14 +584,18 @@ namespace Tira.App.Logic.ViewModels
         /// <summary>
         /// Creates the project
         /// </summary>
-        private void CreateProject()
+        /// <param name="window">Window</param>
+        private void CreateProject(Window window)
         {
             try
             {
                 ProjectCreationViewModel vm = new ProjectCreationViewModel();
                 bool? result = ShowDialogAgent.Instance.ShowDialog<ProjectCreationWindow>(vm);
                 if (result.HasValue && result.Value)
-                    Project = Project.Create(vm.ProjectPath, vm.Name);
+                {
+                    Project project = Project.Create(vm.ProjectPath, vm.Name);
+                    OpenProjectWindow(project, window);
+                }
             }
             catch (Exception ex)
             {
@@ -603,19 +607,49 @@ namespace Tira.App.Logic.ViewModels
         /// <summary>
         /// Opens the project
         /// </summary>
-        private void OpenProject()
+        /// <param name="window">Window</param>
+        private void OpenProject(Window window)
         {
             try
             {
-                OpenFileDialog openFileDialog = new OpenFileDialog();
+                OpenFileDialog openFileDialog = new OpenFileDialog { Filter = Project.ProjectFileExtensionsFilter };
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
-                    Project = Project.Load(openFileDialog.FileName);     
+                {
+                    Project project = Project.Load(openFileDialog.FileName);
+                    OpenProjectWindow(project, window);
+                }
             }
             catch (Exception ex)
             {
-                LogHelper.Logger.Error(ex, "Unable to create project");
-                FormsHelper.ShowUnexpectedError();
+                LogHelper.Logger.Error(ex, "Unable to open project");
+                FormsHelper.ShowError(Resources.OpenProjectErrorMessage);
             }
+        }
+
+        /// <summary>
+        /// Opens the project window and closes current
+        /// </summary>
+        /// <param name="project">Project</param>
+        /// <param name="currentWindow">Current window</param>
+        private void OpenProjectWindow(Project project, Window currentWindow)
+        {
+            currentWindow.Hide();
+            new ProjectWindow(new ProjectViewModel(project)).Show();
+            currentWindow.Close();
+        }
+
+        /// <summary>
+        /// Fills project data
+        /// </summary>
+        /// <param name="project">Project</param>
+        private void FillProjectData(Project project)
+        {
+            Project = project;
+            FillGallery();
+            FillDataGrid();
+
+            Images.ListChanged += ImagesOnListChanged;
+            project.ProjectElementOcrCompleted += ProjectOnProjectElementOcrCompleted;
         }
 
         /// <summary>
@@ -843,15 +877,19 @@ namespace Tira.App.Logic.ViewModels
         /// <param name="args">The <see cref="GalleryImageEventArgs"/> instance containing the event data.</param>
         private void FillGalleryImage(GalleryImageEventArgs args)
         {
-            _selectedImageFilterCopy = null;
-            ImageViewerZoomManager = new ZoomManager();
-            SelectedGalleryImage = args.Image;
-            CurrentMarkupObjects = SelectedGalleryImage.MarkupObjects;
-            SelectedImage = BitmapImageHelper.GetBitmapImageFromPath(SelectedGalleryImage.ActualImageFilePath);
-            OnPropertyChanged(() => ImageViewerZoomManager);
-            OnPropertyChanged(() => CurrentMarkupObjects);
+            if (SelectedGalleryImage == null || args.Image.Uid != SelectedGalleryImage.Uid)
+            {
+                _selectedImageFilterCopy = null;
+                ImageViewerZoomManager = new ZoomManager();
+                OnPropertyChanged(() => ImageViewerZoomManager);
 
-            ImageLoadedToViewer = true;
+                SelectedGalleryImage = args.Image;
+                CurrentMarkupObjects = SelectedGalleryImage.MarkupObjects;
+                SelectedImage = BitmapImageHelper.GetBitmapImageFromPath(SelectedGalleryImage.ActualImageFilePath);
+                OnPropertyChanged(() => CurrentMarkupObjects);
+
+                ImageLoadedToViewer = true;
+            }
         }  
 
         /// <summary>
@@ -1218,6 +1256,18 @@ namespace Tira.App.Logic.ViewModels
                     break;
 
                 case MarkupObjectType.VerticalLine:
+                    if (DataGridColumns.Count < 2)
+                    {
+                        FormsHelper.ShowWarning(Resources.NotEnoughDataGridColumnsInMarkupWarning_Text, Resources.NotEnoughDataGridColumnsInMarkupWarning_Caption);
+                        return;   
+                    }
+                    if (CurrentMarkupObjects.RectangleArea == Rectangle.Empty)
+                    {
+                        FormsHelper.ShowWarning(Resources.NoRectangleInMarkupWarning_Text, Resources.NoRectangleInMarkupWarning_Caption);
+                        return;
+                    }
+                    break;
+
                 case MarkupObjectType.HorizontalLine:
                     if (CurrentMarkupObjects.RectangleArea == Rectangle.Empty)
                     {

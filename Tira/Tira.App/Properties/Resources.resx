@@ -565,4 +565,14 @@ Do you want to remove it from the list?</value>
   <data name="CropFilterWindow_Label_Header" xml:space="preserve">
     <value>Confirm image cropping area selection.</value>
   </data>
+  <data name="OpenProjectErrorMessage" xml:space="preserve">
+    <value>Unable to open the project. May be it has deprecated format.</value>
+  </data>
+  <data name="NotEnoughDataGridColumnsInMarkupWarning_Caption" xml:space="preserve">
+    <value>Lines markup</value>
+  </data>
+  <data name="NotEnoughDataGridColumnsInMarkupWarning_Text" xml:space="preserve">
+    <value>You must first set data columns.
+For vertical lines markup data columns quantity must be more than 1.</value>
+  </data>
 </root>

@@ -12,22 +12,37 @@ namespace Tira.App.Logic.Helpers
         /// <summary>
         /// Scale value
         /// </summary>
-        public double Scale { get; set; } = 1;
+        public double Scale { get; set; }
 
         /// <summary>
         /// Fit mode
         /// </summary>
-        public FitOption FitMode { get; set; } = FitOption.FitSize;
+        public FitOption FitMode { get; set; }
 
         /// <summary>
         /// Zoom in step
         /// </summary>
-        public double ZoomInStep { get; set; } = 1.2;
+        public double ZoomInStep { get; set; }
 
         /// <summary>
         /// Zoom out step
         /// </summary>
-        public double ZoomOutStep { get; set; } = 0.8;
+        public double ZoomOutStep { get; set; }
+
+        #endregion
+
+        #region Constructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ZoomManager"/> class.
+        /// </summary>
+        public ZoomManager()
+        {
+            Scale = 1;
+            FitMode = FitOption.FitSize;
+            ZoomInStep = 1.2;
+            ZoomOutStep = 0.8;
+        }
 
         #endregion
 

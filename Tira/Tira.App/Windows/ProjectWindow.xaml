@@ -68,8 +68,8 @@
                 <fluent:Ribbon.Menu>
                     <fluent:Backstage>
                         <fluent:BackstageTabControl>
-                            <fluent:Button Header="{x:Static properties:Resources.Ribbon_MainMenu_CreateProject}" Command="{Binding CreateProjectCommand}" />
-                            <fluent:Button Header="{x:Static properties:Resources.Ribbon_MainMenu_OpenProject}" Command="{Binding OpenProjectCommand}"/>
+                            <fluent:Button Header="{x:Static properties:Resources.Ribbon_MainMenu_CreateProject}" Command="{Binding CreateProjectCommand}" CommandParameter="{Binding ElementName=Root}" />
+                            <fluent:Button Header="{x:Static properties:Resources.Ribbon_MainMenu_OpenProject}" Command="{Binding OpenProjectCommand}" CommandParameter="{Binding ElementName=Root}"/>
                             <Separator />
                             <fluent:Button Header="{x:Static properties:Resources.Ribbon_MainMenu_Save}" 
                                                 x:Name="MainMenuSaveBtn"

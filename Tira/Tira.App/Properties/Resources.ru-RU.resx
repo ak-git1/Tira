@@ -568,4 +568,14 @@
   <data name="CropFilterWindow_Label_Header" xml:space="preserve">
     <value>Подтвердите область обрезки изображения.</value>
   </data>
+  <data name="OpenProjectErrorMessage" xml:space="preserve">
+    <value>Не удается открыть проект. Возможно, он имеет неподдерживаемый формат.</value>
+  </data>
+  <data name="NotEnoughDataGridColumnsInMarkupWarning_Caption" xml:space="preserve">
+    <value>Расстановка линий</value>
+  </data>
+  <data name="NotEnoughDataGridColumnsInMarkupWarning_Text" xml:space="preserve">
+    <value>Сначала нужно настроить столбцы данных.
+Для разметки вертикальных линий количество столбцов должно быть больше 1.</value>
+  </data>
 </root>

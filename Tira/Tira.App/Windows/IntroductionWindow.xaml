@@ -1,5 +1,5 @@
 ﻿<Window x:Class="Tira.App.Windows.IntroductionWindow"
-        x:Name="IntroductionWindow1"
+        x:Name="Root"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -27,10 +27,10 @@
             <StackPanel Orientation="Horizontal" Margin="0,10,0,10" HorizontalAlignment="Center">
                 <Button Style="{StaticResource IntroductionWindowButton}" 
                         Content="{x:Static properties:Resources.IntroductionWindow_Button_CreateProject}"
-                        Command="{Binding CreateProjectCommand}" CommandParameter="{Binding ElementName=IntroductionWindow1}" />
+                        Command="{Binding CreateProjectCommand}" CommandParameter="{Binding ElementName=Root}" />
                 <Button Style="{StaticResource IntroductionWindowButton}" 
                         Content="{x:Static properties:Resources.IntroductionWindow_Button_OpenProject}"
-                        Command="{Binding OpenProjectCommand}" CommandParameter="{Binding ElementName=IntroductionWindow1}" />
+                        Command="{Binding OpenProjectCommand}" CommandParameter="{Binding ElementName=Root}" />
             </StackPanel>
             <StackPanel Width="600">
                 <Label Content="{x:Static properties:Resources.IntroductionWindow_Label_RecentProjects}"/>
@@ -43,7 +43,7 @@
                                         <MouseBinding.CommandParameter>
                                             <MultiBinding Converter="{StaticResource GenericMultiValueConverter}">
                                                 <Binding Path="Path"/>
-                                                <Binding ElementName="IntroductionWindow1"/>
+                                                <Binding ElementName="Root"/>
                                             </MultiBinding>
                                         </MouseBinding.CommandParameter>
                                     </MouseBinding>

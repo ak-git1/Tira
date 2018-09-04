@@ -10,5 +10,6 @@
         <ResourceDictionary Source="Labels.xaml" />
         <ResourceDictionary Source="Ribbon.xaml" />
         <ResourceDictionary Source="TextBoxes.xaml" />
+        <ResourceDictionary Source="Windows.xaml" />
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

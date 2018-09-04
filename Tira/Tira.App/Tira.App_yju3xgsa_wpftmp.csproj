@@ -1,0 +1,247 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{3618A920-E332-42BE-AD67-F2068CF508BB}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>Tira.App</RootNamespace>
+    <AssemblyName>Tira.App</AssemblyName>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>application.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>
+    </StartupObject>
+  </PropertyGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Logic\Enums\ImageViewerMode.cs" />
+    <Compile Include="Logic\Enums\MarkupObjectType.cs" />
+    <Compile Include="Logic\Enums\FitOption.cs" />
+    <Compile Include="Logic\Enums\MessageType.cs" />
+    <Compile Include="Logic\Events\GalleryImageEventArgs.cs" />
+    <Compile Include="Logic\Events\GalleryImagesUidsSelectionEventArgs.cs" />
+    <Compile Include="Logic\Events\RectangleAreaEventArgs.cs" />
+    <Compile Include="Logic\Events\MarkupObjectsEventArgs.cs" />
+    <Compile Include="Logic\Extensions\ExceptionExtensions.cs" />
+    <Compile Include="Logic\Helpers\CultureResources.cs" />
+    <Compile Include="Logic\Helpers\FormsHelper.cs" />
+    <Compile Include="Logic\Helpers\ZoomManager.cs" />
+    <Compile Include="Logic\ViewModels\AboutViewModel.cs" />
+    <Compile Include="Logic\ViewModels\DataColumnViewModel.cs" />
+    <Compile Include="Logic\ViewModels\Filters\IntValueFilterViewModel.cs" />
+    <Compile Include="Logic\ViewModels\Filters\BlobsRemovalFilterViewModel.cs" />
+    <Compile Include="Logic\ViewModels\Filters\LinesRemovalFilterViewModel.cs" />
+    <Compile Include="Logic\ViewModels\Filters\PunchHolesRemovalFilterViewModel.cs" />
+    <Compile Include="Logic\ViewModels\ProjectCreationViewModel.cs" />
+    <Compile Include="Logic\ViewModels\ProjectSettingsViewModel.cs" />
+    <Compile Include="Logic\ViewModels\ProjectViewModel.cs" />
+    <Compile Include="Logic\ViewModels\SettingsViewModel.cs" />
+    <Compile Include="Properties\Annotations.cs" />
+    <Compile Include="Logic\ViewModels\ExceptionViewModel.cs" />
+    <Compile Include="Logic\ViewModels\IntroductionViewModel.cs" />
+    <Compile Include="Logic\ViewModels\RecentProjectViewModel.cs" />
+    <Compile Include="UserControls\Gallery.xaml.cs">
+      <DependentUpon>Gallery.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ImageViewer.xaml.cs">
+      <DependentUpon>ImageViewer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ScrollRuler.cs" />
+    <Compile Include="UserControls\TemplatedAdorner.cs" />
+    <Compile Include="Windows\AboutWindow.xaml.cs">
+      <DependentUpon>AboutWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\DataColumnWindow.xaml.cs">
+      <DependentUpon>DataColumnWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ExceptionWindow.xaml.cs">
+      <DependentUpon>ExceptionWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\Filters\BinarizationFilterWindow.xaml.cs">
+      <DependentUpon>BinarizationFilterWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\Filters\CropFilterWindow.xaml.cs">
+      <DependentUpon>CropFilterWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\Filters\GammaCorrectonFilterWindow.xaml.cs">
+      <DependentUpon>GammaCorrectonFilterWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\Filters\ContrastFilterWindow.xaml.cs">
+      <DependentUpon>ContrastFilterWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\Filters\BrightnessFilterWindow.xaml.cs">
+      <DependentUpon>BrightnessFilterWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\Filters\LinesRemovalFilterWindow.xaml.cs">
+      <DependentUpon>LinesRemovalFilterWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\Filters\PunchHolesRemovalFilterWindow.xaml.cs">
+      <DependentUpon>PunchHolesRemovalFilterWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\Filters\BlobsRemovalFilterWindow.xaml.cs">
+      <DependentUpon>BlobsRemovalFilterWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\Filters\RotationFilterWindow.xaml.cs">
+      <DependentUpon>RotationFilterWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\IntroductionWindow.xaml.cs">
+      <DependentUpon>IntroductionWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ProjectCreationWindow.xaml.cs">
+      <DependentUpon>ProjectCreationWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ProjectSettingsWindow.xaml.cs">
+      <DependentUpon>ProjectSettingsWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ProjectWindow.xaml.cs">
+      <DependentUpon>ProjectWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\SettingsWindow.xaml.cs">
+      <DependentUpon>SettingsWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.ru-RU.resx" />
+    <Content Include="App_Data\tira.db">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Tira.Imaging\Tira.Imaging.csproj">
+      <Project>{f1515f6e-337a-47af-b442-1b48dddbe9d7}</Project>
+      <Name>Tira.Imaging</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Tira.Logic\Tira.Logic.csproj">
+      <Project>{38c608b0-0f72-466c-ba8d-fc9879e41fa3}</Project>
+      <Name>Tira.Logic</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>xcopy /sy "$(SolutionDir)ExternalLibraries\GdPicture.NET" "$(ProjectDir)$(OutDir)"
+xcopy /sy "$(SolutionDir)ApplicationStartupPack\Tesseract languages" "$(ProjectDir)$(OutDir)"
+xcopy /sy "$(SolutionDir)ApplicationStartupPack\Tesseract" "$(ProjectDir)$(OutDir)"
+xcopy /sy "$(SolutionDir)ApplicationStartupPack\SQLite" "$(ProjectDir)$(OutDir)"</PostBuildEvent>
+  </PropertyGroup>
+  <ItemGroup>
+    <ReferencePath Include="D:\Work\GitHub\Tira\Source\Tira\packages\Ak.Framework.Core.1.0.5.2\lib\Ak.Framework.Core.dll" />
+    <ReferencePath Include="D:\Work\GitHub\Tira\Source\Tira\packages\Ak.Framework.Imaging.1.1.0.1\lib\Ak.Framework.Imaging.dll" />
+    <ReferencePath Include="D:\Work\GitHub\Tira\Source\Tira\packages\Ak.Framework.Wpf.1.7.1\lib\Ak.Framework.Wpf.dll" />
+    <ReferencePath Include="D:\Work\GitHub\Tira\Source\Tira\packages\ControlzEx.3.0.2.4\lib\net462\ControlzEx.dll" />
+    <ReferencePath Include="D:\Work\GitHub\Tira\Source\Tira\packages\Fluent.Ribbon.6.1.0.326\lib\net462\Fluent.dll" />
+    <ReferencePath Include="D:\Work\GitHub\Tira\Source\Tira\packages\gong-wpf-dragdrop.1.1.0\lib\net46\GongSolutions.Wpf.DragDrop.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.2\Microsoft.CSharp.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.2\mscorlib.dll" />
+    <ReferencePath Include="D:\Work\GitHub\Tira\Source\Tira\packages\NLog.4.5.9\lib\net45\NLog.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.2\PresentationCore.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.2\PresentationFramework.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.2\System.Configuration.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.2\System.Core.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.2\System.Data.DataSetExtensions.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.2\System.Data.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.2\System.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.2\System.Drawing.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.2\System.IO.Compression.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.2\System.Net.Http.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.2\System.Runtime.Serialization.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.2\System.ServiceModel.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.2\System.Transactions.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.2\System.Windows.Forms.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.2\System.Xaml.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.2\System.Xml.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.2\System.Xml.Linq.dll" />
+    <ReferencePath Include="D:\Work\GitHub\Tira\Source\Tira\Tira.Imaging\bin\Debug\Tira.Imaging.dll" />
+    <ReferencePath Include="D:\Work\GitHub\Tira\Source\Tira\Tira.Logic\bin\Debug\Tira.Logic.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.2\WindowsBase.dll" />
+    <ReferencePath Include="D:\Work\GitHub\Tira\Source\Tira\packages\Extended.Wpf.Toolkit.3.4.0\lib\net40\Xceed.Wpf.AvalonDock.dll" />
+    <ReferencePath Include="D:\Work\GitHub\Tira\Source\Tira\packages\Extended.Wpf.Toolkit.3.4.0\lib\net40\Xceed.Wpf.AvalonDock.Themes.Aero.dll" />
+    <ReferencePath Include="D:\Work\GitHub\Tira\Source\Tira\packages\Extended.Wpf.Toolkit.3.4.0\lib\net40\Xceed.Wpf.AvalonDock.Themes.Metro.dll" />
+    <ReferencePath Include="D:\Work\GitHub\Tira\Source\Tira\packages\Extended.Wpf.Toolkit.3.4.0\lib\net40\Xceed.Wpf.AvalonDock.Themes.VS2010.dll" />
+    <ReferencePath Include="D:\Work\GitHub\Tira\Source\Tira\packages\Extended.Wpf.Toolkit.3.4.0\lib\net40\Xceed.Wpf.DataGrid.dll" />
+    <ReferencePath Include="D:\Work\GitHub\Tira\Source\Tira\packages\Extended.Wpf.Toolkit.3.4.0\lib\net40\Xceed.Wpf.Toolkit.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="D:\Work\GitHub\Tira\Source\Tira\Tira.App\obj\Debug\UserControls\Gallery.g.cs" />
+    <Compile Include="D:\Work\GitHub\Tira\Source\Tira\Tira.App\obj\Debug\UserControls\ImageViewer.g.cs" />
+    <Compile Include="D:\Work\GitHub\Tira\Source\Tira\Tira.App\obj\Debug\Windows\AboutWindow.g.cs" />
+    <Compile Include="D:\Work\GitHub\Tira\Source\Tira\Tira.App\obj\Debug\Windows\DataColumnWindow.g.cs" />
+    <Compile Include="D:\Work\GitHub\Tira\Source\Tira\Tira.App\obj\Debug\Windows\ExceptionWindow.g.cs" />
+    <Compile Include="D:\Work\GitHub\Tira\Source\Tira\Tira.App\obj\Debug\Windows\Filters\BinarizationFilterWindow.g.cs" />
+    <Compile Include="D:\Work\GitHub\Tira\Source\Tira\Tira.App\obj\Debug\Windows\Filters\CropFilterWindow.g.cs" />
+    <Compile Include="D:\Work\GitHub\Tira\Source\Tira\Tira.App\obj\Debug\Windows\Filters\GammaCorrectonFilterWindow.g.cs" />
+    <Compile Include="D:\Work\GitHub\Tira\Source\Tira\Tira.App\obj\Debug\Windows\Filters\ContrastFilterWindow.g.cs" />
+    <Compile Include="D:\Work\GitHub\Tira\Source\Tira\Tira.App\obj\Debug\Windows\Filters\BrightnessFilterWindow.g.cs" />
+    <Compile Include="D:\Work\GitHub\Tira\Source\Tira\Tira.App\obj\Debug\Windows\Filters\LinesRemovalFilterWindow.g.cs" />
+    <Compile Include="D:\Work\GitHub\Tira\Source\Tira\Tira.App\obj\Debug\Windows\Filters\PunchHolesRemovalFilterWindow.g.cs" />
+    <Compile Include="D:\Work\GitHub\Tira\Source\Tira\Tira.App\obj\Debug\Windows\Filters\BlobsRemovalFilterWindow.g.cs" />
+    <Compile Include="D:\Work\GitHub\Tira\Source\Tira\Tira.App\obj\Debug\Windows\Filters\RotationFilterWindow.g.cs" />
+    <Compile Include="D:\Work\GitHub\Tira\Source\Tira\Tira.App\obj\Debug\Windows\IntroductionWindow.g.cs" />
+    <Compile Include="D:\Work\GitHub\Tira\Source\Tira\Tira.App\obj\Debug\Windows\ProjectCreationWindow.g.cs" />
+    <Compile Include="D:\Work\GitHub\Tira\Source\Tira\Tira.App\obj\Debug\Windows\ProjectSettingsWindow.g.cs" />
+    <Compile Include="D:\Work\GitHub\Tira\Source\Tira\Tira.App\obj\Debug\Windows\ProjectWindow.g.cs" />
+    <Compile Include="D:\Work\GitHub\Tira\Source\Tira\Tira.App\obj\Debug\Windows\SettingsWindow.g.cs" />
+    <Compile Include="D:\Work\GitHub\Tira\Source\Tira\Tira.App\obj\Debug\App.g.cs" />
+    <Compile Include="D:\Work\GitHub\Tira\Source\Tira\Tira.App\obj\Debug\Tira.App_Content.g.cs" />
+    <Compile Include="D:\Work\GitHub\Tira\Source\Tira\Tira.App\obj\Debug\GeneratedInternalTypeHelper.g.cs" />
+  </ItemGroup>
+</Project>

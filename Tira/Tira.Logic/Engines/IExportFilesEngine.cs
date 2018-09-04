@@ -9,6 +9,11 @@ namespace Tira.Logic.Engines
     {
         #region Public methods
 
+        /// <summary>
+        /// Generates export file
+        /// </summary>
+        /// <param name="dt">Data table</param>
+        /// <param name="path">Path</param>
         void GenerateFile(DataTable dt, string path);
 
         #endregion

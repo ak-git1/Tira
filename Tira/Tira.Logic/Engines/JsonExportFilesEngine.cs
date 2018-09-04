@@ -14,10 +14,10 @@ namespace Tira.Logic.Engines
         #region Public methods
 
         /// <summary>
-        /// Generates the file.
+        /// Generates export file
         /// </summary>
-        /// <param name="dt">The dt.</param>
-        /// <param name="path">The path.</param>
+        /// <param name="dt">Data table</param>
+        /// <param name="path">Path</param>
         /// <exception cref="NotImplementedException"></exception>
         public void GenerateFile(DataTable dt, string path)
         {

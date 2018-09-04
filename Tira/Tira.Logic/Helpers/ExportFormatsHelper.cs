@@ -20,6 +20,9 @@ namespace Tira.Logic.Helpers
                 case ExportFormat.Json:
                     return "json";
 
+                case ExportFormat.Xls:
+                    return "xls";
+
                 case ExportFormat.Xlsx:
                     return "xlsx";
 
@@ -42,6 +45,9 @@ namespace Tira.Logic.Helpers
             {
                 case ExportFormat.Json:
                     return "*.json|*.json";
+
+                case ExportFormat.Xls:
+                    return "*.xls|*.xls";
 
                 case ExportFormat.Xlsx:
                     return "*.xlsx|*.xlsx";

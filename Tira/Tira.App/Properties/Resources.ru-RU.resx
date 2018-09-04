@@ -578,4 +578,7 @@
     <value>Сначала нужно настроить столбцы данных.
 Для разметки вертикальных линий количество столбцов должно быть больше 1.</value>
   </data>
+  <data name="Ribbon_Button_Export_Ods" xml:space="preserve">
+    <value>Open Office (ods)</value>
+  </data>
 </root>

@@ -21,8 +21,11 @@ namespace Tira.Logic.Engines
                 case ExportFormat.Json:
                     return new JsonExportFilesEngine();
 
+                case ExportFormat.Xls:
+                    return new XlsExportFilesEngine();
+
                 case ExportFormat.Xlsx:
-                    return new ExcelExportFilesEngine();
+                    return new XlsxExportFilesEngine();
 
                 case ExportFormat.Csv:
                     return new CsvExportFilesEngine();

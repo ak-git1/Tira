@@ -918,6 +918,15 @@ namespace Tira.App.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Open Office (ods).
+        /// </summary>
+        public static string Ribbon_Button_Export_Ods {
+            get {
+                return ResourceManager.GetString("Ribbon_Button_Export_Ods", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Excel (xls).
         /// </summary>
         public static string Ribbon_Button_Export_Xls {

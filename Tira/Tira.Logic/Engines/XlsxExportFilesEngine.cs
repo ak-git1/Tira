@@ -8,10 +8,10 @@ using OfficeOpenXml.Style;
 namespace Tira.Logic.Engines
 {
     /// <summary>
-    /// Excel export files generation engine
+    /// Xls export files generation engine
     /// </summary>
     /// <seealso cref="Tira.Logic.Engines.IExportFilesEngine" />
-    internal class ExcelExportFilesEngine : IExportFilesEngine
+    internal class XlsxExportFilesEngine : IExportFilesEngine
     {
         #region Public methods
 

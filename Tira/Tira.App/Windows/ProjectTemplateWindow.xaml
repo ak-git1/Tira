@@ -1,0 +1,40 @@
+﻿<Window x:Class="Tira.App.Windows.ProjectTemplateWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:properties="clr-namespace:Tira.App.Properties"
+        xmlns:viewModels="clr-namespace:Tira.App.Logic.ViewModels"
+        xmlns:converters="clr-namespace:Ak.Framework.Wpf.Converters;assembly=Ak.Framework.Wpf"
+        xmlns:dialogs="clr-namespace:Ak.Framework.Wpf.Dialogs;assembly=Ak.Framework.Wpf"
+        xmlns:enums="clr-namespace:Tira.Logic.Enums;assembly=Tira.Logic"
+        mc:Ignorable="d"
+        Title="{Binding WindowTitle}"
+        WindowStartupLocation="CenterOwner"
+        Height="135" 
+        Width="500"
+        ResizeMode="NoResize"
+        ShowInTaskbar="False"
+        d:DataContext="{d:DesignInstance Type=viewModels:ProjectTemplateViewModel, IsDesignTimeCreatable=True}">
+    <Grid Style="{StaticResource ExternalGrid}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="100"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Label Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right" Content="{x:Static properties:Resources.ProjectTemplateWindow_Label_TemplateName}"/>
+        <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+        <Label Grid.Row="1" Grid.Column="1" Content="{Binding ValidationResult.Message}"
+               Style="{StaticResource ErrorLabel}" Visibility="{Binding ValidationResult.Result, Converter={converters:EnumToVisibilityHiddenConverter}, ConverterParameter={x:Static enums:ActionResultType.Ok}}"/>
+        <StackPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Content="{x:Static properties:Resources.ProjectTemplateWindow_Button_Save}" Style="{StaticResource DialogFormButton}"
+                    dialogs:ShowDialogButtonHelper.DialogResult="True" IsEnabled="{Binding ValidationResult.Result, Converter={converters:EnumToBoolConverter}, ConverterParameter={x:Static enums:ActionResultType.Ok}}"/>
+            <Button Content="{x:Static properties:Resources.ProjectTemplateWindow_Button_Cancel}" Style="{StaticResource DialogFormButton}"
+                    IsCancel="True" />
+        </StackPanel>
+    </Grid>
+</Window>

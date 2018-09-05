@@ -594,6 +594,15 @@ namespace Tira.App.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Project template:.
+        /// </summary>
+        public static string ProjectCreationWindow_Label_ProjectTemplate {
+            get {
+                return ResourceManager.GetString("ProjectCreationWindow_Label_ProjectTemplate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Project creation.
         /// </summary>
         public static string ProjectCreationWindow_ProjectValidationMessage_Caption {
@@ -729,6 +738,141 @@ namespace Tira.App.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Not set.
+        /// </summary>
+        public static string ProjectTemplate_NotSet {
+            get {
+                return ResourceManager.GetString("ProjectTemplate_NotSet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete project template.
+        /// </summary>
+        public static string ProjectTemplateDelete_Caption {
+            get {
+                return ResourceManager.GetString("ProjectTemplateDelete_Caption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure to delete project template?.
+        /// </summary>
+        public static string ProjectTemplateDelete_Text {
+            get {
+                return ResourceManager.GetString("ProjectTemplateDelete_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete.
+        /// </summary>
+        public static string ProjectTemplatesWindow_Button_DeleteProjectTemplate {
+            get {
+                return ResourceManager.GetString("ProjectTemplatesWindow_Button_DeleteProjectTemplate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit.
+        /// </summary>
+        public static string ProjectTemplatesWindow_Button_EditProjectTemplate {
+            get {
+                return ResourceManager.GetString("ProjectTemplatesWindow_Button_EditProjectTemplate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name.
+        /// </summary>
+        public static string ProjectTemplatesWindow_GridColumn_Name {
+            get {
+                return ResourceManager.GetString("ProjectTemplatesWindow_GridColumn_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Projects templates list:.
+        /// </summary>
+        public static string ProjectTemplatesWindow_Label_DataGridLabelText {
+            get {
+                return ResourceManager.GetString("ProjectTemplatesWindow_Label_DataGridLabelText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Projects templates.
+        /// </summary>
+        public static string ProjectTemplatesWindow_Title {
+            get {
+                return ResourceManager.GetString("ProjectTemplatesWindow_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        public static string ProjectTemplateWindow_Button_Cancel {
+            get {
+                return ResourceManager.GetString("ProjectTemplateWindow_Button_Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save.
+        /// </summary>
+        public static string ProjectTemplateWindow_Button_Save {
+            get {
+                return ResourceManager.GetString("ProjectTemplateWindow_Button_Save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Template name should not be empty..
+        /// </summary>
+        public static string ProjectTemplateWindow_Error_Empty {
+            get {
+                return ResourceManager.GetString("ProjectTemplateWindow_Error_Empty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Template with such name already exists..
+        /// </summary>
+        public static string ProjectTemplateWindow_Error_Exists {
+            get {
+                return ResourceManager.GetString("ProjectTemplateWindow_Error_Exists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Template name:.
+        /// </summary>
+        public static string ProjectTemplateWindow_Label_TemplateName {
+            get {
+                return ResourceManager.GetString("ProjectTemplateWindow_Label_TemplateName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save project as template.
+        /// </summary>
+        public static string ProjectTemplateWindow_Title_CreateTemplate {
+            get {
+                return ResourceManager.GetString("ProjectTemplateWindow_Title_CreateTemplate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Project template.
+        /// </summary>
+        public static string ProjectTemplateWindow_Title_EditTemplate {
+            get {
+                return ResourceManager.GetString("ProjectTemplateWindow_Title_EditTemplate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Recognition.
         /// </summary>
         public static string ProjectWindow_OcrCompletedMessage_Caption {
@@ -743,6 +887,24 @@ namespace Tira.App.Properties {
         public static string ProjectWindow_OcrCompletedMessage_Text {
             get {
                 return ResourceManager.GetString("ProjectWindow_OcrCompletedMessage_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Closing application.
+        /// </summary>
+        public static string ProjectWindowClosing_Caption {
+            get {
+                return ResourceManager.GetString("ProjectWindowClosing_Caption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you want to save project data before closing application?.
+        /// </summary>
+        public static string ProjectWindowClosing_Text {
+            get {
+                return ResourceManager.GetString("ProjectWindowClosing_Text", resourceCulture);
             }
         }
         
@@ -1134,6 +1296,15 @@ namespace Tira.App.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Save as template.
+        /// </summary>
+        public static string Ribbon_Button_SaveAsTemplate {
+            get {
+                return ResourceManager.GetString("Ribbon_Button_SaveAsTemplate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Vertical line.
         /// </summary>
         public static string Ribbon_Button_VerticalLineMarkup {
@@ -1233,6 +1404,15 @@ namespace Tira.App.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Templates.
+        /// </summary>
+        public static string Ribbon_GroupBox_Templates {
+            get {
+                return ResourceManager.GetString("Ribbon_GroupBox_Templates", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Zoom.
         /// </summary>
         public static string Ribbon_GroupBox_Zoom {
@@ -1283,6 +1463,15 @@ namespace Tira.App.Properties {
         public static string Ribbon_MainMenu_OpenProject {
             get {
                 return ResourceManager.GetString("Ribbon_MainMenu_OpenProject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Project templates.
+        /// </summary>
+        public static string Ribbon_MainMenu_ProjectTemplates {
+            get {
+                return ResourceManager.GetString("Ribbon_MainMenu_ProjectTemplates", resourceCulture);
             }
         }
         

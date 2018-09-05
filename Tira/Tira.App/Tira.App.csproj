@@ -50,8 +50,8 @@
     <Reference Include="Ak.Framework.Imaging, Version=1.1.0.1, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Ak.Framework.Imaging.1.1.0.1\lib\Ak.Framework.Imaging.dll</HintPath>
     </Reference>
-    <Reference Include="Ak.Framework.Wpf, Version=1.7.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Ak.Framework.Wpf.1.7.1\lib\Ak.Framework.Wpf.dll</HintPath>
+    <Reference Include="Ak.Framework.Wpf, Version=1.7.2.2, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ak.Framework.Wpf.1.7.2.2\lib\Ak.Framework.Wpf.dll</HintPath>
     </Reference>
     <Reference Include="ControlzEx, Version=3.0.2.4, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\ControlzEx.3.0.2.4\lib\net462\ControlzEx.dll</HintPath>
@@ -114,6 +114,7 @@
     <Compile Include="Logic\Enums\MarkupObjectType.cs" />
     <Compile Include="Logic\Enums\FitOption.cs" />
     <Compile Include="Logic\Enums\MessageType.cs" />
+    <Compile Include="Logic\Enums\WindowMode.cs" />
     <Compile Include="Logic\Events\GalleryImageEventArgs.cs" />
     <Compile Include="Logic\Events\GalleryImagesUidsSelectionEventArgs.cs" />
     <Compile Include="Logic\Events\RectangleAreaEventArgs.cs" />
@@ -129,9 +130,11 @@
     <Compile Include="Logic\ViewModels\Filters\LinesRemovalFilterViewModel.cs" />
     <Compile Include="Logic\ViewModels\Filters\PunchHolesRemovalFilterViewModel.cs" />
     <Compile Include="Logic\ViewModels\ProjectCreationViewModel.cs" />
+    <Compile Include="Logic\ViewModels\ProjectTemplateViewModel.cs" />
     <Compile Include="Logic\ViewModels\ProjectSettingsViewModel.cs" />
     <Compile Include="Logic\ViewModels\ProjectViewModel.cs" />
     <Compile Include="Logic\ViewModels\SettingsViewModel.cs" />
+    <Compile Include="Logic\ViewModels\ProjectTemplatesViewModel.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Logic\ViewModels\ExceptionViewModel.cs" />
     <Compile Include="Logic\ViewModels\IntroductionViewModel.cs" />
@@ -186,6 +189,9 @@
     <Compile Include="Windows\ProjectCreationWindow.xaml.cs">
       <DependentUpon>ProjectCreationWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Windows\ProjectTemplateWindow.xaml.cs">
+      <DependentUpon>ProjectTemplateWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\ProjectSettingsWindow.xaml.cs">
       <DependentUpon>ProjectSettingsWindow.xaml</DependentUpon>
     </Compile>
@@ -194,6 +200,9 @@
     </Compile>
     <Compile Include="Windows\SettingsWindow.xaml.cs">
       <DependentUpon>SettingsWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ProjectTemplatesWindow.xaml.cs">
+      <DependentUpon>ProjectTemplatesWindow.xaml</DependentUpon>
     </Compile>
     <Page Include="Themes\Common\All.xaml">
       <SubType>Designer</SubType>
@@ -311,6 +320,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Windows\ProjectTemplateWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Windows\ProjectSettingsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -320,6 +333,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windows\SettingsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ProjectTemplatesWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -333,6 +350,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Resource Include="Content\Images\Ribbon\template_save_24x24.png" />
+    <Resource Include="Content\Images\Ribbon\template_save_64x64.png" />
     <Resource Include="Content\Images\Ribbon\rollback_all_24x24.png" />
     <Resource Include="Content\Images\Ribbon\rollback_all_64x64.png" />
     <Resource Include="Content\Images\Ribbon\rollback_one_step_24x24.png" />

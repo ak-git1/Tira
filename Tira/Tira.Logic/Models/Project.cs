@@ -97,8 +97,11 @@ namespace Tira.Logic.Models
         /// <summary>
         /// Project creation
         /// </summary>
+        /// <param name="projectPath">Project path</param>
+        /// <param name="name">Name</param>
+        /// <param name="projectTemplate">Project template</param>
         /// <returns></returns>
-        public static Project Create(string projectPath, string name)
+        public static Project Create(string projectPath, string name, ProjectTemplate projectTemplate)
         {
             Project project = new Project
             {
@@ -107,7 +110,9 @@ namespace Tira.Logic.Models
                 ProjectDataFolderPath = Path.Combine(Path.GetDirectoryName(projectPath), $@"{DataFolderPrefix}")
             };
             project.Gallery = new Gallery(project.ProjectDataFolderPath);
-            project.DataColumns = new List<DataColumn>();
+            project.DataColumns = projectTemplate == null ? 
+                new List<DataColumn>()
+                : SerializationHelper.DeserializeFromXml<List<DataColumn>>(projectTemplate.Data);
             project.Save();
 
             // Adding project to recent projects list
@@ -250,6 +255,16 @@ namespace Tira.Logic.Models
                     return new ActionResult(ActionResultType.Error, string.Format(Properties.Resources.CheckRecognitionResultExportAllowed_ErrorMessage, image.OrderNumber));
 
             return new ActionResult();
+        }
+
+        /// <summary>
+        /// Saves project as template
+        /// </summary>
+        /// <param name="name">Template name</param>
+        public void SaveAsTemplate(string name)
+        {
+            ProjectTemplate projectTemplate = new ProjectTemplate(name, SerializationHelper.SerializeToXml(DataColumns));
+            projectTemplate.Add();
         }
 
         #endregion

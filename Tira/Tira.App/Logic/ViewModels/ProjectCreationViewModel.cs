@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using System.Collections.Generic;
+using System.Windows.Forms;
 using Ak.Framework.Core.Extensions;
 using Ak.Framework.Wpf.Commands;
 using Ak.Framework.Wpf.Commands.Interfaces;
@@ -23,6 +24,11 @@ namespace Tira.App.Logic.ViewModels
         /// Path to project file
         /// </summary>
         private string _projectPath;
+
+        /// <summary>
+        /// Selected project template
+        /// </summary>
+        private ProjectTemplate _selectedProjectTemplate;
 
         #endregion
 
@@ -57,6 +63,20 @@ namespace Tira.App.Logic.ViewModels
         }
 
         /// <summary>
+        /// Projects templates list
+        /// </summary>
+        public List<ProjectTemplate> ProjectTemplatesList { get; }
+
+        /// <summary>
+        /// Selected project template
+        /// </summary>
+        public ProjectTemplate SelectedProjectTemplate
+        {
+            get => _selectedProjectTemplate;
+            set => _selectedProjectTemplate = value.Id == 0 ? null : value;
+        }
+
+        /// <summary>
         /// Validation for textboxes
         /// </summary>
         public bool IsDataValid => ProjectPath.NotEmpty() && Name.NotEmpty();
@@ -79,6 +99,9 @@ namespace Tira.App.Logic.ViewModels
         /// </summary>
         public ProjectCreationViewModel()
         {
+            ProjectTemplatesList = ProjectTemplate.GetList();
+            ProjectTemplatesList.Insert(0, new ProjectTemplate(0, Properties.Resources.ProjectTemplate_NotSet, string.Empty));
+
             SelectProjectFileCommand = new NotifyCommand(_ => SelectProjectFile());
         }
 

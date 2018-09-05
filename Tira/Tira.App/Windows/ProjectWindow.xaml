@@ -17,7 +17,8 @@
                      Title="{x:Static properties:Resources.Application_FullName}"
                      Height="800"
                      Width="1280"
-                     WindowStartupLocation="CenterScreen"                     
+                     WindowStartupLocation="CenterScreen"
+                     Closing="{binding:EventBinding Command=HandleWindowClosingCommand, CommandParameter=$e}"
                      d:DataContext="{d:DesignInstance Type=viewModels:ProjectViewModel, IsDesignTimeCreatable=True}">
     <FrameworkElement.Resources>
         <ResourceDictionary>
@@ -72,18 +73,19 @@
                             <fluent:Button Header="{x:Static properties:Resources.Ribbon_MainMenu_OpenProject}" Command="{Binding OpenProjectCommand}" CommandParameter="{Binding ElementName=Root}"/>
                             <Separator />
                             <fluent:Button Header="{x:Static properties:Resources.Ribbon_MainMenu_Save}" 
-                                                x:Name="MainMenuSaveBtn"
-                                                LargeIcon="Content/Images/Ribbon/save_64x64.png"
-                                                Icon="Content/Images/Ribbon/save_24x24.png"
-                                                Command="{Binding SaveProjectCommand}"/>
+                                            x:Name="MainMenuSaveBtn"
+                                            LargeIcon="Content/Images/Ribbon/save_64x64.png"
+                                            Icon="Content/Images/Ribbon/save_24x24.png"
+                                            Command="{Binding SaveProjectCommand}"/>
                             <Separator />
                             <fluent:Button Header="{x:Static properties:Resources.Ribbon_MainMenu_Settings}" Command="{Binding ShowSettingsWindowCommand}"/>
+                            <fluent:Button Header="{x:Static properties:Resources.Ribbon_MainMenu_ProjectTemplates}" Command="{Binding ShowProjectTemplatesWindowCommand}"/>
                             <fluent:Button Header="{x:Static properties:Resources.Ribbon_MainMenu_Help}" Command="{Binding ShowHelpCommand}"/>
                             <fluent:Button Header="{x:Static properties:Resources.Ribbon_MainMenu_About}" Command="{Binding ShowAboutWindowCommand}"/>
                             <Separator />
                             <fluent:Button Header="{x:Static properties:Resources.Ribbon_MainMenu_Close}" 
-                                                Command="{Binding CloseWindowCommand}"
-                                                CommandParameter="{Binding ElementName=Root}"/>
+                                            Command="{Binding CloseWindowCommand}"
+                                            CommandParameter="{Binding ElementName=Root}"/>
                         </fluent:BackstageTabControl>
                     </fluent:Backstage>
                 </fluent:Ribbon.Menu>
@@ -91,32 +93,32 @@
                 <!--Contextual Tab Groups-->
                 <fluent:Ribbon.ContextualGroups>
                     <fluent:RibbonContextualTabGroup x:Name="ImageRibbonGroup" 
-                                                            Header="{x:Static properties:Resources.Ribbon_TabGroup_Image}" 
-                                                            Background="Green" 
-                                                            BorderBrush="Green"
-                                                            Visibility="{Binding ImageLoadedToViewer, Mode=OneWay, Converter={converters:BoolToVisibilityConverter}, ConverterParameter=Collapsed}"/>
+                                                    Header="{x:Static properties:Resources.Ribbon_TabGroup_Image}" 
+                                                    Background="Green" 
+                                                    BorderBrush="Green"
+                                                    Visibility="{Binding ImageLoadedToViewer, Mode=OneWay, Converter={converters:BoolToVisibilityConverter}, ConverterParameter=Collapsed}"/>
                 </fluent:Ribbon.ContextualGroups>
 
                 <!--Tabs-->
                 <fluent:RibbonTabItem Header="{x:Static properties:Resources.Ribbon_TabItem_Main}">
                     <fluent:RibbonGroupBox Header="{x:Static properties:Resources.Ribbon_GroupBox_Project}">
                         <fluent:Button  Header="{x:Static properties:Resources.Ribbon_Button_PerformOcr}"
-                                            ToolTip="{x:Static properties:Resources.Ribbon_Button_PerformOcr}"
-                                            LargeIcon="/Tira.App;component/Content/Images/Ribbon/ocr_64x64.png"
-                                            Icon="/Tira.App;component/Content/Images/Ribbon/ocr_24x24.png"
-                                            SizeDefinition="Large"
-                                            Command="{Binding PerformOcrCommand}"/>
+                                        ToolTip="{x:Static properties:Resources.Ribbon_Button_PerformOcr}"
+                                        LargeIcon="/Tira.App;component/Content/Images/Ribbon/ocr_64x64.png"
+                                        Icon="/Tira.App;component/Content/Images/Ribbon/ocr_24x24.png"
+                                        SizeDefinition="Large"
+                                        Command="{Binding PerformOcrCommand}"/>
                         <fluent:SplitButton Header="{x:Static properties:Resources.Ribbon_Button_Export}"
-                                                ToolTip="{x:Static properties:Resources.Ribbon_Button_Export}"
-                                                LargeIcon="/Tira.App;component/Content/Images/Ribbon/export_64x64.png"
-                                                Icon="/Tira.App;component/Content/Images/Ribbon/export_24x24.png"
-                                                SizeDefinition="Large">
+                                            ToolTip="{x:Static properties:Resources.Ribbon_Button_Export}"
+                                            LargeIcon="/Tira.App;component/Content/Images/Ribbon/export_64x64.png"
+                                            Icon="/Tira.App;component/Content/Images/Ribbon/export_24x24.png"
+                                            SizeDefinition="Large">
                             <fluent:MenuItem Header="{x:Static properties:Resources.Ribbon_Button_Export_Json}"
-                                                    ToolTip="{x:Static properties:Resources.Ribbon_Button_Export_Json}"
-                                                    Icon="/Tira.App;component/Content/Images/Ribbon/json_24x24.png"
-                                                    SizeDefinition="Middle"
-                                                    Command="{Binding ExportProjectDataCommand}"
-                                                    CommandParameter="{x:Static enums:ExportFormat.Json}"/>
+                                            ToolTip="{x:Static properties:Resources.Ribbon_Button_Export_Json}"
+                                            Icon="/Tira.App;component/Content/Images/Ribbon/json_24x24.png"
+                                            SizeDefinition="Middle"
+                                            Command="{Binding ExportProjectDataCommand}"
+                                            CommandParameter="{x:Static enums:ExportFormat.Json}"/>
                             <fluent:MenuItem Header="{x:Static properties:Resources.Ribbon_Button_Export_Xls}"
                                              ToolTip="{x:Static properties:Resources.Ribbon_Button_Export_Xls}"
                                              Icon="/Tira.App;component/Content/Images/Ribbon/xls_24x24.png"
@@ -124,242 +126,250 @@
                                              Command="{Binding ExportProjectDataCommand}"
                                              CommandParameter="{x:Static enums:ExportFormat.Xls}"/>
                             <fluent:MenuItem Header="{x:Static properties:Resources.Ribbon_Button_Export_Xlsx}"
-                                                    ToolTip="{x:Static properties:Resources.Ribbon_Button_Export_Xlsx}"
-                                                    Icon="/Tira.App;component/Content/Images/Ribbon/xlsx_24x24.png"
-                                                    SizeDefinition="Middle"
-                                                    Command="{Binding ExportProjectDataCommand}"
-                                                    CommandParameter="{x:Static enums:ExportFormat.Xlsx}"/>
+                                            ToolTip="{x:Static properties:Resources.Ribbon_Button_Export_Xlsx}"
+                                            Icon="/Tira.App;component/Content/Images/Ribbon/xlsx_24x24.png"
+                                            SizeDefinition="Middle"
+                                            Command="{Binding ExportProjectDataCommand}"
+                                            CommandParameter="{x:Static enums:ExportFormat.Xlsx}"/>
                             <fluent:MenuItem Header="{x:Static properties:Resources.Ribbon_Button_Export_Csv}"
-                                                    ToolTip="{x:Static properties:Resources.Ribbon_Button_Export_Csv}"
-                                                    Icon="/Tira.App;component/Content/Images/Ribbon/csv_24x24.png"
-                                                    SizeDefinition="Middle"
-                                                    Command="{Binding ExportProjectDataCommand}"
-                                                    CommandParameter="{x:Static enums:ExportFormat.Csv}"/>
+                                            ToolTip="{x:Static properties:Resources.Ribbon_Button_Export_Csv}"
+                                            Icon="/Tira.App;component/Content/Images/Ribbon/csv_24x24.png"
+                                            SizeDefinition="Middle"
+                                            Command="{Binding ExportProjectDataCommand}"
+                                            CommandParameter="{x:Static enums:ExportFormat.Csv}"/>
                         </fluent:SplitButton>
                         <fluent:Button  Header="{x:Static properties:Resources.Ribbon_Button_ProjectSettings}"
-                                            ToolTip="{x:Static properties:Resources.Ribbon_Button_ProjectSettings}"
-                                            LargeIcon="/Tira.App;component/Content/Images/Ribbon/project_settings_64x64.png"
-                                            Icon="/Tira.App;component/Content/Images/Ribbon/project_settings_24x24.png"
-                                            SizeDefinition="Large"
-                                            Command="{Binding ShowProjectSettingsWindowCommand}"/>
+                                        ToolTip="{x:Static properties:Resources.Ribbon_Button_ProjectSettings}"
+                                        LargeIcon="/Tira.App;component/Content/Images/Ribbon/project_settings_64x64.png"
+                                        Icon="/Tira.App;component/Content/Images/Ribbon/project_settings_24x24.png"
+                                        SizeDefinition="Large"
+                                        Command="{Binding ShowProjectSettingsWindowCommand}"/>
                     </fluent:RibbonGroupBox>
                     <fluent:RibbonGroupBox Header="{x:Static properties:Resources.Ribbon_GroupBox_Gallery}">
                         <fluent:Button  Header="{x:Static properties:Resources.Ribbon_Button_AddImages}"
-                                            ToolTip="{x:Static properties:Resources.Ribbon_Button_AddImages}"
-                                            LargeIcon="/Tira.App;component/Content/Images/Ribbon/add_64x64.png"
-                                            Icon="/Tira.App;component/Content/Images/Ribbon/add_24x24.png"
-                                            SizeDefinition="Large"
-                                            Command="{Binding AddImagesToGalleryCommand}"/>
+                                        ToolTip="{x:Static properties:Resources.Ribbon_Button_AddImages}"
+                                        LargeIcon="/Tira.App;component/Content/Images/Ribbon/add_64x64.png"
+                                        Icon="/Tira.App;component/Content/Images/Ribbon/add_24x24.png"
+                                        SizeDefinition="Large"
+                                        Command="{Binding AddImagesToGalleryCommand}"/>
                         <fluent:Button  Header="{x:Static properties:Resources.Ribbon_Button_RemoveImages}"
-                                            ToolTip="{x:Static properties:Resources.Ribbon_Button_RemoveImages}"
-                                            LargeIcon="/Tira.App;component/Content/Images/Ribbon/remove_64x64.png"
-                                            Icon="/Tira.App;component/Content/Images/Ribbon/remove_24x24.png"
-                                            SizeDefinition="Large"
-                                            Command="{Binding RemoveImagesFromGalleryCommand}"/>
+                                        ToolTip="{x:Static properties:Resources.Ribbon_Button_RemoveImages}"
+                                        LargeIcon="/Tira.App;component/Content/Images/Ribbon/remove_64x64.png"
+                                        Icon="/Tira.App;component/Content/Images/Ribbon/remove_24x24.png"
+                                        SizeDefinition="Large"
+                                        Command="{Binding RemoveImagesFromGalleryCommand}"/>
+                    </fluent:RibbonGroupBox>
+                    <fluent:RibbonGroupBox Header="{x:Static properties:Resources.Ribbon_GroupBox_Templates}">
+                        <fluent:Button  Header="{x:Static properties:Resources.Ribbon_Button_SaveAsTemplate}"
+                                        ToolTip="{x:Static properties:Resources.Ribbon_Button_SaveAsTemplate}"
+                                        LargeIcon="/Tira.App;component/Content/Images/Ribbon/template_save_64x64.png"
+                                        Icon="/Tira.App;component/Content/Images/Ribbon/template_save_24x24.png"
+                                        SizeDefinition="Large"
+                                        Command="{Binding SaveProjectAsTemplateCommand}"/>
                     </fluent:RibbonGroupBox>
                 </fluent:RibbonTabItem>
                 <fluent:RibbonTabItem Header="{x:Static properties:Resources.Ribbon_TabItem_Image}"
-                                            Group="{Binding ElementName=ImageRibbonGroup}">
+                                    Group="{Binding ElementName=ImageRibbonGroup}">
                     <fluent:RibbonGroupBox Header="{x:Static properties:Resources.Ribbon_GroupBox_Zoom}">
                         <fluent:Button  Header="{x:Static properties:Resources.Ribbon_Button_ZoomIn}"
-                                            ToolTip="{x:Static properties:Resources.Ribbon_Button_ZoomIn}"
-                                            LargeIcon="/Tira.App;component/Content/Images/Ribbon/zoom_in_64x64.png"
-                                            Icon="/Tira.App;component/Content/Images/Ribbon/zoom_in_24x24.png"
-                                            SizeDefinition="Large"
-                                            Command="{Binding ImageZoomInCommand}"/>
+                                        ToolTip="{x:Static properties:Resources.Ribbon_Button_ZoomIn}"
+                                        LargeIcon="/Tira.App;component/Content/Images/Ribbon/zoom_in_64x64.png"
+                                        Icon="/Tira.App;component/Content/Images/Ribbon/zoom_in_24x24.png"
+                                        SizeDefinition="Large"
+                                        Command="{Binding ImageZoomInCommand}"/>
                         <fluent:Button  Header="{x:Static properties:Resources.Ribbon_Button_ZoomOut}"
-                                            ToolTip="{x:Static properties:Resources.Ribbon_Button_ZoomOut}"
-                                            LargeIcon="/Tira.App;component/Content/Images/Ribbon/zoom_out_64x64.png"
-                                            Icon="/Tira.App;component/Content/Images/Ribbon/zoom_out_24x24.png"
-                                            SizeDefinition="Large" 
-                                            Command="{Binding ImageZoomOutCommand}"/>
+                                        ToolTip="{x:Static properties:Resources.Ribbon_Button_ZoomOut}"
+                                        LargeIcon="/Tira.App;component/Content/Images/Ribbon/zoom_out_64x64.png"
+                                        Icon="/Tira.App;component/Content/Images/Ribbon/zoom_out_24x24.png"
+                                        SizeDefinition="Large" 
+                                        Command="{Binding ImageZoomOutCommand}"/>
                         <fluent:Button  Header="{x:Static properties:Resources.Ribbon_Button_FitSize}"
-                                            ToolTip="{x:Static properties:Resources.Ribbon_Button_FitSize}"
-                                            LargeIcon="/Tira.App;component/Content/Images/Ribbon/fit_size_64x64.png"
-                                            Icon="/Tira.App;component/Content/Images/Ribbon/fit_size_24x24.png"
-                                            SizeDefinition="Middle, Small" 
-                                            Command="{Binding ImageFitSizeCommand}"/>
+                                        ToolTip="{x:Static properties:Resources.Ribbon_Button_FitSize}"
+                                        LargeIcon="/Tira.App;component/Content/Images/Ribbon/fit_size_64x64.png"
+                                        Icon="/Tira.App;component/Content/Images/Ribbon/fit_size_24x24.png"
+                                        SizeDefinition="Middle, Small" 
+                                        Command="{Binding ImageFitSizeCommand}"/>
                         <fluent:Button  Header="{x:Static properties:Resources.Ribbon_Button_FitWidth}"
-                                            ToolTip="{x:Static properties:Resources.Ribbon_Button_FitWidth}"
-                                            LargeIcon="/Tira.App;component/Content/Images/Ribbon/fit_width_64x64.png"
-                                            Icon="/Tira.App;component/Content/Images/Ribbon/fit_width_24x24.png"
-                                            SizeDefinition="Middle, Small" 
-                                            Command="{Binding ImageFitWidthCommand}"/>
+                                        ToolTip="{x:Static properties:Resources.Ribbon_Button_FitWidth}"
+                                        LargeIcon="/Tira.App;component/Content/Images/Ribbon/fit_width_64x64.png"
+                                        Icon="/Tira.App;component/Content/Images/Ribbon/fit_width_24x24.png"
+                                        SizeDefinition="Middle, Small" 
+                                        Command="{Binding ImageFitWidthCommand}"/>
                         <fluent:Button  Header="{x:Static properties:Resources.Ribbon_Button_FitHeight}"
-                                            ToolTip="{x:Static properties:Resources.Ribbon_Button_FitHeight}"
-                                            LargeIcon="/Tira.App;component/Content/Images/Ribbon/fit_height_64x64.png"
-                                            Icon="/Tira.App;component/Content/Images/Ribbon/fit_height_24x24.png"
-                                            SizeDefinition="Middle, Small" 
-                                            Command="{Binding ImageFitHeightCommand}"/>
+                                        ToolTip="{x:Static properties:Resources.Ribbon_Button_FitHeight}"
+                                        LargeIcon="/Tira.App;component/Content/Images/Ribbon/fit_height_64x64.png"
+                                        Icon="/Tira.App;component/Content/Images/Ribbon/fit_height_24x24.png"
+                                        SizeDefinition="Middle, Small" 
+                                        Command="{Binding ImageFitHeightCommand}"/>
                     </fluent:RibbonGroupBox>
                     <fluent:RibbonGroupBox Header="{x:Static properties:Resources.Ribbon_GroupBox_Markup}">
                         <fluent:ToggleButton  x:Name="EnableMarkupButton"
-                                                    Header="{x:Static properties:Resources.Ribbon_Button_EnableMarkup}"
-                                                    ToolTip="{x:Static properties:Resources.Ribbon_Button_EnableMarkup}"
-                                                    LargeIcon="/Tira.App;component/Content/Images/Ribbon/enable_markup_48x48.png"
-                                                    Icon="/Tira.App;component/Content/Images/Ribbon/enable_markup_24x24.png"
-                                                    SizeDefinition="Large"
-                                                    IsChecked="False"                                  
-                                                    Command="{Binding EnableMarkupCommand}"
-                                                    CommandParameter="{Binding ElementName=EnableMarkupButton, Path=IsChecked}"/>
-                        <fluent:Button  Header="{x:Static properties:Resources.Ribbon_Button_ClearMarkup}"
-                                            ToolTip="{x:Static properties:Resources.Ribbon_Button_ClearMarkup}"
-                                            LargeIcon="/Tira.App;component/Content/Images/Ribbon/clear_markup_64x64.png"
-                                            Icon="/Tira.App;component/Content/Images/Ribbon/clear_markup_24x24.png"
+                                            Header="{x:Static properties:Resources.Ribbon_Button_EnableMarkup}"
+                                            ToolTip="{x:Static properties:Resources.Ribbon_Button_EnableMarkup}"
+                                            LargeIcon="/Tira.App;component/Content/Images/Ribbon/enable_markup_48x48.png"
+                                            Icon="/Tira.App;component/Content/Images/Ribbon/enable_markup_24x24.png"
                                             SizeDefinition="Large"
-                                            IsEnabled="{Binding ElementName=EnableMarkupButton, Path=IsChecked, Mode=OneWay}"
-                                            Command="{Binding ImageClearMarkupCommand}"/>
+                                            IsChecked="False"                                  
+                                            Command="{Binding EnableMarkupCommand}"
+                                            CommandParameter="{Binding ElementName=EnableMarkupButton, Path=IsChecked}"/>
+                        <fluent:Button  Header="{x:Static properties:Resources.Ribbon_Button_ClearMarkup}"
+                                        ToolTip="{x:Static properties:Resources.Ribbon_Button_ClearMarkup}"
+                                        LargeIcon="/Tira.App;component/Content/Images/Ribbon/clear_markup_64x64.png"
+                                        Icon="/Tira.App;component/Content/Images/Ribbon/clear_markup_24x24.png"
+                                        SizeDefinition="Large"
+                                        IsEnabled="{Binding ElementName=EnableMarkupButton, Path=IsChecked, Mode=OneWay}"
+                                        Command="{Binding ImageClearMarkupCommand}"/>
                         <fluent:Button  Header="{x:Static properties:Resources.Ribbon_Button_RectangleMarkup}"
-                                            ToolTip="{x:Static properties:Resources.Ribbon_Button_RectangleMarkup}"
-                                            LargeIcon="/Tira.App;component/Content/Images/Ribbon/rectangle_64x64.png"
-                                            Icon="/Tira.App;component/Content/Images/Ribbon/rectangle_24x24.png"
-                                            SizeDefinition="Middle, Small"
-                                            IsEnabled="{Binding ElementName=EnableMarkupButton, Path=IsChecked, Mode=OneWay}"
-                                            Command="{Binding SetCurrentMarkupObjectTypeCommand}"
-                                            CommandParameter="{x:Static appEnums:MarkupObjectType.Rectangle}"/>
+                                        ToolTip="{x:Static properties:Resources.Ribbon_Button_RectangleMarkup}"
+                                        LargeIcon="/Tira.App;component/Content/Images/Ribbon/rectangle_64x64.png"
+                                        Icon="/Tira.App;component/Content/Images/Ribbon/rectangle_24x24.png"
+                                        SizeDefinition="Middle, Small"
+                                        IsEnabled="{Binding ElementName=EnableMarkupButton, Path=IsChecked, Mode=OneWay}"
+                                        Command="{Binding SetCurrentMarkupObjectTypeCommand}"
+                                        CommandParameter="{x:Static appEnums:MarkupObjectType.Rectangle}"/>
                         <fluent:Button  Header="{x:Static properties:Resources.Ribbon_Button_VerticalLineMarkup}"
-                                            ToolTip="{x:Static properties:Resources.Ribbon_Button_VerticalLineMarkup}"
-                                            LargeIcon="/Tira.App;component/Content/Images/Ribbon/vertical_line_64x64.png"
-                                            Icon="/Tira.App;component/Content/Images/Ribbon/vertical_line_24x24.png"
-                                            SizeDefinition="Middle, Small"
-                                            IsEnabled="{Binding ElementName=EnableMarkupButton, Path=IsChecked, Mode=OneWay}"
-                                            Command="{Binding SetCurrentMarkupObjectTypeCommand}"
-                                            CommandParameter="{x:Static appEnums:MarkupObjectType.VerticalLine}"/>
+                                        ToolTip="{x:Static properties:Resources.Ribbon_Button_VerticalLineMarkup}"
+                                        LargeIcon="/Tira.App;component/Content/Images/Ribbon/vertical_line_64x64.png"
+                                        Icon="/Tira.App;component/Content/Images/Ribbon/vertical_line_24x24.png"
+                                        SizeDefinition="Middle, Small"
+                                        IsEnabled="{Binding ElementName=EnableMarkupButton, Path=IsChecked, Mode=OneWay}"
+                                        Command="{Binding SetCurrentMarkupObjectTypeCommand}"
+                                        CommandParameter="{x:Static appEnums:MarkupObjectType.VerticalLine}"/>
                         <fluent:Button  Header="{x:Static properties:Resources.Ribbon_Button_HorizontalLineMarkup}"
-                                            ToolTip="{x:Static properties:Resources.Ribbon_Button_HorizontalLineMarkup}"
-                                            LargeIcon="/Tira.App;component/Content/Images/Ribbon/horizontal_line_64x64.png"
-                                            Icon="/Tira.App;component/Content/Images/Ribbon/horizontal_line_24x24.png"
-                                            SizeDefinition="Middle, Small"
-                                            IsEnabled="{Binding ElementName=EnableMarkupButton, Path=IsChecked, Mode=OneWay}"
-                                            Command="{Binding SetCurrentMarkupObjectTypeCommand}"
-                                            CommandParameter="{x:Static appEnums:MarkupObjectType.HorizontalLine}"/>
+                                        ToolTip="{x:Static properties:Resources.Ribbon_Button_HorizontalLineMarkup}"
+                                        LargeIcon="/Tira.App;component/Content/Images/Ribbon/horizontal_line_64x64.png"
+                                        Icon="/Tira.App;component/Content/Images/Ribbon/horizontal_line_24x24.png"
+                                        SizeDefinition="Middle, Small"
+                                        IsEnabled="{Binding ElementName=EnableMarkupButton, Path=IsChecked, Mode=OneWay}"
+                                        Command="{Binding SetCurrentMarkupObjectTypeCommand}"
+                                        CommandParameter="{x:Static appEnums:MarkupObjectType.HorizontalLine}"/>
                     </fluent:RibbonGroupBox>
                     <fluent:RibbonGroupBox Header="{x:Static properties:Resources.Ribbon_GroupBox_MarkupCopy}">
                         <fluent:Button  Header="{x:Static properties:Resources.Ribbon_Button_MarkupCopy}"
-                                            ToolTip="{x:Static properties:Resources.Ribbon_Button_MarkupCopy}"
-                                            LargeIcon="/Tira.App;component/Content/Images/Ribbon/copy_64x64.png"
-                                            Icon="/Tira.App;component/Content/Images/Ribbon/copy_24x24.png"
-                                            SizeDefinition="Large"
-                                            Command="{Binding ImageMarkupCopyCommand}"/>
+                                        ToolTip="{x:Static properties:Resources.Ribbon_Button_MarkupCopy}"
+                                        LargeIcon="/Tira.App;component/Content/Images/Ribbon/copy_64x64.png"
+                                        Icon="/Tira.App;component/Content/Images/Ribbon/copy_24x24.png"
+                                        SizeDefinition="Large"
+                                        Command="{Binding ImageMarkupCopyCommand}"/>
                         <fluent:Button  Header="{x:Static properties:Resources.Ribbon_Button_MarkupPaste}"
-                                            ToolTip="{x:Static properties:Resources.Ribbon_Button_MarkupPaste}"
-                                            LargeIcon="/Tira.App;component/Content/Images/Ribbon/paste_64x64.png"
-                                            Icon="/Tira.App;component/Content/Images/Ribbon/paste_24x24.png"
-                                            SizeDefinition="Large"
-                                            Command="{Binding ImageMarkupPasteCommand}"/>
+                                        ToolTip="{x:Static properties:Resources.Ribbon_Button_MarkupPaste}"
+                                        LargeIcon="/Tira.App;component/Content/Images/Ribbon/paste_64x64.png"
+                                        Icon="/Tira.App;component/Content/Images/Ribbon/paste_24x24.png"
+                                        SizeDefinition="Large"
+                                        Command="{Binding ImageMarkupPasteCommand}"/>
                     </fluent:RibbonGroupBox>
                 </fluent:RibbonTabItem>
                 <fluent:RibbonTabItem Header="{x:Static properties:Resources.Ribbon_TabItem_Transformation}"
-                                            Group="{Binding ElementName=ImageRibbonGroup}">
+                                      Group="{Binding ElementName=ImageRibbonGroup}">
                     <fluent:RibbonGroupBox Header="{x:Static properties:Resources.Ribbon_GroupBox_Rollback}">
                         <fluent:Button  Header="{x:Static properties:Resources.Ribbon_Button_RollbackOneStep}"
-                                            ToolTip="{x:Static properties:Resources.Ribbon_Button_RollbackOneStep}"
-                                            LargeIcon="/Tira.App;component/Content/Images/Ribbon/rollback_one_step_64x64.png"
-                                            Icon="/Tira.App;component/Content/Images/Ribbon/rollback_one_step_24x24.png"
-                                            SizeDefinition="Large"
-                                            Command="{Binding ImageRollbackOneStepCommand}"/>
+                                        ToolTip="{x:Static properties:Resources.Ribbon_Button_RollbackOneStep}"
+                                        LargeIcon="/Tira.App;component/Content/Images/Ribbon/rollback_one_step_64x64.png"
+                                        Icon="/Tira.App;component/Content/Images/Ribbon/rollback_one_step_24x24.png"
+                                        SizeDefinition="Large"
+                                        Command="{Binding ImageRollbackOneStepCommand}"/>
                         <fluent:Button  Header="{x:Static properties:Resources.Ribbon_Button_RollbackAll}"
-                                            ToolTip="{x:Static properties:Resources.Ribbon_Button_RollbackAll}"
-                                            LargeIcon="/Tira.App;component/Content/Images/Ribbon/rollback_all_64x64.png"
-                                            Icon="/Tira.App;component/Content/Images/Ribbon/rollback_all_24x24.png"
-                                            SizeDefinition="Large"
-                                            Command="{Binding ImageRollbackAllCommand}"/>
+                                        ToolTip="{x:Static properties:Resources.Ribbon_Button_RollbackAll}"
+                                        LargeIcon="/Tira.App;component/Content/Images/Ribbon/rollback_all_64x64.png"
+                                        Icon="/Tira.App;component/Content/Images/Ribbon/rollback_all_24x24.png"
+                                        SizeDefinition="Large"
+                                        Command="{Binding ImageRollbackAllCommand}"/>
                     </fluent:RibbonGroupBox>
                     <fluent:RibbonGroupBox Header="{x:Static properties:Resources.Ribbon_GroupBox_Color}">
                         <fluent:Button  Header="{x:Static properties:Resources.Ribbon_Button_Binarize}"
-                                            ToolTip="{x:Static properties:Resources.Ribbon_Button_Binarize}"
-                                            LargeIcon="/Tira.App;component/Content/Images/Ribbon/black_white_64x64.png"
-                                            Icon="/Tira.App;component/Content/Images/Ribbon/black_white_24x24.png"
-                                            SizeDefinition="Large"
-                                            Command="{Binding ImageBinarizeCommand}"/>
+                                        ToolTip="{x:Static properties:Resources.Ribbon_Button_Binarize}"
+                                        LargeIcon="/Tira.App;component/Content/Images/Ribbon/black_white_64x64.png"
+                                        Icon="/Tira.App;component/Content/Images/Ribbon/black_white_24x24.png"
+                                        SizeDefinition="Large"
+                                        Command="{Binding ImageBinarizeCommand}"/>
                         <fluent:Button  Header="{x:Static properties:Resources.Ribbon_Button_Brightness}"
-                                            ToolTip="{x:Static properties:Resources.Ribbon_Button_Brightness}"
-                                            LargeIcon="/Tira.App;component/Content/Images/Ribbon/brightness_64x64.png"
-                                            Icon="/Tira.App;component/Content/Images/Ribbon/brightness_24x24.png"
-                                            SizeDefinition="Middle, Small"
-                                            Command="{Binding ImageSetBrightnessCommand}"/>
+                                        ToolTip="{x:Static properties:Resources.Ribbon_Button_Brightness}"
+                                        LargeIcon="/Tira.App;component/Content/Images/Ribbon/brightness_64x64.png"
+                                        Icon="/Tira.App;component/Content/Images/Ribbon/brightness_24x24.png"
+                                        SizeDefinition="Middle, Small"
+                                        Command="{Binding ImageSetBrightnessCommand}"/>
                         <fluent:Button  Header="{x:Static properties:Resources.Ribbon_Button_Contrast}"
-                                            ToolTip="{x:Static properties:Resources.Ribbon_Button_Contrast}"
-                                            LargeIcon="/Tira.App;component/Content/Images/Ribbon/contrast_64x64.png"
-                                            Icon="/Tira.App;component/Content/Images/Ribbon/contrast_24x24.png"
-                                            SizeDefinition="Middle, Small"
-                                            Command="{Binding ImageSetContrastCommand}"/>
+                                        ToolTip="{x:Static properties:Resources.Ribbon_Button_Contrast}"
+                                        LargeIcon="/Tira.App;component/Content/Images/Ribbon/contrast_64x64.png"
+                                        Icon="/Tira.App;component/Content/Images/Ribbon/contrast_24x24.png"
+                                        SizeDefinition="Middle, Small"
+                                        Command="{Binding ImageSetContrastCommand}"/>
                         <fluent:Button  Header="{x:Static properties:Resources.Ribbon_Button_Gamma}"
-                                            ToolTip="{x:Static properties:Resources.Ribbon_Button_Gamma}"
-                                            LargeIcon="/Tira.App;component/Content/Images/Ribbon/gamma_64x64.png"
-                                            Icon="/Tira.App;component/Content/Images/Ribbon/gamma_24x24.png"
-                                            SizeDefinition="Middle, Small"
-                                            Command="{Binding ImageSetGammaCorrectionCommand}"/>
+                                        ToolTip="{x:Static properties:Resources.Ribbon_Button_Gamma}"
+                                        LargeIcon="/Tira.App;component/Content/Images/Ribbon/gamma_64x64.png"
+                                        Icon="/Tira.App;component/Content/Images/Ribbon/gamma_24x24.png"
+                                        SizeDefinition="Middle, Small"
+                                        Command="{Binding ImageSetGammaCorrectionCommand}"/>
                     </fluent:RibbonGroupBox>
                     <fluent:RibbonGroupBox Header="{x:Static properties:Resources.Ribbon_GroupBox_Size}">
                         <fluent:Button  Header="{x:Static properties:Resources.Ribbon_Button_AutoRotate}"
-                                            ToolTip="{x:Static properties:Resources.Ribbon_Button_AutoRotate}"
-                                            LargeIcon="/Tira.App;component/Content/Images/Ribbon/auto_rotate_64x64.png"
-                                            Icon="/Tira.App;component/Content/Images/Ribbon/auto_rotate_24x24.png"
-                                            SizeDefinition="Large"
-                                            Command="{Binding ImageAutoRotateCommand}"/>
+                                        ToolTip="{x:Static properties:Resources.Ribbon_Button_AutoRotate}"
+                                        LargeIcon="/Tira.App;component/Content/Images/Ribbon/auto_rotate_64x64.png"
+                                        Icon="/Tira.App;component/Content/Images/Ribbon/auto_rotate_24x24.png"
+                                        SizeDefinition="Large"
+                                        Command="{Binding ImageAutoRotateCommand}"/>
                         <fluent:Button  Header="{x:Static properties:Resources.Ribbon_Button_ManualRotate}"
-                                            ToolTip="{x:Static properties:Resources.Ribbon_Button_ManualRotate}"
-                                            LargeIcon="/Tira.App;component/Content/Images/Ribbon/rotate_64x64.png"
-                                            Icon="/Tira.App;component/Content/Images/Ribbon/rotate_24x24.png"
-                                            SizeDefinition="Large"
-                                            Command="{Binding ImageRotateCommand}"/>
+                                        ToolTip="{x:Static properties:Resources.Ribbon_Button_ManualRotate}"
+                                        LargeIcon="/Tira.App;component/Content/Images/Ribbon/rotate_64x64.png"
+                                        Icon="/Tira.App;component/Content/Images/Ribbon/rotate_24x24.png"
+                                        SizeDefinition="Large"
+                                        Command="{Binding ImageRotateCommand}"/>
                         <fluent:Button  Header="{x:Static properties:Resources.Ribbon_Button_AutoResize}"
-                                            ToolTip="{x:Static properties:Resources.Ribbon_Button_AutoResize}"
-                                            LargeIcon="/Tira.App;component/Content/Images/Ribbon/auto_crop_64x64.png"
-                                            Icon="/Tira.App;component/Content/Images/Ribbon/auto_crop_24x24.png"
-                                            SizeDefinition="Large"
-                                            Command="{Binding ImageAutoResizeCommand}"/>
+                                        ToolTip="{x:Static properties:Resources.Ribbon_Button_AutoResize}"
+                                        LargeIcon="/Tira.App;component/Content/Images/Ribbon/auto_crop_64x64.png"
+                                        Icon="/Tira.App;component/Content/Images/Ribbon/auto_crop_24x24.png"
+                                        SizeDefinition="Large"
+                                        Command="{Binding ImageAutoResizeCommand}"/>
                         <fluent:Button  Header="{x:Static properties:Resources.Ribbon_Button_ManualResize}"
-                                            ToolTip="{x:Static properties:Resources.Ribbon_Button_ManualResize}"
-                                            LargeIcon="/Tira.App;component/Content/Images/Ribbon/crop_64x64.png"
-                                            Icon="/Tira.App;component/Content/Images/Ribbon/crop_24x24.png"
-                                            SizeDefinition="Large"
-                                            Command="{Binding ImageCropCommand}"/>
+                                        ToolTip="{x:Static properties:Resources.Ribbon_Button_ManualResize}"
+                                        LargeIcon="/Tira.App;component/Content/Images/Ribbon/crop_64x64.png"
+                                        Icon="/Tira.App;component/Content/Images/Ribbon/crop_24x24.png"
+                                        SizeDefinition="Large"
+                                        Command="{Binding ImageCropCommand}"/>
                     </fluent:RibbonGroupBox>
                     <fluent:RibbonGroupBox Header="{x:Static properties:Resources.Ribbon_GroupBox_Correction}">
                         <fluent:Button  Header="{x:Static properties:Resources.Ribbon_Button_Dilation}"
-                                            ToolTip="{x:Static properties:Resources.Ribbon_Button_Dilation}"
-                                            LargeIcon="/Tira.App;component/Content/Images/Ribbon/dilation_64x64.png"
-                                            Icon="/Tira.App;component/Content/Images/Ribbon/dilation_24x24.png"
-                                            SizeDefinition="Large"
-                                            Command="{Binding ImageDilateCommand}"/>
+                                        ToolTip="{x:Static properties:Resources.Ribbon_Button_Dilation}"
+                                        LargeIcon="/Tira.App;component/Content/Images/Ribbon/dilation_64x64.png"
+                                        Icon="/Tira.App;component/Content/Images/Ribbon/dilation_24x24.png"
+                                        SizeDefinition="Large"
+                                        Command="{Binding ImageDilateCommand}"/>
                         <fluent:Button  Header="{x:Static properties:Resources.Ribbon_Button_Erosion}"
-                                            ToolTip="{x:Static properties:Resources.Ribbon_Button_Erosion}"
-                                            LargeIcon="/Tira.App;component/Content/Images/Ribbon/erosion_64x64.png"
-                                            Icon="/Tira.App;component/Content/Images/Ribbon/erosion_24x24.png"
-                                            SizeDefinition="Large"
-                                            Command="{Binding ImageErodeCommand}"/>
+                                        ToolTip="{x:Static properties:Resources.Ribbon_Button_Erosion}"
+                                        LargeIcon="/Tira.App;component/Content/Images/Ribbon/erosion_64x64.png"
+                                        Icon="/Tira.App;component/Content/Images/Ribbon/erosion_24x24.png"
+                                        SizeDefinition="Large"
+                                        Command="{Binding ImageErodeCommand}"/>
                         <fluent:SplitButton Header="{x:Static properties:Resources.Ribbon_Button_RemoveObjects}"
-                                                ToolTip="{x:Static properties:Resources.Ribbon_Button_RemoveObjects}"
-                                                LargeIcon="/Tira.App;component/Content/Images/Ribbon/remove_objects_64x64.png"
-                                                Icon="/Tira.App;component/Content/Images/Ribbon/remove_objects_24x24.png"
-                                                SizeDefinition="Large">
+                                            ToolTip="{x:Static properties:Resources.Ribbon_Button_RemoveObjects}"
+                                            LargeIcon="/Tira.App;component/Content/Images/Ribbon/remove_objects_64x64.png"
+                                            Icon="/Tira.App;component/Content/Images/Ribbon/remove_objects_24x24.png"
+                                            SizeDefinition="Large">
                             <fluent:MenuItem Header="{x:Static properties:Resources.Ribbon_Button_RemoveLines}"
-                                                    ToolTip="{x:Static properties:Resources.Ribbon_Button_RemoveLines}"
-                                                    Icon="/Tira.App;component/Content/Images/Ribbon/remove_lines_24x24.png"
-                                                    SizeDefinition="Middle"
-                                                    Command="{Binding ImageRemoveLinesCommand}"/>
+                                            ToolTip="{x:Static properties:Resources.Ribbon_Button_RemoveLines}"
+                                            Icon="/Tira.App;component/Content/Images/Ribbon/remove_lines_24x24.png"
+                                            SizeDefinition="Middle"
+                                            Command="{Binding ImageRemoveLinesCommand}"/>
                             <fluent:MenuItem Header="{x:Static properties:Resources.Ribbon_Button_RemoveNoise}"
-                                                    ToolTip="{x:Static properties:Resources.Ribbon_Button_RemoveNoise}"
-                                                    Icon="/Tira.App;component/Content/Images/Ribbon/remove_noise_24x24.png"
-                                                    SizeDefinition="Middle"
-                                                    Command="{Binding ImageRemoveNoiseCommand}"/>
+                                            ToolTip="{x:Static properties:Resources.Ribbon_Button_RemoveNoise}"
+                                            Icon="/Tira.App;component/Content/Images/Ribbon/remove_noise_24x24.png"
+                                            SizeDefinition="Middle"
+                                            Command="{Binding ImageRemoveNoiseCommand}"/>
                             <fluent:MenuItem Header="{x:Static properties:Resources.Ribbon_Button_RemovePunchHoles}"
-                                                    ToolTip="{x:Static properties:Resources.Ribbon_Button_RemovePunchHoles}"
-                                                    Icon="/Tira.App;component/Content/Images/Ribbon/remove_puchholes_24x24.png"
-                                                    SizeDefinition="Middle"
-                                                    Command="{Binding ImageRemovePunchHolesCommand}"/>
+                                            ToolTip="{x:Static properties:Resources.Ribbon_Button_RemovePunchHoles}"
+                                            Icon="/Tira.App;component/Content/Images/Ribbon/remove_puchholes_24x24.png"
+                                            SizeDefinition="Middle"
+                                            Command="{Binding ImageRemovePunchHolesCommand}"/>
                             <fluent:MenuItem Header="{x:Static properties:Resources.Ribbon_Button_RemoveStapleMarks}"
-                                                    ToolTip="{x:Static properties:Resources.Ribbon_Button_RemoveStapleMarks}"
-                                                    Icon="/Tira.App;component/Content/Images/Ribbon/remove_staplemarks_24x24.png"
-                                                    SizeDefinition="Middle"
-                                                    Command="{Binding ImageRemoveStapleMarksCommand}"/>
+                                            ToolTip="{x:Static properties:Resources.Ribbon_Button_RemoveStapleMarks}"
+                                            Icon="/Tira.App;component/Content/Images/Ribbon/remove_staplemarks_24x24.png"
+                                            SizeDefinition="Middle"
+                                            Command="{Binding ImageRemoveStapleMarksCommand}"/>
                             <fluent:MenuItem Header="{x:Static properties:Resources.Ribbon_Button_RemoveBlobs}"
-                                                    ToolTip="{x:Static properties:Resources.Ribbon_Button_RemoveBlobs}"
-                                                    Icon="/Tira.App;component/Content/Images/Ribbon/remove_blobs_24x24.png"
-                                                    SizeDefinition="Middle"
-                                                    Command="{Binding ImageRemoveBlobsCommand}"/>
+                                            ToolTip="{x:Static properties:Resources.Ribbon_Button_RemoveBlobs}"
+                                            Icon="/Tira.App;component/Content/Images/Ribbon/remove_blobs_24x24.png"
+                                            SizeDefinition="Middle"
+                                            Command="{Binding ImageRemoveBlobsCommand}"/>
                         </fluent:SplitButton>
                     </fluent:RibbonGroupBox>
                 </fluent:RibbonTabItem>
@@ -387,33 +397,33 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                    <userControls:ImageViewer x:Name="ImageViewerControl"
-                                                    Grid.Row="0"
-                                                    HorizontalAlignment="Stretch" 
-                                                    VerticalAlignment="Stretch"
-                                                    Effect="{StaticResource DropShadowEffect}"
-                                                    FitMode="{Binding ImageViewerZoomManager.FitMode, Mode=TwoWay}"
-                                                    Scale="{Binding ImageViewerZoomManager.Scale, Mode=TwoWay}"
-                                                    ResetToFitSizeWhenBitmapSourceChanged="True" 
-                                                    BitmapSource="{Binding SelectedImage}"
-                                                    CurrentMarkupObjects="{Binding CurrentMarkupObjects, Mode=TwoWay}"
-                                                    CurrentImageViewerMode="{Binding CurrentImageViewerMode}"
-                                                    CurrentMarkupObjectType="{Binding CurrentMarkupObjectType}"
-                                                    MarkupObjectsChanged="{binding:EventBinding Command=HandleMarkupObjectsChangedCommand, CommandParameter=$e}"
-                                                    CropAreaSelected="{binding:EventBinding Command=HandleCropAreaSelectedCommand, CommandParameter=$e}"/>
+                    <userControls:ImageViewer   x:Name="ImageViewerControl"
+                                                Grid.Row="0"
+                                                HorizontalAlignment="Stretch" 
+                                                VerticalAlignment="Stretch"
+                                                Effect="{StaticResource DropShadowEffect}"
+                                                FitMode="{Binding ImageViewerZoomManager.FitMode, Mode=TwoWay}"
+                                                Scale="{Binding ImageViewerZoomManager.Scale, Mode=TwoWay}"
+                                                ResetToFitSizeWhenBitmapSourceChanged="True" 
+                                                BitmapSource="{Binding SelectedImage}"
+                                                CurrentMarkupObjects="{Binding CurrentMarkupObjects, Mode=TwoWay}"
+                                                CurrentImageViewerMode="{Binding CurrentImageViewerMode}"
+                                                CurrentMarkupObjectType="{Binding CurrentMarkupObjectType}"
+                                                MarkupObjectsChanged="{binding:EventBinding Command=HandleMarkupObjectsChangedCommand, CommandParameter=$e}"
+                                                CropAreaSelected="{binding:EventBinding Command=HandleCropAreaSelectedCommand, CommandParameter=$e}"/>
                     <GridSplitter Grid.Row="1" ShowsPreview="False" Height="3" HorizontalAlignment="Stretch" VerticalAlignment="Center" Style="{StaticResource HorizontalGridSplitter}" />
                     <DataGrid x:Name="DataColumnsGrid"
-                                    Grid.Row="2"                          
-                                    binding:DataGridColumnsBehavior.BindableColumns="{Binding DataGridColumns}"
-                                    ItemsSource="{Binding RecognizedData, Mode=TwoWay}"
-                                    AutoGenerateColumns="{Binding RecognizedData, Mode=OneWay, Converter={converters:NotNullToBoolConverter}}"
-                                    CanUserAddRows="False"
-                                    CanUserDeleteRows="False"
-                                    CanUserReorderColumns="False"
-                                    CanUserSortColumns="False"
-                                    SelectionMode="Single"
-                                    SelectionUnit="Cell"                          
-                                    IsReadOnly="False" />
+                              Grid.Row="2"                          
+                              binding:DataGridColumnsBehavior.BindableColumns="{Binding DataGridColumns}"
+                              ItemsSource="{Binding RecognizedData, Mode=TwoWay}"
+                              AutoGenerateColumns="{Binding RecognizedData, Mode=OneWay, Converter={converters:NotNullToBoolConverter}}"                              
+                              CanUserAddRows="False"
+                              CanUserDeleteRows="False"
+                              CanUserReorderColumns="False"
+                              CanUserSortColumns="False"
+                              SelectionMode="Single"
+                              SelectionUnit="Cell"                          
+                              IsReadOnly="False" />
                 </Grid>
             </Grid>
 

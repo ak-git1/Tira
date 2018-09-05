@@ -45,6 +45,17 @@ namespace Tira.Logic.Models
             Data = data;
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RecentProject" /> class.
+        /// </summary>
+        /// <param name="name">Name.</param>
+        /// <param name="data">Path.</param>
+        public ProjectTemplate(string name, string data)
+        {
+            Name = name;
+            Data = data;
+        }
+
         #endregion
 
         #region Public methods
@@ -86,6 +97,22 @@ namespace Tira.Logic.Models
                     Data = Data
                 });
                 db.SaveChanges();
+            }
+        }
+
+        /// <summary>
+        /// Update project template 
+        /// </summary>
+        public void Update()
+        {
+            using (ProjectTemplatesContext db = new ProjectTemplatesContext())
+            {
+                Repository.Entities.ProjectTemplate p = db.ProjectTemplates.FirstOrDefault(x => x.Id == Id);
+                if (p != null)
+                {
+                    p.Name = Name;
+                    db.SaveChanges();
+                }
             }
         }
 

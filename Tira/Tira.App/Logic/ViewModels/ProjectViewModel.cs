@@ -8,7 +8,6 @@ using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
@@ -52,6 +51,11 @@ namespace Tira.App.Logic.ViewModels
     public class ProjectViewModel : ViewModelBase
     {
         #region Variables
+
+        /// <summary>
+        /// The need closing dialog
+        /// </summary>
+        private bool _needClosingDialog = true;
 
         /// <summary>
         /// Gallery images
@@ -112,6 +116,11 @@ namespace Tira.App.Logic.ViewModels
         /// Long running operations data container
         /// </summary>
         private LongOperationsData _longOperationsDataContainer;
+
+        /// <summary>
+        /// Index of the selected data grid row
+        /// </summary>
+        private int? _selectedDataGridRowIndex;
 
         #endregion
 
@@ -282,9 +291,24 @@ namespace Tira.App.Logic.ViewModels
             }
         }
 
+        /// <summary>
+        /// Index of the selected data grid row
+        /// </summary>
+        public int? SelectedDataGridRowIndex
+        {
+            get => _selectedDataGridRowIndex;
+            set
+            {
+                _selectedDataGridRowIndex = value;
+                OnPropertyChanged(() => SelectedDataGridRowIndex);
+            }
+        }
+
         #endregion
 
         #region Commands
+
+        #region Project commands
 
         /// <summary>
         /// Command for project creation
@@ -335,6 +359,27 @@ namespace Tira.App.Logic.ViewModels
         /// Command for showing project settings window
         /// </summary>
         public INotifyCommand ShowProjectSettingsWindowCommand { get; }
+
+        /// <summary>
+        /// Command for handling window closing
+        /// </summary>
+        public INotifyCommand HandleWindowClosingCommand { get; }
+
+        #endregion
+
+        #region Templates commands
+
+        /// <summary>
+        /// Command for saving project as template
+        /// </summary>
+        public INotifyCommand SaveProjectAsTemplateCommand { get; }
+
+        /// <summary>
+        /// Command for showing templates window 
+        /// </summary>
+        public INotifyCommand ShowProjectTemplatesWindowCommand { get; }
+
+        #endregion
 
         #region Gallery commands
 
@@ -533,6 +578,9 @@ namespace Tira.App.Logic.ViewModels
             CloseWindowCommand = new NotifyCommand(o => CloseWindow((Window)o));
             PerformOcrCommand = new NotifyCommand(_ => PerformOcr());
             ShowProjectSettingsWindowCommand = new NotifyCommand(_ => ShowProjectSettingsWindow());
+            SaveProjectAsTemplateCommand = new NotifyCommand(_ => SaveProjectAsTemplate());
+            ShowProjectTemplatesWindowCommand = new NotifyCommand(_ => ShowProjectTemplatesWindow());
+            HandleWindowClosingCommand = new NotifyCommand(e => HandleWindowClosing((CancelEventArgs)e));
 
             AddImagesToGalleryCommand = new NotifyCommand(_ => AddImagesToGallery());
             RemoveImagesFromGalleryCommand = new NotifyCommand(_ => RemoveImagesFromGallery());
@@ -581,6 +629,8 @@ namespace Tira.App.Logic.ViewModels
 
         #region Private methods
 
+        #region Project operations
+
         /// <summary>
         /// Creates the project
         /// </summary>
@@ -593,7 +643,7 @@ namespace Tira.App.Logic.ViewModels
                 bool? result = ShowDialogAgent.Instance.ShowDialog<ProjectCreationWindow>(vm);
                 if (result.HasValue && result.Value)
                 {
-                    Project project = Project.Create(vm.ProjectPath, vm.Name);
+                    Project project = Project.Create(vm.ProjectPath, vm.Name, vm.SelectedProjectTemplate);
                     OpenProjectWindow(project, window);
                 }
             }
@@ -633,23 +683,10 @@ namespace Tira.App.Logic.ViewModels
         /// <param name="currentWindow">Current window</param>
         private void OpenProjectWindow(Project project, Window currentWindow)
         {
+            _needClosingDialog = false;
             currentWindow.Hide();
             new ProjectWindow(new ProjectViewModel(project)).Show();
             currentWindow.Close();
-        }
-
-        /// <summary>
-        /// Fills project data
-        /// </summary>
-        /// <param name="project">Project</param>
-        private void FillProjectData(Project project)
-        {
-            Project = project;
-            FillGallery();
-            FillDataGrid();
-
-            Images.ListChanged += ImagesOnListChanged;
-            project.ProjectElementOcrCompleted += ProjectOnProjectElementOcrCompleted;
         }
 
         /// <summary>
@@ -798,10 +835,57 @@ namespace Tira.App.Logic.ViewModels
             }
             catch (Exception ex)
             {
-                LogHelper.Logger.Error(ex, "Unable to show project settings window.");
+                LogHelper.Logger.Error(ex, "Unable to show and save project settings.");
                 FormsHelper.ShowUnexpectedError();
             }
         }
+
+        /// <summary>
+        /// Handles window closing
+        /// </summary>
+        /// <param name="e">The <see cref="CancelEventArgs"/> instance containing the event data.</param>
+        private void HandleWindowClosing(CancelEventArgs e)
+        {
+            if (_needClosingDialog)
+            {
+                MessageBoxResult result = Xceed.Wpf.Toolkit.MessageBox.Show(Resources.ProjectWindowClosing_Text, Resources.ProjectWindowClosing_Caption, MessageBoxButton.YesNoCancel, MessageBoxImage.Question, MessageBoxResult.Cancel);
+                switch (result)
+                {
+                    case MessageBoxResult.Cancel:
+                        e.Cancel = true;
+                        break;
+
+                    case MessageBoxResult.Yes:
+                        Project.Save();
+                        break;
+                }
+            }
+        }
+
+        #endregion
+
+        #region Templates operations
+
+        /// <summary>
+        /// Saves project as template
+        /// </summary>
+        private void SaveProjectAsTemplate()
+        {
+            ProjectTemplateViewModel vm = new ProjectTemplateViewModel(WindowMode.Create);
+            bool? result = ShowDialogAgent.Instance.ShowDialog<ProjectTemplateWindow>(vm);
+            if (result.HasValue && result.Value)
+                Project.SaveAsTemplate(vm.Name);
+        }
+
+        /// <summary>
+        /// Shows templates window
+        /// </summary>
+        private void ShowProjectTemplatesWindow()
+        {
+            ShowDialogAgent.Instance.ShowDialog<ProjectTemplatesWindow>(new ProjectTemplatesViewModel());
+        }
+
+        #endregion
 
         #region Gallery operations
 

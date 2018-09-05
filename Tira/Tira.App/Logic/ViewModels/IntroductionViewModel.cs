@@ -100,7 +100,7 @@ namespace Tira.App.Logic.ViewModels
                 bool? result = ShowDialogAgent.Instance.ShowDialog<ProjectCreationWindow>(vm);
                 if (result.HasValue && result.Value)
                 {
-                    Project project = Project.Create(vm.ProjectPath, vm.Name);
+                    Project project = Project.Create(vm.ProjectPath, vm.Name, vm.SelectedProjectTemplate);
                     OpenProjectWindow(project, window);
                 }
             }

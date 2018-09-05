@@ -578,4 +578,67 @@ For vertical lines markup data columns quantity must be more than 1.</value>
   <data name="Ribbon_Button_Export_Ods" xml:space="preserve">
     <value>Open Office (ods)</value>
   </data>
+  <data name="Ribbon_GroupBox_Templates" xml:space="preserve">
+    <value>Templates</value>
+  </data>
+  <data name="Ribbon_Button_SaveAsTemplate" xml:space="preserve">
+    <value>Save as template</value>
+  </data>
+  <data name="Ribbon_MainMenu_ProjectTemplates" xml:space="preserve">
+    <value>Project templates</value>
+  </data>
+  <data name="ProjectTemplateWindow_Title_CreateTemplate" xml:space="preserve">
+    <value>Save project as template</value>
+  </data>
+  <data name="ProjectTemplateWindow_Title_EditTemplate" xml:space="preserve">
+    <value>Project template</value>
+  </data>
+  <data name="ProjectTemplateWindow_Label_TemplateName" xml:space="preserve">
+    <value>Template name:</value>
+  </data>
+  <data name="ProjectTemplateWindow_Button_Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="ProjectTemplateWindow_Button_Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="ProjectTemplateWindow_Error_Exists" xml:space="preserve">
+    <value>Template with such name already exists.</value>
+  </data>
+  <data name="ProjectTemplateWindow_Error_Empty" xml:space="preserve">
+    <value>Template name should not be empty.</value>
+  </data>
+  <data name="ProjectTemplatesWindow_Title" xml:space="preserve">
+    <value>Projects templates</value>
+  </data>
+  <data name="ProjectTemplatesWindow_Label_DataGridLabelText" xml:space="preserve">
+    <value>Projects templates list:</value>
+  </data>
+  <data name="ProjectTemplatesWindow_Button_EditProjectTemplate" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="ProjectTemplatesWindow_Button_DeleteProjectTemplate" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="ProjectTemplatesWindow_GridColumn_Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="ProjectTemplateDelete_Caption" xml:space="preserve">
+    <value>Delete project template</value>
+  </data>
+  <data name="ProjectTemplateDelete_Text" xml:space="preserve">
+    <value>Are you sure to delete project template?</value>
+  </data>
+  <data name="ProjectTemplate_NotSet" xml:space="preserve">
+    <value>Not set</value>
+  </data>
+  <data name="ProjectCreationWindow_Label_ProjectTemplate" xml:space="preserve">
+    <value>Project template:</value>
+  </data>
+  <data name="ProjectWindowClosing_Text" xml:space="preserve">
+    <value>Do you want to save project data before closing application?</value>
+  </data>
+  <data name="ProjectWindowClosing_Caption" xml:space="preserve">
+    <value>Closing application</value>
+  </data>
 </root>

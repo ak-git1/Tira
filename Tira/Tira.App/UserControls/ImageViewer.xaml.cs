@@ -496,7 +496,7 @@ namespace Tira.App.UserControls
         /// <summary>
         /// Index of the highlighted row
         /// </summary>
-        public static readonly DependencyProperty HighlightedRowIndexProperty = DependencyProperty.Register("HighlightedRowIndex", typeof(int), typeof(ImageViewer), new UIPropertyMetadata(null));
+        public static readonly DependencyProperty HighlightedRowIndexProperty = DependencyProperty.Register("HighlightedRowIndex", typeof(int?), typeof(ImageViewer), new UIPropertyMetadata(null));
 
         #endregion
 

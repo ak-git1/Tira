@@ -10,6 +10,8 @@ namespace Tira.App.Windows
         public ProjectCreationWindow()
         {
             InitializeComponent();
+
+            ProjectNameTxt.Focus();
         }
     }
 }

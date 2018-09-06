@@ -194,7 +194,7 @@
 Вы хотите удалить его из списка?</value>
   </data>
   <data name="Application_Copyright" xml:space="preserve">
-    <value>Copyright © AkSoftware 2018</value>
+    <value>Copyright © 2018</value>
   </data>
   <data name="Application_About" xml:space="preserve">
     <value>Программа предназначена для получения данных путем распознавания изображений, содержащих таблицы.</value>
@@ -356,7 +356,7 @@
     <value>Обрезка</value>
   </data>
   <data name="Ribbon_Button_Dilation" xml:space="preserve">
-    <value>Диляция</value>
+    <value>Дилатация</value>
   </data>
   <data name="Ribbon_Button_Erosion" xml:space="preserve">
     <value>Эрозия</value>
@@ -643,5 +643,14 @@
   </data>
   <data name="ProjectWindowClosing_Text" xml:space="preserve">
     <value>Вы хотите сохранить данные проекта перед закрытием приложения?</value>
+  </data>
+  <data name="Xcced_MessageBox_Yes" xml:space="preserve">
+    <value>Да</value>
+  </data>
+  <data name="Xcced_MessageBox_No" xml:space="preserve">
+    <value>Нет</value>
+  </data>
+  <data name="Xcced_MessageBox_Cancel" xml:space="preserve">
+    <value>Отмена</value>
   </data>
 </root>

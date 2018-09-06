@@ -79,7 +79,7 @@ namespace Tira.App.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Copyright © AkSoftware 2018.
+        ///   Looks up a localized string similar to Copyright © 2018.
         /// </summary>
         public static string Application_Copyright {
             get {
@@ -1634,6 +1634,33 @@ namespace Tira.App.Properties {
         public static string UnhandledExceptionOccurredApplicationWillBeClosed {
             get {
                 return ResourceManager.GetString("UnhandledExceptionOccurredApplicationWillBeClosed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        public static string Xcced_MessageBox_Cancel {
+            get {
+                return ResourceManager.GetString("Xcced_MessageBox_Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No.
+        /// </summary>
+        public static string Xcced_MessageBox_No {
+            get {
+                return ResourceManager.GetString("Xcced_MessageBox_No", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yes.
+        /// </summary>
+        public static string Xcced_MessageBox_Yes {
+            get {
+                return ResourceManager.GetString("Xcced_MessageBox_Yes", resourceCulture);
             }
         }
     }

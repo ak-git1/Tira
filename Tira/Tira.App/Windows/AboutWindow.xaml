@@ -33,7 +33,7 @@
         <StackPanel Grid.Row="0" Grid.Column="1" Margin="5" Grid.ColumnSpan="2">
             <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="{x:Static properties:Resources.Application_FullName}" />
             <Label HorizontalAlignment="Center" Content="{Binding Version}"/>
-            <Label HorizontalAlignment="Center" Content="{x:Static properties:Resources.Application_Copyright}"/>
+            <!--<Label HorizontalAlignment="Center" Content="{x:Static properties:Resources.Application_Copyright}"/>-->
             <TextBlock Style="{StaticResource AboutTextBox}" Text="{x:Static properties:Resources.Application_About}" TextWrapping="Wrap" TextAlignment="Justify"/>
         </StackPanel>
     </Grid>

@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("AkSoftware")]
 [assembly: AssemblyProduct("Tira.Logic")]
-[assembly: AssemblyCopyright("Copyright © AkSoftware 2018")]
+[assembly: AssemblyCopyright("")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

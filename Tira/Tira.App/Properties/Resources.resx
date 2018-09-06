@@ -191,7 +191,7 @@ Do you want to remove it from the list?</value>
     <value>Project opening</value>
   </data>
   <data name="Application_Copyright" xml:space="preserve">
-    <value>Copyright © AkSoftware 2018</value>
+    <value>Copyright © 2018</value>
   </data>
   <data name="Application_About" xml:space="preserve">
     <value>Program for extracting data from images containing tables using OCR.</value>
@@ -640,5 +640,14 @@ For vertical lines markup data columns quantity must be more than 1.</value>
   </data>
   <data name="ProjectWindowClosing_Caption" xml:space="preserve">
     <value>Closing application</value>
+  </data>
+  <data name="Xcced_MessageBox_Yes" xml:space="preserve">
+    <value>Yes</value>
+  </data>
+  <data name="Xcced_MessageBox_No" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="Xcced_MessageBox_Cancel" xml:space="preserve">
+    <value>Cancel</value>
   </data>
 </root>

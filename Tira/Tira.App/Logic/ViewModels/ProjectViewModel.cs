@@ -170,7 +170,7 @@ namespace Tira.App.Logic.ViewModels
             get => _selectedGalleryImage;
             set
             {
-                _selectedGalleryImage = value;
+                _selectedGalleryImage = value;                
                 FillDataGrid();
                 OnPropertyChanged(() => SelectedGalleryImage);
                 OnPropertyChanged(() => CurrentMarkupObjects);
@@ -249,6 +249,19 @@ namespace Tira.App.Logic.ViewModels
             {
                 SelectedGalleryImage.MarkupObjects = value;
                 OnPropertyChanged(() => CurrentMarkupObjects);
+            }
+        }
+
+        /// <summary>
+        /// Flag for recognition completed
+        /// </summary>
+        public bool IsRecognitionCompleted
+        {
+            get => SelectedGalleryImage?.RecognitionCompleted ?? false;
+            set
+            {
+                SelectedGalleryImage.RecognitionCompleted = value;
+                OnPropertyChanged(() => IsRecognitionCompleted);
             }
         }
 
@@ -566,7 +579,6 @@ namespace Tira.App.Logic.ViewModels
         {
             Project = project;
             FillGallery();
-            FillDataGrid();
 
             CreateProjectCommand = new NotifyCommand(o => CreateProject((Window)o));
             OpenProjectCommand = new NotifyCommand(o => OpenProject((Window)o));
@@ -768,7 +780,7 @@ namespace Tira.App.Logic.ViewModels
                     ProgressIndicatorActivated = false;
                     if (result.Result == ActionResultType.Ok)
                     {
-                        FormsHelper.ShowMessage(Resources.ProjectWindow_OcrCompletedMessage_Text, Resources.ProjectCreationWindow_ProjectValidationMessage_Caption);
+                        FormsHelper.ShowMessage(Resources.ProjectWindow_OcrCompletedMessage_Text, Resources.ProjectCreationWindow_ProjectValidationMessage_Caption);                        
                         FillDataGrid();
                     }
                     else
@@ -824,7 +836,9 @@ namespace Tira.App.Logic.ViewModels
                 if (result.HasValue && result.Value)
                 {
                     Project.UpdateDataColumns(new List<DataColumn>(vm.DataColumns));
-                    FillDataGrid();
+                    RecognizedData = null;
+                    IsRecognitionCompleted = false;
+                    FillDataGridColumns();
 
                     if (CurrentMarkupObjects != null)
                     {
@@ -909,7 +923,11 @@ namespace Tira.App.Logic.ViewModels
         /// </summary>
         private void AddImagesToGallery()
         {
-            OpenFileDialog imagesImportFileDialog = new OpenFileDialog { Multiselect = true };
+            OpenFileDialog imagesImportFileDialog = new OpenFileDialog
+            {
+                Multiselect = true,
+                Filter = string.Join("|", Gallery.ImageFilesExtensionsFilter) 
+            };
             if (imagesImportFileDialog.ShowDialog() == DialogResult.OK)
             {
                 Project.Gallery.AddFiles(imagesImportFileDialog.FileNames, Project.DataColumns.Count - 1);
@@ -1069,6 +1087,8 @@ namespace Tira.App.Logic.ViewModels
         {
             CurrentMarkupObjectType = MarkupObjectType.None;
             SelectedGalleryImage.MarkupObjects = new MarkupObjects();
+            IsRecognitionCompleted = false;
+            RecognizedData = null;
             OnPropertyChanged(() => SelectedGalleryImage);
             OnPropertyChanged(() => CurrentMarkupObjects);
         }
@@ -1482,14 +1502,15 @@ namespace Tira.App.Logic.ViewModels
         /// Fills the data grid
         /// </summary>
         private void FillDataGrid()
-        {        
+        {
+            FillDataGridColumns();
+
             if (SelectedGalleryImage != null && SelectedGalleryImage.RecognitionCompleted && SelectedGalleryImage.MarkupObjects.MaxNumberOfVerticalLines == SelectedGalleryImage.RecognizedData.Columns.Count - 1)
             {
-                DataGridColumns = null;
-                RecognizedData = Project.Gallery.Images.WhereEx(x => x.Uid == SelectedGalleryImage.Uid).FirstOrDefault().RecognizedData;
-            }
-            else
-                FillDataGridColumns();            
+                GalleryImage galleryImage = Project.Gallery.Images.WhereEx(x => x.Uid == SelectedGalleryImage.Uid).FirstOrDefault();
+                IsRecognitionCompleted = galleryImage.RecognitionCompleted;
+                RecognizedData = galleryImage.RecognizedData;                
+            }                            
         }        
 
         #endregion

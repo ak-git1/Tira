@@ -13,7 +13,7 @@
     <ListBox x:Name="GalleryListBox"
              ItemsSource="{Binding ElementName=Root, Path=Images, Mode=TwoWay}" 
              HorizontalAlignment="Stretch"
-             SelectionMode="Multiple"
+             SelectionMode="Extended"
              SelectionChanged="Selector_OnSelectionChanged"
              dd:DragDrop.IsDragSource="True"
              dd:DragDrop.IsDropTarget="True"

@@ -478,8 +478,8 @@
   <data name="BrightnessFilterWindow_Label_Brightness" xml:space="preserve">
     <value>Яркость:</value>
   </data>
-  <data name="FilterWindow_Button_Save" xml:space="preserve">
-    <value>Сохранить</value>
+  <data name="FilterWindow_Button_Apply" xml:space="preserve">
+    <value>Применить</value>
   </data>
   <data name="FilterWindow_Button_Cancel" xml:space="preserve">
     <value>Отмена</value>
@@ -558,9 +558,6 @@
   </data>
   <data name="LineRemoveOrientation_Horizontal" xml:space="preserve">
     <value>Горизонтальный</value>
-  </data>
-  <data name="FilterWindow_Button_Apply" xml:space="preserve">
-    <value>Применить</value>
   </data>
   <data name="CropFilterWindow_Title" xml:space="preserve">
     <value>Обрезка</value>

@@ -939,7 +939,7 @@ namespace Tira.App.UserControls
                 markupObjects.VerticalLinesCoordinates[i] += deltaX;
 
             for (int i = 0; i < markupObjects.HorizontalLinesCoordinates.Count; i++)
-                markupObjects.VerticalLinesCoordinates[i] += deltaY;
+                markupObjects.HorizontalLinesCoordinates[i] += deltaY;
 
             return markupObjects;
         }

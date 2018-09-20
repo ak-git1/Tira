@@ -475,9 +475,6 @@ Do you want to remove it from the list?</value>
   <data name="BrightnessFilterWindow_Label_Brightness" xml:space="preserve">
     <value>Brightness:</value>
   </data>
-  <data name="FilterWindow_Button_Save" xml:space="preserve">
-    <value>Save</value>
-  </data>
   <data name="FilterWindow_Button_Cancel" xml:space="preserve">
     <value>Cancel</value>
   </data>
@@ -566,7 +563,7 @@ Do you want to remove it from the list?</value>
     <value>Confirm image cropping area selection.</value>
   </data>
   <data name="OpenProjectErrorMessage" xml:space="preserve">
-    <value>Unable to open the project. May be it has deprecated format.</value>
+    <value>Unable to open the project. Maybe it has deprecated format.</value>
   </data>
   <data name="NotEnoughDataGridColumnsInMarkupWarning_Caption" xml:space="preserve">
     <value>Lines markup</value>

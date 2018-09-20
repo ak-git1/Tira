@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Xml.Serialization;
+using Ak.Framework.Core.Helpers;
 using Tira.Logic.Engines;
 using Tira.Logic.Enums;
 using Tira.Logic.Events;
@@ -28,7 +29,7 @@ namespace Tira.Logic.Models
         /// <summary>
         /// The project file extensions filter
         /// </summary>
-        public const string ProjectFileExtensionsFilter = "*.rproj|*.rproj";
+        public const string ProjectFileExtensionsFilter = "Project files (*.rproj)|*.rproj";
 
         /// <summary>
         /// Container for long operations data
@@ -38,6 +39,12 @@ namespace Tira.Logic.Models
         #endregion
 
         #region Properties
+
+        /// <summary>
+        /// Application version
+        /// </summary>
+        [XmlElement]
+        public string ApplicationVersion { get; set; }
 
         /// <summary>
         /// Project name
@@ -105,6 +112,7 @@ namespace Tira.Logic.Models
         {
             Project project = new Project
             {
+                ApplicationVersion = AssemblyInfoHelper.GetMainAssemblyVersion(),
                 ProjectPath = projectPath,
                 Name = name,
                 ProjectDataFolderPath = Path.Combine(Path.GetDirectoryName(projectPath), $@"{DataFolderPrefix}")
@@ -171,7 +179,11 @@ namespace Tira.Logic.Models
             DataColumns = dataColumns;
             int maxNumberOfVerticalLines = DataColumns.Count - 1;
             foreach (GalleryImage image in Gallery.Images)
+            {
                 image.MarkupObjects.MaxNumberOfVerticalLines = maxNumberOfVerticalLines;
+                image.RecognitionCompleted = false;
+                image.RecognizedData = null;
+            }
         }
 
         /// <summary>

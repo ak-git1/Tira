@@ -8,7 +8,7 @@
         xmlns:dialogs="clr-namespace:Ak.Framework.Wpf.Dialogs;assembly=Ak.Framework.Wpf"
         mc:Ignorable="d"
         Title="{x:Static properties:Resources.DataColumnWindow_Title}" 
-        Height="250" 
+        Height="255" 
         Width="500"
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize"

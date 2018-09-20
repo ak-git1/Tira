@@ -46,7 +46,7 @@
         <xctk:IntegerUpDown Grid.Row="4" Grid.Column="1" FormatString="N0" Value="{Binding MaxBlobHeight}" Increment="1" Minimum="10" Maximum="100" Style="{StaticResource SettingsValueIntegerUpDown}"/>
 
         <StackPanel Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,0,0">
-            <Button Content="{x:Static properties:Resources.FilterWindow_Button_Save}" Style="{StaticResource DialogFormButton}"
+            <Button Content="{x:Static properties:Resources.FilterWindow_Button_Apply}" Style="{StaticResource DialogFormButton}"
                     dialogs:ShowDialogButtonHelper.DialogResult="True"/>
             <Button Content="{x:Static properties:Resources.FilterWindow_Button_Cancel}" Style="{StaticResource DialogFormButton}"
                     IsCancel="True" />

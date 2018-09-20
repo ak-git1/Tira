@@ -13,6 +13,7 @@
                      xmlns:converters="clr-namespace:Ak.Framework.Wpf.Converters;assembly=Ak.Framework.Wpf"
                      xmlns:fluent="urn:fluent-ribbon"
                      xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+                     xmlns:xcdg="http://schemas.xceed.com/wpf/xaml/datagrid"
                      mc:Ignorable="d"
                      Title="{x:Static properties:Resources.Application_FullName}"
                      Height="800"
@@ -413,8 +414,7 @@
                                                 CropAreaSelected="{binding:EventBinding Command=HandleCropAreaSelectedCommand, CommandParameter=$e}"/>
                     <GridSplitter Grid.Row="1" ShowsPreview="False" Height="3" HorizontalAlignment="Stretch" VerticalAlignment="Center" Style="{StaticResource HorizontalGridSplitter}" />
                     <DataGrid x:Name="DataColumnsGrid"
-                              Grid.Row="2"                          
-                              binding:DataGridColumnsBehavior.BindableColumns="{Binding DataGridColumns}"
+                              Grid.Row="2"                                                        
                               ItemsSource="{Binding RecognizedData, Mode=TwoWay}"
                               AutoGenerateColumns="{Binding RecognizedData, Mode=OneWay, Converter={converters:NotNullToBoolConverter}}"                              
                               CanUserAddRows="False"
@@ -423,7 +423,20 @@
                               CanUserSortColumns="False"
                               SelectionMode="Single"
                               SelectionUnit="Cell"                          
-                              IsReadOnly="False" />
+                              IsReadOnly="False">
+                        <DataGrid.Style>
+                            <Style TargetType="{x:Type DataGrid}">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsRecognitionCompleted}" Value="True">
+                                        <Setter Property="binding:DataGridColumnsBehavior.BindableColumns" Value="{x:Null}"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding IsRecognitionCompleted}" Value="False">
+                                        <Setter Property="binding:DataGridColumnsBehavior.BindableColumns" Value="{Binding DataGridColumns}"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </DataGrid.Style>
+                    </DataGrid>
                 </Grid>
             </Grid>
 

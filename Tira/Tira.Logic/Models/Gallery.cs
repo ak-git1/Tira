@@ -26,6 +26,20 @@ namespace Tira.Logic.Models
         /// </summary>
         private const string ImageNameMask = "0000000";
 
+        /// <summary>
+        /// The image files extensions filter
+        /// </summary>
+        public static List<string> ImageFilesExtensionsFilter = new List<string>
+        {
+            "All images files (*.jpeg; *.jpg; *.png; *.gif; *.bmp; *.pdf; *.tif; *.tiff)|*.jpeg;*.jpg;*.png;*.gif;*.bmp;*.pdf;*.tif; *.tiff",
+            "Jpeg (*.jpeg; *.jpg)|*.jpeg;*.jpg",
+            "Png (*.png)|*.png",
+            "Gif (*.gif)|*.gif",
+            "Bmp (*.bmp)|*.bmp",
+            "Pdf (*.pdf)|*.pdf",
+            "Tiff (*.tif; *.tiff)|*.tif; *.tiff",
+        };
+
         #endregion
 
         #region Properties

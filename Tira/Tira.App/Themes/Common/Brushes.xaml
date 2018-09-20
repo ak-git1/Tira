@@ -1,6 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <SolidColorBrush x:Key="SemiTransparentWindowBackgroundBrush" Color="#CCFFFFFF"/>
+    <!--<SolidColorBrush x:Key="SemiTransparentWindowBackgroundBrush" Color="#CCFFFFFF"/>-->
+    <SolidColorBrush x:Key="SemiTransparentWindowBackgroundBrush" Color="#FFFFFF"/>
     <SolidColorBrush x:Key="SemiTransparentWindowBorderBrush" Color="#CCCCCC" />
     <SolidColorBrush x:Key="DrawingRectangleAreaBrush" Color="#464891DC" />
     <LinearGradientBrush x:Key="DragingRectangleAreaBorderBrush" 

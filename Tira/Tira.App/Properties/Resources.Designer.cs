@@ -349,15 +349,6 @@ namespace Tira.App.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Save.
-        /// </summary>
-        public static string FilterWindow_Button_Save {
-            get {
-                return ResourceManager.GetString("FilterWindow_Button_Save", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Gamma:.
         /// </summary>
         public static string GammaCorrectionFilterWindow_Label_GammaCorrection {
@@ -531,7 +522,7 @@ namespace Tira.App.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Unable to open the project. May be it has deprecated format..
+        ///   Looks up a localized string similar to Unable to open the project. Maybe it has deprecated format..
         /// </summary>
         public static string OpenProjectErrorMessage {
             get {

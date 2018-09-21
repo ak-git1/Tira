@@ -22,8 +22,8 @@ using Ak.Framework.Wpf.Commands;
 using Ak.Framework.Wpf.Commands.Interfaces;
 using Ak.Framework.Wpf.Culture;
 using Ak.Framework.Wpf.Dialogs;
+using Ak.Framework.Wpf.Helpers;
 using Ak.Framework.Wpf.Messaging;
-using Ak.Framework.Wpf.ViewModels;
 using Tira.App.Logic.Enums;
 using Tira.App.Logic.Events;
 using Tira.App.Logic.Helpers;
@@ -48,7 +48,7 @@ namespace Tira.App.Logic.ViewModels
     /// ViewModel for project
     /// </summary>
     /// <seealso cref="Ak.Framework.Wpf.ViewModels.ViewModelBase" />
-    public class ProjectViewModel : ViewModelBase
+    public class ProjectViewModel : TiraViewModelBase
     {
         #region Variables
 
@@ -349,11 +349,6 @@ namespace Tira.App.Logic.ViewModels
         public INotifyCommand ShowSettingsWindowCommand { get; }
 
         /// <summary>
-        /// Command for showing help
-        /// </summary>
-        public INotifyCommand ShowHelpCommand { get; }
-
-        /// <summary>
         /// Command for about window showing
         /// </summary>
         public INotifyCommand ShowAboutWindowCommand { get; }
@@ -567,6 +562,15 @@ namespace Tira.App.Logic.ViewModels
 
         #endregion
 
+        #region DataGrid commands
+
+        /// <summary>
+        /// Command for handling datagrid selected cell changed command
+        /// </summary>
+        public INotifyCommand HandleDataGridSelectedCellChangedCommand { get; }
+
+        #endregion
+
         #endregion
 
         #region Constructor
@@ -584,8 +588,7 @@ namespace Tira.App.Logic.ViewModels
             OpenProjectCommand = new NotifyCommand(o => OpenProject((Window)o));
             SaveProjectCommand = new NotifyCommand(_ => SaveProject());
             ExportProjectDataCommand = new NotifyCommand(o => ExportProjectData((ExportFormat)o));
-            ShowSettingsWindowCommand = new NotifyCommand(_ => ShowSettingsWindow());
-            ShowHelpCommand = new NotifyCommand(_ => ShowHelp());
+            ShowSettingsWindowCommand = new NotifyCommand(_ => ShowSettingsWindow());            
             ShowAboutWindowCommand = new NotifyCommand(_ => ShowAboutWindow());
             CloseWindowCommand = new NotifyCommand(o => CloseWindow((Window)o));
             PerformOcrCommand = new NotifyCommand(_ => PerformOcr());
@@ -629,6 +632,8 @@ namespace Tira.App.Logic.ViewModels
             ImageRemoveStapleMarksCommand = new NotifyCommand(_ => ImageRemoveStapleMarks(), _ => CanPerformOperationsWithImage());
             ImageRemoveBlobsCommand = new NotifyCommand(_ => ImageRemoveBlobs(), _ => CanPerformOperationsWithImage());
             HandleCropAreaSelectedCommand = new NotifyCommand(e => PerformImageCrop((RectangleAreaEventArgs)e), _ => CanPerformOperationsWithImage());
+
+            HandleDataGridSelectedCellChangedCommand = new NotifyCommand(e => HighlightSelectedRow((DataGridCellInfo)e));
 
             Images.ListChanged += ImagesOnListChanged;
             Project.ProjectElementOcrCompleted += ProjectOnProjectElementOcrCompleted;
@@ -741,15 +746,6 @@ namespace Tira.App.Logic.ViewModels
         }
 
         /// <summary>
-        /// Shows help
-        /// </summary>
-        private void ShowHelp()
-        {
-            // TODO
-            FormsHelper.ShowMessage("Help is opened", "Help");
-        }
-
-        /// <summary>
         /// Closes the window
         /// </summary>
         /// <param name="window">Window</param>
@@ -837,6 +833,7 @@ namespace Tira.App.Logic.ViewModels
                 {
                     Project.UpdateDataColumns(new List<DataColumn>(vm.DataColumns));
                     RecognizedData = null;
+                    SelectedDataGridRowIndex = null;
                     IsRecognitionCompleted = false;
                     FillDataGridColumns();
 
@@ -1086,7 +1083,7 @@ namespace Tira.App.Logic.ViewModels
         private void ImageClearMarkup()
         {
             CurrentMarkupObjectType = MarkupObjectType.None;
-            SelectedGalleryImage.MarkupObjects = new MarkupObjects();
+            SelectedGalleryImage.MarkupObjects = new MarkupObjects(Project.DataColumns.Count - 1);
             IsRecognitionCompleted = false;
             RecognizedData = null;
             OnPropertyChanged(() => SelectedGalleryImage);
@@ -1137,7 +1134,7 @@ namespace Tira.App.Logic.ViewModels
 
                 if (needRemoveMarkupObjects)
                 {
-                    galleryImage.MarkupObjects = new MarkupObjects();
+                    galleryImage.MarkupObjects = new MarkupObjects(Project.DataColumns.Count - 1);
                     ImageClearMarkup();
                 }
 
@@ -1162,7 +1159,7 @@ namespace Tira.App.Logic.ViewModels
 
                 if (needRemoveMarkupObjects)
                 {
-                    galleryImage.MarkupObjects = new MarkupObjects();
+                    galleryImage.MarkupObjects = new MarkupObjects(Project.DataColumns.Count - 1);
                     ImageClearMarkup();
                 }
 
@@ -1414,7 +1411,7 @@ namespace Tira.App.Logic.ViewModels
 
                 if (Filter.RemoveMarkupObjects(filter.FilterType))
                 {
-                    galleryImage.MarkupObjects = new MarkupObjects();
+                    galleryImage.MarkupObjects = new MarkupObjects(Project.DataColumns.Count - 1);
                     ImageClearMarkup();
                 }
 
@@ -1503,6 +1500,7 @@ namespace Tira.App.Logic.ViewModels
         /// </summary>
         private void FillDataGrid()
         {
+            SelectedDataGridRowIndex = null;
             FillDataGridColumns();
 
             if (SelectedGalleryImage != null && SelectedGalleryImage.RecognitionCompleted && SelectedGalleryImage.MarkupObjects.MaxNumberOfVerticalLines == SelectedGalleryImage.RecognizedData.Columns.Count - 1)
@@ -1511,7 +1509,24 @@ namespace Tira.App.Logic.ViewModels
                 IsRecognitionCompleted = galleryImage.RecognitionCompleted;
                 RecognizedData = galleryImage.RecognizedData;                
             }                            
-        }        
+        }
+
+        /// <summary>
+        /// Highlights selected row on image
+        /// </summary>
+        /// <param name="e">Cell info</param>
+        private void HighlightSelectedRow(DataGridCellInfo e)
+        {
+            try
+            {
+                System.Windows.Controls.DataGridCell c = DataGridHelper.GetCell(e);
+                if (c != null)
+                    SelectedDataGridRowIndex = DataGridHelper.GetRowIndex(c);
+            }
+            catch
+            {
+            }
+        }
 
         #endregion
 

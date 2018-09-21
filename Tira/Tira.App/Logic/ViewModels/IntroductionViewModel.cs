@@ -7,7 +7,6 @@ using Ak.Framework.Wpf.Commands;
 using Ak.Framework.Wpf.Commands.Interfaces;
 using Ak.Framework.Wpf.Dialogs;
 using Ak.Framework.Wpf.Messaging;
-using Ak.Framework.Wpf.ViewModels;
 using Tira.App.Logic.Enums;
 using Tira.App.Logic.Helpers;
 using Tira.App.Properties;
@@ -22,7 +21,7 @@ namespace Tira.App.Logic.ViewModels
     /// <summary>
     /// ViewModel for introduction window
     /// </summary>
-    public class IntroductionViewModel : ViewModelBase
+    public class IntroductionViewModel : TiraViewModelBase
     {
         #region Variables
 

@@ -16,6 +16,9 @@
         ResizeMode="NoResize"
         ShowInTaskbar="False"
         d:DataContext="{d:DesignInstance Type=viewModels:ProjectCreationViewModel, IsDesignTimeCreatable=True}">
+    <Window.InputBindings>
+        <KeyBinding Key="F1" Command="{Binding ShowHelpCommand}" />
+    </Window.InputBindings>
     <Grid Style="{StaticResource ExternalGrid}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="110"/>

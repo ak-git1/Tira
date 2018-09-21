@@ -1,13 +1,12 @@
-﻿using Ak.Framework.Wpf.ViewModels;
-using Tira.Logic.Models;
+﻿using Tira.Logic.Models;
 
 namespace Tira.App.Logic.ViewModels
 {
     /// <summary>
     /// ViewModel for data column
     /// </summary>
-    /// <seealso cref="Ak.Framework.Wpf.ViewModels.ViewModelBase" />
-    public class DataColumnViewModel : ViewModelBase
+    /// <seealso cref="Tira.App.Logic.ViewModels.TiraViewModelBase" />
+    public class DataColumnViewModel : TiraViewModelBase
     {
         #region Variables
 

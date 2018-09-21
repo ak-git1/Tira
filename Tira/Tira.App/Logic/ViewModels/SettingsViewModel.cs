@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Ak.Framework.Wpf.Commands;
 using Ak.Framework.Wpf.Commands.Interfaces;
-using Ak.Framework.Wpf.ViewModels;
 using Tira.Logic.Enums;
 using Tira.Logic.Settings;
 
@@ -12,8 +11,8 @@ namespace Tira.App.Logic.ViewModels
     /// <summary>
     /// ViewModel for settings window
     /// </summary>
-    /// <seealso cref="Ak.Framework.Wpf.ViewModels.ViewModelBase" />
-    public class SettingsViewModel : ViewModelBase
+    /// <seealso cref="Tira.App.Logic.ViewModels.TiraViewModelBase" />
+    public class SettingsViewModel : TiraViewModelBase
     {
         #region Variables
 

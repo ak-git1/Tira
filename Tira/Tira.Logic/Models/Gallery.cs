@@ -240,10 +240,7 @@ namespace Tira.Logic.Models
                         ImageFileName = imageFileName,
                         ThumbnailFileName = thumbnailFileName,
                         RecognitionCompleted = false,
-                        MarkupObjects = new MarkupObjects
-                        {
-                            MaxNumberOfVerticalLines = maxNumberOfVerticalLines
-                        }                        
+                        MarkupObjects = new MarkupObjects(maxNumberOfVerticalLines)                  
                     };
                     galleryImage.RecognizableElementOcrCompleted += Image_RecognizableElementOcrCompleted;
 

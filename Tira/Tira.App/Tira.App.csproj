@@ -50,8 +50,8 @@
     <Reference Include="Ak.Framework.Imaging, Version=1.1.0.1, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Ak.Framework.Imaging.1.1.0.1\lib\Ak.Framework.Imaging.dll</HintPath>
     </Reference>
-    <Reference Include="Ak.Framework.Wpf, Version=1.7.3.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Ak.Framework.Wpf.1.7.3\lib\Ak.Framework.Wpf.dll</HintPath>
+    <Reference Include="Ak.Framework.Wpf, Version=1.7.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ak.Framework.Wpf.1.7.4\lib\Ak.Framework.Wpf.dll</HintPath>
     </Reference>
     <Reference Include="ControlzEx, Version=3.0.2.4, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\ControlzEx.3.0.2.4\lib\net462\ControlzEx.dll</HintPath>
@@ -124,6 +124,7 @@
     <Compile Include="Logic\Helpers\FormsHelper.cs" />
     <Compile Include="Logic\Helpers\ZoomManager.cs" />
     <Compile Include="Logic\ViewModels\AboutViewModel.cs" />
+    <Compile Include="Logic\ViewModels\TiraViewModelBase.cs" />
     <Compile Include="Logic\ViewModels\DataColumnViewModel.cs" />
     <Compile Include="Logic\ViewModels\Filters\IntValueFilterViewModel.cs" />
     <Compile Include="Logic\ViewModels\Filters\BlobsRemovalFilterViewModel.cs" />
@@ -441,6 +442,11 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.ru-RU.resx" />
     <Content Include="App_Data\tira.db">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Resource Include="Content\Images\Ribbon\help_24x24.png" />
+    <Resource Include="Content\Images\Ribbon\help_64x64.png" />
+    <Content Include="Help\Tira-Help.pdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="packages.config" />

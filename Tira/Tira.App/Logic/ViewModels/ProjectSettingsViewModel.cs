@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using Ak.Framework.Core.Extensions;
 using Ak.Framework.Wpf.Commands;
 using Ak.Framework.Wpf.Commands.Interfaces;
 using Ak.Framework.Wpf.Dialogs;
 using Ak.Framework.Wpf.ViewModels;
-using Tira.App.Logic.Helpers;
 using Tira.App.Windows;
-using Tira.Logic.Helpers;
 using Tira.Logic.Models;
 
 namespace Tira.App.Logic.ViewModels
@@ -18,7 +14,7 @@ namespace Tira.App.Logic.ViewModels
     /// ViewModel for project settings
     /// </summary>
     /// <seealso cref="Ak.Framework.Wpf.ViewModels.ViewModelBase" />
-    public class ProjectSettingsViewModel : ViewModelBase
+    public class ProjectSettingsViewModel : TiraViewModelBase
     {
         #region Variables
 

@@ -1,6 +1,5 @@
 ﻿using System;
 using Ak.Framework.Core.Extensions;
-using Ak.Framework.Wpf.ViewModels;
 using Tira.App.Logic.Enums;
 using Tira.Logic.Enums;
 using Tira.Logic.Models;
@@ -10,8 +9,8 @@ namespace Tira.App.Logic.ViewModels
     /// <summary>
     /// ViewModel for project template
     /// </summary>
-    /// <seealso cref="Ak.Framework.Wpf.ViewModels.ViewModelBase" />
-    public class ProjectTemplateViewModel : ViewModelBase
+    /// <seealso cref="Tira.App.Logic.ViewModels.TiraViewModelBase" />
+    public class ProjectTemplateViewModel : TiraViewModelBase
     {
         #region Variables
 

@@ -3,7 +3,6 @@ using System.Windows.Forms;
 using Ak.Framework.Core.Extensions;
 using Ak.Framework.Wpf.Commands;
 using Ak.Framework.Wpf.Commands.Interfaces;
-using Ak.Framework.Wpf.ViewModels;
 using Tira.Logic.Models;
 
 namespace Tira.App.Logic.ViewModels
@@ -11,7 +10,8 @@ namespace Tira.App.Logic.ViewModels
     /// <summary>
     /// ViewModel for project creation
     /// </summary>
-    public class ProjectCreationViewModel : ViewModelBase
+    /// <seealso cref="Tira.App.Logic.ViewModels.TiraViewModelBase" />
+    public class ProjectCreationViewModel : TiraViewModelBase
     {
         #region Variables
 

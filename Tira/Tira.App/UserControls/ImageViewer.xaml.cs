@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -56,6 +58,11 @@ namespace Tira.App.UserControls
         /// The crop rectangle area style
         /// </summary>
         private const string CropRectangleAreaStyle = "CropRectangleAreaStyle";
+
+        /// <summary>
+        /// The highlighted row rectangle area style
+        /// </summary>
+        private const string HighlightedRowStyle = "HighlightedRowStyle";
 
         #endregion
 
@@ -496,7 +503,14 @@ namespace Tira.App.UserControls
         /// <summary>
         /// Index of the highlighted row
         /// </summary>
-        public static readonly DependencyProperty HighlightedRowIndexProperty = DependencyProperty.Register("HighlightedRowIndex", typeof(int?), typeof(ImageViewer), new UIPropertyMetadata(null));
+        public static readonly DependencyProperty HighlightedRowIndexProperty = DependencyProperty.Register("HighlightedRowIndex", typeof(int?), typeof(ImageViewer), new UIPropertyMetadata(null, (source, args) =>
+        {
+            ImageViewer imageViewer = source as ImageViewer;
+            if (imageViewer == null)
+                return;
+
+            imageViewer.DrawHighlitedRow();
+        }));
 
         #endregion
 
@@ -1008,6 +1022,50 @@ namespace Tira.App.UserControls
             return line;
         }
 
+        /// <summary>
+        /// Draws the highlited row
+        /// </summary>
+        private void DrawHighlitedRow()
+        {
+            try
+            {
+                if (CurrentImageViewerMode == ImageViewerMode.None && HighlightedRowIndex.HasValue)
+                {
+                    ClearDrawingTempObjects();
+                    ClearDrawingArea();
+
+                    List<int> horizontalLinesCoordinates = CurrentMarkupObjects.HorizontalLinesCoordinates.OrderBy(o => o).ToList();
+                    int rowIndex = HighlightedRowIndex.Value;
+                    int y = CurrentMarkupObjects.RectangleArea.Y;
+                    int h = CurrentMarkupObjects.RectangleArea.Height;
+
+                    if (horizontalLinesCoordinates.Count > 0)
+                    {
+                        if (rowIndex == 0)
+                        {
+                            h = horizontalLinesCoordinates[0] - y;
+                        }
+                        else if (rowIndex >= horizontalLinesCoordinates.Count)
+                        {
+                            y = horizontalLinesCoordinates.Max();
+                            h = CurrentMarkupObjects.RectangleArea.Bottom - horizontalLinesCoordinates.Max();
+                        }
+                        else
+                        {
+                            y = horizontalLinesCoordinates[rowIndex - 1];
+                            h = horizontalLinesCoordinates[rowIndex] - horizontalLinesCoordinates[rowIndex - 1];
+                        }
+                    }
+
+                    Rectangle highlightedRectangle = new Rectangle(CurrentMarkupObjects.RectangleArea.X, y, CurrentMarkupObjects.RectangleArea.Width, h);
+                    DrawMarkupRectangle(highlightedRectangle, HighlightedRowStyle);
+                }
+            }
+            catch
+            {
+            }
+        }
+
         #endregion
 
         #endregion
@@ -1190,7 +1248,7 @@ namespace Tira.App.UserControls
                 #region ImageViewerMode.Crop
 
                 case ImageViewerMode.Crop:
-                    CurrentMarkupObjects.Clear();
+                    //CurrentMarkupObjects.Clear();
                     ClearDrawingArea();
                     _isDrawingInProgress = true;
                     break;

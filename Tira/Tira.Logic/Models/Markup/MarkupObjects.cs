@@ -30,7 +30,7 @@ namespace Tira.Logic.Models.Markup
         /// <summary>
         /// Maximun number of vertical lines
         /// </summary>
-        public int MaxNumberOfVerticalLines { get; set; } = 1;
+        public int MaxNumberOfVerticalLines { get; set; }
 
         /// <summary>
         /// Vertical lines coordinates on the X-axis
@@ -49,6 +49,26 @@ namespace Tira.Logic.Models.Markup
         public List<int> HorizontalLinesCoordinates { get; set; } = new List<int>();
 
         #endregion
+
+        #endregion
+
+        #region Constructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MarkupObjects"/> class.
+        /// </summary>
+        public MarkupObjects()
+        {            
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MarkupObjects" /> class.
+        /// </summary>
+        /// <param name="maxNumberOfVerticalLines">Maximum number of vertical lines.</param>
+        public MarkupObjects(int maxNumberOfVerticalLines)
+        {
+            MaxNumberOfVerticalLines = maxNumberOfVerticalLines;
+        }
 
         #endregion
 

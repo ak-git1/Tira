@@ -12,11 +12,14 @@
         Height="600"
         Width="800"
         ResizeMode="NoResize"
-        WindowStartupLocation="CenterScreen"
+        WindowStartupLocation="CenterScreen"        
         d:DataContext="{d:DesignInstance Type=viewModels:IntroductionViewModel, IsDesignTimeCreatable=True}">
     <Window.Resources>
         <converters:GenericMultiValueConverter x:Key="GenericMultiValueConverter" />
     </Window.Resources>
+    <Window.InputBindings>
+        <KeyBinding Key="F1" Command="{Binding ShowHelpCommand}" />
+    </Window.InputBindings>
     <Grid>
         <StackPanel Margin="0,0,0,10">
             <Image HorizontalAlignment="Center" Style="{StaticResource LogoImage}" 

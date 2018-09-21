@@ -34,9 +34,9 @@
             <Setter Property="StrokeThickness" Value="3"/>
             <Setter Property="Stroke" Value="{StaticResource FixedLineBrush}"/>
         </Style>
-        <Style x:Key="HighlightedRow" TargetType="{x:Type Rectangle}">
+        <Style x:Key="HighlightedRowStyle" TargetType="{x:Type Rectangle}">
             <Setter Property="StrokeThickness" Value="3"/>
-            <Setter Property="Stroke" Value="{StaticResource HighlightedRowBrush}"/>
+            <Setter Property="Fill" Value="{StaticResource HighlightedRowBrush}"/>
         </Style>
         <Style x:Key="CropRectangleAreaStyle" TargetType="{x:Type Rectangle}">
             <Setter Property="StrokeThickness" Value="7"/>

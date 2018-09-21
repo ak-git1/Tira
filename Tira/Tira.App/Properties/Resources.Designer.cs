@@ -367,6 +367,15 @@ namespace Tira.App.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Unable to locate help file..
+        /// </summary>
+        public static string HelpFileNotFound {
+            get {
+                return ResourceManager.GetString("HelpFileNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Create new project.
         /// </summary>
         public static string IntroductionWindow_Button_CreateProject {

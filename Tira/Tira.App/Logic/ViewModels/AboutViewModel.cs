@@ -6,7 +6,7 @@ namespace Tira.App.Logic.ViewModels
     /// <summary>
     /// ViewModel for introduction window
     /// </summary>
-    public class AboutViewModel
+    public class AboutViewModel : TiraViewModelBase
     {
         #region Properties
 

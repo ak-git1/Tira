@@ -7,13 +7,12 @@
                      xmlns:properties="clr-namespace:Tira.App.Properties"
                      xmlns:viewModels="clr-namespace:Tira.App.Logic.ViewModels"
                      xmlns:userControls="clr-namespace:Tira.App.UserControls"
-                     xmlns:appEnums="clr-namespace:Tira.App.Logic.Enums"
+                     xmlns:localEnums="clr-namespace:Tira.App.Logic.Enums"
                      xmlns:enums="clr-namespace:Tira.Logic.Enums;assembly=Tira.Logic"
                      xmlns:binding="clr-namespace:Ak.Framework.Wpf.Binding;assembly=Ak.Framework.Wpf"
                      xmlns:converters="clr-namespace:Ak.Framework.Wpf.Converters;assembly=Ak.Framework.Wpf"
                      xmlns:fluent="urn:fluent-ribbon"
                      xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
-                     xmlns:xcdg="http://schemas.xceed.com/wpf/xaml/datagrid"
                      mc:Ignorable="d"
                      Title="{x:Static properties:Resources.Application_FullName}"
                      Height="800"
@@ -31,6 +30,9 @@
             </Style>
         </ResourceDictionary>
     </FrameworkElement.Resources>
+    <Window.InputBindings>
+        <KeyBinding Key="F1" Command="{Binding ShowHelpCommand}" />
+    </Window.InputBindings>
     <xctk:BusyIndicator DisplayAfter="0"                         
                         IsBusy="{Binding ProgressIndicatorActivated, Mode=TwoWay}">
         <xctk:BusyIndicator.OverlayStyle>
@@ -73,7 +75,7 @@
                             <fluent:Button Header="{x:Static properties:Resources.Ribbon_MainMenu_CreateProject}" Command="{Binding CreateProjectCommand}" CommandParameter="{Binding ElementName=Root}" />
                             <fluent:Button Header="{x:Static properties:Resources.Ribbon_MainMenu_OpenProject}" Command="{Binding OpenProjectCommand}" CommandParameter="{Binding ElementName=Root}"/>
                             <Separator />
-                            <fluent:Button Header="{x:Static properties:Resources.Ribbon_MainMenu_Save}" 
+                            <fluent:Button  Header="{x:Static properties:Resources.Ribbon_MainMenu_Save}" 
                                             x:Name="MainMenuSaveBtn"
                                             LargeIcon="Content/Images/Ribbon/save_64x64.png"
                                             Icon="Content/Images/Ribbon/save_24x24.png"
@@ -81,7 +83,12 @@
                             <Separator />
                             <fluent:Button Header="{x:Static properties:Resources.Ribbon_MainMenu_Settings}" Command="{Binding ShowSettingsWindowCommand}"/>
                             <fluent:Button Header="{x:Static properties:Resources.Ribbon_MainMenu_ProjectTemplates}" Command="{Binding ShowProjectTemplatesWindowCommand}"/>
-                            <fluent:Button Header="{x:Static properties:Resources.Ribbon_MainMenu_Help}" Command="{Binding ShowHelpCommand}"/>
+                            <fluent:Button Header="{x:Static properties:Resources.Ribbon_MainMenu_Help}"                                            
+                                           x:Name="MainMenuHelpBtn"
+                                           LargeIcon="Content/Images/Ribbon/help_64x64.png"
+                                           Icon="Content/Images/Ribbon/help_24x24.png"
+                                           Command="{Binding ShowHelpCommand}"
+                                           fluent:KeyTip.Keys="F1"/>
                             <fluent:Button Header="{x:Static properties:Resources.Ribbon_MainMenu_About}" Command="{Binding ShowAboutWindowCommand}"/>
                             <Separator />
                             <fluent:Button Header="{x:Static properties:Resources.Ribbon_MainMenu_Close}" 
@@ -209,10 +216,25 @@
                                             ToolTip="{x:Static properties:Resources.Ribbon_Button_EnableMarkup}"
                                             LargeIcon="/Tira.App;component/Content/Images/Ribbon/enable_markup_48x48.png"
                                             Icon="/Tira.App;component/Content/Images/Ribbon/enable_markup_24x24.png"
-                                            SizeDefinition="Large"
-                                            IsChecked="False"                                  
+                                            SizeDefinition="Large"       
                                             Command="{Binding EnableMarkupCommand}"
-                                            CommandParameter="{Binding ElementName=EnableMarkupButton, Path=IsChecked}"/>
+                                            CommandParameter="{Binding ElementName=EnableMarkupButton, Path=IsChecked}">
+                            <fluent:ToggleButton.Style>
+                                <Style TargetType="{x:Type fluent:ToggleButton}">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding CurrentImageViewerMode}" Value="{x:Static localEnums:ImageViewerMode.Crop}">
+                                            <Setter Property="IsChecked" Value="False"/>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding CurrentImageViewerMode}" Value="{x:Static localEnums:ImageViewerMode.None}">
+                                            <Setter Property="IsChecked" Value="False"/>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding CurrentImageViewerMode}" Value="{x:Static localEnums:ImageViewerMode.Markup}">
+                                            <Setter Property="IsChecked" Value="True"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </fluent:ToggleButton.Style>
+                        </fluent:ToggleButton>
                         <fluent:Button  Header="{x:Static properties:Resources.Ribbon_Button_ClearMarkup}"
                                         ToolTip="{x:Static properties:Resources.Ribbon_Button_ClearMarkup}"
                                         LargeIcon="/Tira.App;component/Content/Images/Ribbon/clear_markup_64x64.png"
@@ -227,7 +249,7 @@
                                         SizeDefinition="Middle, Small"
                                         IsEnabled="{Binding ElementName=EnableMarkupButton, Path=IsChecked, Mode=OneWay}"
                                         Command="{Binding SetCurrentMarkupObjectTypeCommand}"
-                                        CommandParameter="{x:Static appEnums:MarkupObjectType.Rectangle}"/>
+                                        CommandParameter="{x:Static localEnums:MarkupObjectType.Rectangle}"/>
                         <fluent:Button  Header="{x:Static properties:Resources.Ribbon_Button_VerticalLineMarkup}"
                                         ToolTip="{x:Static properties:Resources.Ribbon_Button_VerticalLineMarkup}"
                                         LargeIcon="/Tira.App;component/Content/Images/Ribbon/vertical_line_64x64.png"
@@ -235,7 +257,7 @@
                                         SizeDefinition="Middle, Small"
                                         IsEnabled="{Binding ElementName=EnableMarkupButton, Path=IsChecked, Mode=OneWay}"
                                         Command="{Binding SetCurrentMarkupObjectTypeCommand}"
-                                        CommandParameter="{x:Static appEnums:MarkupObjectType.VerticalLine}"/>
+                                        CommandParameter="{x:Static localEnums:MarkupObjectType.VerticalLine}"/>
                         <fluent:Button  Header="{x:Static properties:Resources.Ribbon_Button_HorizontalLineMarkup}"
                                         ToolTip="{x:Static properties:Resources.Ribbon_Button_HorizontalLineMarkup}"
                                         LargeIcon="/Tira.App;component/Content/Images/Ribbon/horizontal_line_64x64.png"
@@ -243,7 +265,7 @@
                                         SizeDefinition="Middle, Small"
                                         IsEnabled="{Binding ElementName=EnableMarkupButton, Path=IsChecked, Mode=OneWay}"
                                         Command="{Binding SetCurrentMarkupObjectTypeCommand}"
-                                        CommandParameter="{x:Static appEnums:MarkupObjectType.HorizontalLine}"/>
+                                        CommandParameter="{x:Static localEnums:MarkupObjectType.HorizontalLine}"/>
                     </fluent:RibbonGroupBox>
                     <fluent:RibbonGroupBox Header="{x:Static properties:Resources.Ribbon_GroupBox_MarkupCopy}">
                         <fluent:Button  Header="{x:Static properties:Resources.Ribbon_Button_MarkupCopy}"
@@ -378,6 +400,7 @@
                 <!-- Quick access toolbar -->
                 <fluent:Ribbon.QuickAccessItems>
                     <fluent:QuickAccessMenuItem Target="{Binding ElementName=MainMenuSaveBtn}" IsChecked="True" />
+                    <fluent:QuickAccessMenuItem Target="{Binding ElementName=MainMenuHelpBtn}" IsChecked="True" />
                 </fluent:Ribbon.QuickAccessItems>
             </fluent:Ribbon>
 
@@ -406,7 +429,8 @@
                                                 FitMode="{Binding ImageViewerZoomManager.FitMode, Mode=TwoWay}"
                                                 Scale="{Binding ImageViewerZoomManager.Scale, Mode=TwoWay}"
                                                 ResetToFitSizeWhenBitmapSourceChanged="True" 
-                                                BitmapSource="{Binding SelectedImage}"
+                                                BitmapSource="{Binding SelectedImage}"                     
+                                                HighlightedRowIndex="{Binding SelectedDataGridRowIndex}"
                                                 CurrentMarkupObjects="{Binding CurrentMarkupObjects, Mode=TwoWay}"
                                                 CurrentImageViewerMode="{Binding CurrentImageViewerMode}"
                                                 CurrentMarkupObjectType="{Binding CurrentMarkupObjectType}"
@@ -423,7 +447,8 @@
                               CanUserSortColumns="False"
                               SelectionMode="Single"
                               SelectionUnit="Cell"                          
-                              IsReadOnly="False">
+                              IsReadOnly="False"
+                              SelectedCellsChanged="{binding:EventBinding Command=HandleDataGridSelectedCellChangedCommand, CommandParameter=$this.CurrentCell}">
                         <DataGrid.Style>
                             <Style TargetType="{x:Type DataGrid}">
                                 <Style.Triggers>

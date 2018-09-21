@@ -650,4 +650,7 @@
   <data name="Xcced_MessageBox_Cancel" xml:space="preserve">
     <value>Отмена</value>
   </data>
+  <data name="HelpFileNotFound" xml:space="preserve">
+    <value>Не удалось обнаружить файл справки.</value>
+  </data>
 </root>

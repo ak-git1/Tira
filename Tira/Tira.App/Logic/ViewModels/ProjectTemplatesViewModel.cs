@@ -3,7 +3,6 @@ using System.Windows;
 using Ak.Framework.Wpf.Commands;
 using Ak.Framework.Wpf.Commands.Interfaces;
 using Ak.Framework.Wpf.Dialogs;
-using Ak.Framework.Wpf.ViewModels;
 using Tira.App.Windows;
 using Tira.Logic.Models;
 using MessageBox = Xceed.Wpf.Toolkit.MessageBox;
@@ -13,8 +12,8 @@ namespace Tira.App.Logic.ViewModels
     /// <summary>
     /// ViewModel for projects templates
     /// </summary>
-    /// <seealso cref="Ak.Framework.Wpf.ViewModels.ViewModelBase" />
-    public class ProjectTemplatesViewModel : ViewModelBase
+    /// <seealso cref="Tira.App.Logic.ViewModels.TiraViewModelBase" />
+    public class ProjectTemplatesViewModel : TiraViewModelBase
     {
         #region Properties
 
@@ -47,7 +46,7 @@ namespace Tira.App.Logic.ViewModels
         public ProjectTemplatesViewModel()
         {
             ProjectTemplates = ProjectTemplate.GetList();
-            
+
             EditProjectTemplateCommand = new NotifyCommand(o => EditProjectTemplate((ProjectTemplate)o));
             DeleteProjectTemplateCommand = new NotifyCommand(o => DeleteProjectTemplate((ProjectTemplate)o));
         }

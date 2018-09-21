@@ -647,4 +647,7 @@ For vertical lines markup data columns quantity must be more than 1.</value>
   <data name="Xcced_MessageBox_Cancel" xml:space="preserve">
     <value>Cancel</value>
   </data>
+  <data name="HelpFileNotFound" xml:space="preserve">
+    <value>Unable to locate help file.</value>
+  </data>
 </root>

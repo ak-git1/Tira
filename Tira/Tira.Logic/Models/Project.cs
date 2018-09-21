@@ -157,6 +157,7 @@ namespace Tira.Logic.Models
         /// </summary>
         public void Save()
         {
+            ApplicationVersion = AssemblyInfoHelper.GetMainAssemblyVersion();
             Directory.CreateDirectory(ProjectDataFolderPath);
             Gallery.Save();
             File.WriteAllText(ProjectPath, SerializationHelper.SerializeToXml(this));

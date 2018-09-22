@@ -76,13 +76,14 @@ namespace Tira.Logic.Models
                 case FilterType.Brightness:
                 case FilterType.Contrast:
                 case FilterType.GammaCorrection:
+                case FilterType.Sharpness:
                 case FilterType.Dilation:
                 case FilterType.Erosion:
                 case FilterType.PunchHolesRemoval:
                 case FilterType.BlobsRemoval:
                 case FilterType.LinesRemoval:
                 case FilterType.StapleMarksRemoval:
-                case FilterType.NoiseRemoval:
+                case FilterType.NoiseRemoval:                
                     return false;
 
                 case FilterType.AutoCrop:

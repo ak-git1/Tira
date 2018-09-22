@@ -650,4 +650,13 @@ For vertical lines markup data columns quantity must be more than 1.</value>
   <data name="HelpFileNotFound" xml:space="preserve">
     <value>Unable to locate help file.</value>
   </data>
+  <data name="SharpnessFilterWindow_Title" xml:space="preserve">
+    <value>Sharpness</value>
+  </data>
+  <data name="SharpnessFilterWindow_Label_Sharpness" xml:space="preserve">
+    <value>Sharpness:</value>
+  </data>
+  <data name="Ribbon_Button_Sharpness" xml:space="preserve">
+    <value>Sharpness</value>
+  </data>
 </root>

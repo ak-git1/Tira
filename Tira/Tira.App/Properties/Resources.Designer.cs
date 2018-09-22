@@ -1305,6 +1305,15 @@ namespace Tira.App.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Sharpness.
+        /// </summary>
+        public static string Ribbon_Button_Sharpness {
+            get {
+                return ResourceManager.GetString("Ribbon_Button_Sharpness", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Vertical line.
         /// </summary>
         public static string Ribbon_Button_VerticalLineMarkup {
@@ -1589,6 +1598,24 @@ namespace Tira.App.Properties {
         public static string SettingsWindow_Title {
             get {
                 return ResourceManager.GetString("SettingsWindow_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sharpness:.
+        /// </summary>
+        public static string SharpnessFilterWindow_Label_Sharpness {
+            get {
+                return ResourceManager.GetString("SharpnessFilterWindow_Label_Sharpness", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sharpness.
+        /// </summary>
+        public static string SharpnessFilterWindow_Title {
+            get {
+                return ResourceManager.GetString("SharpnessFilterWindow_Title", resourceCulture);
             }
         }
         

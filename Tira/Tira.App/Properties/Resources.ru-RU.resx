@@ -653,4 +653,13 @@
   <data name="HelpFileNotFound" xml:space="preserve">
     <value>Не удалось обнаружить файл справки.</value>
   </data>
+  <data name="SharpnessFilterWindow_Title" xml:space="preserve">
+    <value>Резкость</value>
+  </data>
+  <data name="SharpnessFilterWindow_Label_Sharpness" xml:space="preserve">
+    <value>Резкость:</value>
+  </data>
+  <data name="Ribbon_Button_Sharpness" xml:space="preserve">
+    <value>Резкость</value>
+  </data>
 </root>

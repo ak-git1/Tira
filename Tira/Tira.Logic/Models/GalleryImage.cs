@@ -476,6 +476,9 @@ namespace Tira.Logic.Models
                 case FilterType.Rotation:
                     return BitmapHelper.Rotate(bitmap, (float)filter.Parameters.ToInt32(), Color.Black);
 
+                case FilterType.Sharpness:
+                    return BitmapHelper.SetSharpness(bitmap, filter.Parameters.ToInt32());
+
                 default:
                     throw new ArgumentOutOfRangeException();
             }

@@ -351,6 +351,12 @@
                                         Command="{Binding ImageCropCommand}"/>
                     </fluent:RibbonGroupBox>
                     <fluent:RibbonGroupBox Header="{x:Static properties:Resources.Ribbon_GroupBox_Correction}">
+                        <fluent:Button  Header="{x:Static properties:Resources.Ribbon_Button_Sharpness}"
+                                        ToolTip="{x:Static properties:Resources.Ribbon_Button_Sharpness}"
+                                        LargeIcon="/Tira.App;component/Content/Images/Ribbon/sharpness_64x64.png"
+                                        Icon="/Tira.App;component/Content/Images/Ribbon/sharpness_24x24.png"
+                                        SizeDefinition="Large"
+                                        Command="{Binding ImageSetSharpnessCommand}"/>
                         <fluent:Button  Header="{x:Static properties:Resources.Ribbon_Button_Dilation}"
                                         ToolTip="{x:Static properties:Resources.Ribbon_Button_Dilation}"
                                         LargeIcon="/Tira.App;component/Content/Images/Ribbon/dilation_64x64.png"

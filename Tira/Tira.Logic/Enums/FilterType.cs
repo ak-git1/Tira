@@ -78,6 +78,11 @@
         /// <summary>
         /// Rotation
         /// </summary>
-        Rotation = 14
+        Rotation = 14,
+
+        /// <summary>
+        /// Sharpness
+        /// </summary>
+        Sharpness = 15
     }
 }

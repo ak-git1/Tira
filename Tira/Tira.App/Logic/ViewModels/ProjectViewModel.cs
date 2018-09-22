@@ -506,6 +506,11 @@ namespace Tira.App.Logic.ViewModels
         public INotifyCommand ImageSetGammaCorrectionCommand { get; }
 
         /// <summary>
+        /// Command for image set sharpness
+        /// </summary>
+        public INotifyCommand ImageSetSharpnessCommand { get; }
+
+        /// <summary>
         /// Command for image auto rotation
         /// </summary>
         public INotifyCommand ImageAutoRotateCommand { get; }
@@ -620,6 +625,7 @@ namespace Tira.App.Logic.ViewModels
             ImageSetBrightnessCommand = new NotifyCommand(_ => ImageSetBrightness(), _ => CanPerformOperationsWithImage());
             ImageSetContrastCommand = new NotifyCommand(_ => ImageSetContrast(), _ => CanPerformOperationsWithImage());
             ImageSetGammaCorrectionCommand = new NotifyCommand(_ => ImageSetGammaCorrection(), _ => CanPerformOperationsWithImage());
+            ImageSetSharpnessCommand = new NotifyCommand(_ => ImageSetSharpness(), _ => CanPerformOperationsWithImage());
             ImageAutoRotateCommand = new NotifyCommand(_ => ImageAutoRotate(), _ => CanPerformOperationsWithImage());
             ImageRotateCommand = new NotifyCommand(_ => ImageRotate(), _ => CanPerformOperationsWithImage());
             ImageAutoResizeCommand = new NotifyCommand(_ => ImageAutoResize(), _ => CanPerformOperationsWithImage());
@@ -1207,6 +1213,19 @@ namespace Tira.App.Logic.ViewModels
         }
 
         /// <summary>
+        /// Set sharpness for image
+        /// </summary>
+        private void ImageSetSharpness()
+        {
+            IntValueFilterViewModel vm = new IntValueFilterViewModel(FilterType.Sharpness, 0);
+            bool? result = ShowDialogAgent.Instance.ShowDialog<SharpnessFilterWindow>(vm);
+            if (result.HasValue && result.Value)
+                ApplyFilter(new Filter(FilterType.Sharpness, vm.IntValue));
+            else
+                SelectedImage = BitmapImageHelper.GetBitmapImageFromPath(SelectedGalleryImage.ActualImageFilePath);
+        }
+
+        /// <summary>
         /// Set gamma correction for image
         /// </summary>
         private void ImageSetGammaCorrection()
@@ -1451,6 +1470,10 @@ namespace Tira.App.Logic.ViewModels
 
                     case FilterType.GammaCorrection:
                         SelectedImage = Imaging.Helpers.BitmapHelper.SetGammaCorrection(_selectedImageFilterCopy.ToBitmap(), args[1].ToInt32()).ToBitmapSource();
+                        break;
+
+                    case FilterType.Sharpness:
+                        SelectedImage = Imaging.Helpers.BitmapHelper.SetSharpness(_selectedImageFilterCopy.ToBitmap(), args[1].ToInt32()).ToBitmapSource();
                         break;
 
                     case FilterType.Rotation:

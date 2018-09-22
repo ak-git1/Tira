@@ -184,6 +184,9 @@
     <Compile Include="Windows\Filters\RotationFilterWindow.xaml.cs">
       <DependentUpon>RotationFilterWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Windows\Filters\SharpnessFilterWindow.xaml.cs">
+      <DependentUpon>SharpnessFilterWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\IntroductionWindow.xaml.cs">
       <DependentUpon>IntroductionWindow.xaml</DependentUpon>
     </Compile>
@@ -306,6 +309,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windows\Filters\RotationFilterWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\Filters\SharpnessFilterWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -446,6 +453,8 @@
     </Content>
     <Resource Include="Content\Images\Ribbon\help_24x24.png" />
     <Resource Include="Content\Images\Ribbon\help_64x64.png" />
+    <Resource Include="Content\Images\Ribbon\sharpness_24x24.png" />
+    <Resource Include="Content\Images\Ribbon\sharpness_64x64.png" />
     <Content Include="Help\Tira-Help.pdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

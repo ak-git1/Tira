@@ -81,6 +81,29 @@ namespace Tira.Imaging.Helpers
         }
 
         /// <summary>
+        /// Set sharpness for specified bitmap
+        /// </summary>
+        /// <param name="bitmap">Bitmap</param>
+        /// <param name="sharpness">Sharpness</param>
+        /// <returns></returns>
+        public static Bitmap SetSharpness(Bitmap bitmap, int sharpness)
+        {
+            Bitmap resultImage = bitmap;
+            GdPictureImaging image = new GdPictureImaging();
+
+            int imageId = image.CreateGdPictureImageFromBitmap(bitmap);
+            if (imageId > 0)
+            {
+                for (int i = 0; i < sharpness; i++)
+                    image.FxSharpen(imageId);
+                resultImage = image.GetBitmapFromGdPictureImage(imageId).CloneSmart(image.GetPixelFormat(imageId));
+                image.ReleaseGdPictureImage(imageId);
+            }
+
+            return resultImage;
+        }
+
+        /// <summary>
         /// Crops the specified bitmap
         /// </summary>
         /// <param name="bitmap">Bitmap</param>
@@ -233,6 +256,9 @@ namespace Tira.Imaging.Helpers
             {
                 if (imageId > 0)
                 {
+                    if (image.GetBitDepth(imageId) != 1)
+                        image.ConvertTo1BppAT(imageId);
+
                     if (punchHolesPosition.LeftSide)
                         image.RemoveHolePunch(imageId, HolePunchMargins.MarginLeft);
                     if (punchHolesPosition.TopSide)
@@ -273,6 +299,9 @@ namespace Tira.Imaging.Helpers
             {
                 if (imageId > 0)
                 {
+                    if (image.GetBitDepth(imageId) != 1)
+                        image.ConvertTo1BppAT(imageId);
+
                     image.RemoveBlob(imageId, blobsDimensions.MinBlobWidth, blobsDimensions.MinBlobHeight, blobsDimensions.MaxBlobWidth, blobsDimensions.MaxBlobHeight, BlobRemoveMode.FavorQuality);
                     resultImage = image.GetBitmapFromGdPictureImage(imageId).CloneSmart(image.GetPixelFormat(imageId));
                 }
@@ -321,6 +350,9 @@ namespace Tira.Imaging.Helpers
                 {
                     if (imageId > 0)
                     {
+                        if (image.GetBitDepth(imageId) != 1)
+                            image.ConvertTo1BppAT(imageId);
+
                         image.RemoveLines(imageId, lineRemoveOrientation);
                         resultImage = image.GetBitmapFromGdPictureImage(imageId).CloneSmart(image.GetPixelFormat(imageId));
                     }
@@ -350,9 +382,15 @@ namespace Tira.Imaging.Helpers
             {
                 if (imageId > 0)
                 {
+                    if (image.GetBitDepth(imageId) != 1)
+                        image.ConvertTo1BppAT(imageId);
+
                     image.RemoveStapleMark(imageId);
                     resultImage = image.GetBitmapFromGdPictureImage(imageId).CloneSmart(image.GetPixelFormat(imageId));
                 }
+            }
+            catch
+            {                
             }
             finally
             {

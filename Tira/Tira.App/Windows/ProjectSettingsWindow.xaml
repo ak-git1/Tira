@@ -45,7 +45,7 @@
                   IsReadOnly="True">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="{x:Static properties:Resources.ProjectSettingsWindow_GridColumn_Name}" Binding="{Binding Name}" Width="200" />
-                <DataGridTextColumn Header="{x:Static properties:Resources.ProjectSettingsWindow_GridColumn_ColumnTypeName}" Binding="{Binding Path=ColumnType}" Width="150" />
+                <DataGridTextColumn Header="{x:Static properties:Resources.ProjectSettingsWindow_GridColumn_ColumnTypeName}" Binding="{Binding Path=ColumnTypeName}" Width="150" />
                 <DataGridCheckBoxColumn Header="{x:Static properties:Resources.ProjectSettingsWindow_GridColumn_RemoveExtraSpaces}" Binding="{Binding Path=RemoveExtraSpaces}" Width="80" />
                 <DataGridCheckBoxColumn Header="{x:Static properties:Resources.ProjectSettingsWindow_GridColumn_RemoveLineBreaks}" Binding="{Binding Path=RemoveLineBreaks}" Width="80" />
                 <DataGridCheckBoxColumn Header="{x:Static properties:Resources.ProjectSettingsWindow_GridColumn_RemovePunctuation}" Binding="{Binding Path=RemovePunctuation}" Width="80" />

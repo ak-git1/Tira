@@ -247,7 +247,8 @@ namespace Tira.App.Logic.ViewModels
             get => SelectedGalleryImage?.MarkupObjects;
             set
             {
-                SelectedGalleryImage.MarkupObjects = value;
+                if (SelectedGalleryImage != null)
+                    SelectedGalleryImage.MarkupObjects = value;
                 OnPropertyChanged(() => CurrentMarkupObjects);
             }
         }
@@ -260,7 +261,8 @@ namespace Tira.App.Logic.ViewModels
             get => SelectedGalleryImage?.RecognitionCompleted ?? false;
             set
             {
-                SelectedGalleryImage.RecognitionCompleted = value;
+                if (SelectedGalleryImage != null)
+                    SelectedGalleryImage.RecognitionCompleted = value;
                 OnPropertyChanged(() => IsRecognitionCompleted);
             }
         }
@@ -273,7 +275,8 @@ namespace Tira.App.Logic.ViewModels
             get => SelectedGalleryImage?.RecognizedData;                
             set
             {
-                SelectedGalleryImage.RecognizedData = value;
+                if (SelectedGalleryImage != null)
+                    SelectedGalleryImage.RecognizedData = value;
                 OnPropertyChanged(() => RecognizedData);
             }
         }

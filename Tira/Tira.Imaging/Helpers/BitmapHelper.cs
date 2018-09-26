@@ -385,7 +385,9 @@ namespace Tira.Imaging.Helpers
                     if (image.GetBitDepth(imageId) != 1)
                         image.ConvertTo1BppAT(imageId);
 
-                    image.RemoveStapleMark(imageId);
+                    image.RemoveLines(imageId, LineRemoveOrientation.Vertical, 10, 7, 10, 10, true);
+                    image.RemoveLines(imageId, LineRemoveOrientation.Horizontal, 10, 7, 10, 10, true);
+                    //image.RemoveStapleMark(imageId);
                     resultImage = image.GetBitmapFromGdPictureImage(imageId).CloneSmart(image.GetPixelFormat(imageId));
                 }
             }
